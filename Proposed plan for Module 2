@@ -1,0 +1,39 @@
+### Module 2: Speaker/Scene Reaction Detection
+
+**Problem it Solves**  
+This module detects how people on screen are reacting to non-speech related sounds (e.g., laughter, explosion, door slam, falling objects).  
+
+The problem is that **audio alone is not enough**. A loud sound in the background with no reaction  should not get a caption as it contributes nil to the development of the scene, while the same sound that makes characters flinch, turn their heads, or show surprise **should** get a clear closed caption. This module adds the visual intelligence needed to make smart decisions and avoid caption spam.
+
+**My Proposed MVP Approach**  
+I will build a system that:  
+- Takes a video file and a list of timestamps (coming from audio events).  
+- Extracts video frames around each timestamp.  
+- Analyzes faces for expressions, head movement, eye/mouth activity.  
+- Returns a **reaction score** (0.0 to 1.0) + extra details like dominant emotion and head pose.  
+
+This score will later be used in Module 3 to combine with audio confidence and decide the final caption.
+
+**Proposed Tech Stack & Why**  
+- **MediaPipe Face Mesh** — Main backbone for 468 facial landmarks, head pose (yaw/pitch/roll), and expression blendshapes. Fast, lightweight, and works well on Indian faces.  
+- **DeepFace** — For reliable dominant emotion detection (surprise, fear, happy, etc.).  
+- **OpenCV + moviepy** — For easy and accurate frame extraction from video.  
+
+This stack is chosen because it runs on normal laptops (CPU only), gives good accuracy quickly, and allows nice visual outputs (landmarks drawn on frames) for demonstration.
+
+**Why I am a Good Fit**  
+I have experience in Computer Vision projects, especially with facial pose estimation, and OpenCV/MediaPipe. I enjoy building vision related systems and motivated to contribute to PlanetRead’s mission of improving accessibility and literacy through better subtitling for Hindi and regional content.
+
+**Limitations I Identify**  
+- Performs best with clearly visible, front-facing faces. Struggles with very small faces, bad lighting, or side profiles.  
+- May miss reactions in wide crowd shots or when people are facing away from the camera.  
+- Emotion detection models are mostly trained on Western data, so some Indian expressions might not be perfectly recognized.  
+
+**How I Plan to Improve It**  
+In the coming weeks I will:  
+- Add MediaPipe Pose for full body reaction detection.  
+- Test extensively on Hindi and regional videos and refine scoring based on feedback.  
+- Add fallback motion detection (optical flow) for scenes without clear faces.  
+- Explore fine-tuning or Indian-specific models for better accuracy.
+
+This Module 2 MVP will provide a strong visual foundation for the overall intelligent closed caption suggestion tool.
