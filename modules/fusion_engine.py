@@ -1,53 +1,4 @@
-"""
-modules/fusion_engine.py
-========================
-Module 3 — Fusion Decision Engine
-
-Responsibility
---------------
-Combine the outputs of Module 1 (AudioEvent list) and Module 2
-(Dict[timestamp → VisualScore]) into a final list of CaptionEntry objects
-that get written to the SRT file.
-
-Decision logic (in order)
---------------------------
-1.  Compute a weighted fusion score for every candidate audio event:
-        fusion = AUDIO_WEIGHT × audio_confidence
-               + VISUAL_WEIGHT × visual_reaction_score
-
-2.  Apply a priority-aware threshold:
-        HIGH   events (scream, explosion)  → threshold = 0.28  (lenient)
-        MEDIUM events (laughter, animals)  → threshold = 0.40
-        LOW    events (ambient noise)      → threshold = 0.60  (strict)
-
-3.  Audio-only safety net:
-        If Module 2 found no face in the video, the fusion formula becomes
-        100 % audio-driven, and the threshold is lowered by 20 % to
-        compensate for the missing visual signal.
-
-4.  Temporal deduplication:
-        If two accepted captions share the same category and their start
-        times are within CAPTION_DEDUP_SEC of each other, keep only the
-        higher-scoring one.
-
-5.  SRT gap enforcement:
-        Ensure consecutive captions never overlap on the timeline, and
-        maintain at least SRT_MIN_GAP_SEC between any two entries.
-
-6.  Frame annotation (optional):
-        Save annotated JPEG frames to demo_results/frames/ at each accepted
-        caption timestamp so the pipeline output is visually inspectable.
-
-Design notes
-------------
-•   All magic numbers come from config.py — nothing is hard-coded here.
-•   The engine is pure-Python (no ML model), so it's fast and deterministic.
-•   VisualScore.reaction_score = 0.0 when no face was found; the engine
-    treats this gracefully rather than crashing.
-"""
-
 from __future__ import annotations
-
 import os
 from collections import defaultdict
 from dataclasses import dataclass
@@ -66,11 +17,6 @@ import config as cfg
 
 log = get_logger(__name__)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Internal decision record (richer than CaptionEntry — used for logging)
-# ─────────────────────────────────────────────────────────────────────────────
-
 @dataclass
 class _Decision:
     audio_event:   AudioEvent
@@ -78,23 +24,9 @@ class _Decision:
     fusion_score:  float
     threshold:     float
     accepted:      bool
-    reject_reason: str   # "" when accepted
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# FusionEngine
-# ─────────────────────────────────────────────────────────────────────────────
+    reject_reason: str   
 
 class FusionEngine:
-    """
-    Fuses Module 1 and Module 2 outputs into final CC subtitle entries.
-
-    Parameters
-    ----------
-    audio_weight  : weight of audio confidence in the fusion formula
-    visual_weight : weight of visual reaction score in the fusion formula
-    output_dir    : directory for annotated frames and logs
-    """
 
     def __init__(
         self,
@@ -113,7 +45,6 @@ class FusionEngine:
         self.frames_dir    = self.output_dir / "frames"
         self.frames_dir.mkdir(parents=True, exist_ok=True)
 
-    # ── Public API ──────────────────────────────────────────────────────────
 
     def decide(
         self,
@@ -121,20 +52,6 @@ class FusionEngine:
         visual_scores: Dict[float, VisualScore],
         video_path:    Optional[str] = None,
     ) -> List[CaptionEntry]:
-        """
-        Run the full fusion pipeline.
-
-        Parameters
-        ----------
-        audio_events  : sorted list from Module 1
-        visual_scores : {timestamp: VisualScore} from Module 2
-        video_path    : optional video path for frame annotation
-
-        Returns
-        -------
-        List of CaptionEntry objects ready for SRT output, sorted by
-        start_sec.
-        """
         if not audio_events:
             log.warning("[M3] No audio events received — nothing to decide.")
             return []
@@ -150,41 +67,33 @@ class FusionEngine:
                 "Switching to audio-only fusion mode (thresholds lowered 20 %%)."
             )
 
-        # ── Step 1: Score every event ────────────────────────────────────────
         decisions = self._score_all_events(
             audio_events, visual_scores, has_visual
         )
 
-        # ── Step 2: Log the decision table ──────────────────────────────────
         self._log_decisions(decisions)
 
-        # ── Step 3: Accept / reject ──────────────────────────────────────────
         accepted = [d for d in decisions if d.accepted]
         log.info(
             "[M3] %d / %d events accepted for captioning.",
             len(accepted), len(decisions),
         )
 
-        # ── Step 4: Temporal deduplication ──────────────────────────────────
         deduped = self._deduplicate(accepted)
         if len(deduped) < len(accepted):
             log.info("[M3] Deduplication removed %d duplicate(s).",
                      len(accepted) - len(deduped))
 
-        # ── Step 5: Build CaptionEntry list ─────────────────────────────────
         entries = self._build_caption_entries(deduped)
 
-        # ── Step 6: Enforce SRT timeline gaps ───────────────────────────────
         entries = self._enforce_srt_gaps(entries)
 
-        # ── Step 7: Optional frame annotation ───────────────────────────────
         if video_path and Path(video_path).exists():
             self._annotate_frames(entries, video_path)
 
         log.info("[M3] Fusion complete — %d caption entries ready.", len(entries))
         return entries
 
-    # ── Step 1: Score all events ─────────────────────────────────────────────
 
     def _score_all_events(
         self,
@@ -192,9 +101,6 @@ class FusionEngine:
         visual_scores: Dict[float, VisualScore],
         has_visual:    bool,
     ) -> List[_Decision]:
-        """
-        Compute fusion score and threshold, then accept/reject each event.
-        """
         decisions: List[_Decision] = []
 
         for event in audio_events:
@@ -220,11 +126,7 @@ class FusionEngine:
         timestamp:     float,
         visual_scores: Dict[float, VisualScore],
     ) -> VisualScore:
-        """
-        Find the VisualScore for *timestamp*.
-        Falls back to a zero-score placeholder if the key is missing.
-        (Handles floating-point near-matches within 0.05 s.)
-        """
+
         # Exact match first
         if timestamp in visual_scores:
             return visual_scores[timestamp]
@@ -250,18 +152,6 @@ class FusionEngine:
         vscore:     VisualScore,
         has_visual: bool,
     ) -> Tuple[float, float]:
-        """
-        Returns (fusion_score, threshold).
-
-        Audio-only mode:
-            If no face was found anywhere, visual weight collapses to 0
-            and the threshold is reduced by 20 % to compensate.
-
-        Category-aware threshold:
-            HIGH   → 0.28   (screams / explosions must not be missed)
-            MEDIUM → 0.40
-            LOW    → 0.60
-        """
         priority  = event.priority
         threshold = cfg.FUSION_THRESHOLD.get(priority, 0.45)
 
@@ -278,10 +168,7 @@ class FusionEngine:
         fusion = round(min(1.0, max(0.0, fusion)), 4)
         return fusion, round(threshold, 4)
 
-    # ── Step 2: Logging decision table ──────────────────────────────────────
-
     def _log_decisions(self, decisions: List[_Decision]) -> None:
-        """Pretty-print each decision to the logger."""
         header = (
             f"{'Time':>7}  {'Category':<16} {'Pri':<7} "
             f"{'Audio':>6} {'Visual':>7} {'Fusion':>7} {'Thresh':>7}  {'Decision'}"
@@ -307,13 +194,8 @@ class FusionEngine:
             else:
                 log.warning("         %s", row)
 
-    # ── Step 4: Temporal deduplication ──────────────────────────────────────
 
     def _deduplicate(self, accepted: List[_Decision]) -> List[_Decision]:
-        """
-        Within each sound category, suppress events that start within
-        CAPTION_DEDUP_SEC of a higher-scoring event of the same category.
-        """
         by_category: Dict[str, List[_Decision]] = defaultdict(list)
         for d in accepted:
             by_category[d.audio_event.category].append(d)
@@ -350,16 +232,11 @@ class FusionEngine:
         kept.sort(key=lambda d: d.audio_event.timestamp_sec)
         return kept
 
-    # ── Step 5: Build CaptionEntry list ─────────────────────────────────────
 
     def _build_caption_entries(
         self,
         decisions: List[_Decision],
     ) -> List[CaptionEntry]:
-        """
-        Convert accepted _Decision objects into CaptionEntry objects,
-        computing display duration from priority tier.
-        """
         entries: List[CaptionEntry] = []
 
         for idx, d in enumerate(decisions, start=1):
@@ -389,17 +266,10 @@ class FusionEngine:
 
         return entries
 
-    # ── Step 6: SRT gap enforcement ──────────────────────────────────────────
-
     def _enforce_srt_gaps(
         self,
         entries: List[CaptionEntry],
     ) -> List[CaptionEntry]:
-        """
-        Ensure no two captions overlap and that there is at least
-        SRT_MIN_GAP_SEC between the end of one and the start of the next.
-        Adjusts end_sec of the earlier caption where needed.
-        """
         if len(entries) < 2:
             return entries
 
@@ -416,17 +286,12 @@ class FusionEngine:
 
         return entries
 
-    # ── Step 7: Frame annotation ─────────────────────────────────────────────
 
     def _annotate_frames(
         self,
         entries:    List[CaptionEntry],
         video_path: str,
     ) -> None:
-        """
-        For each accepted caption, grab the nearest video frame and save it
-        as a JPEG with the caption text burned in.
-        """
         cap = cv2.VideoCapture(str(video_path))
         if not cap.isOpened():
             log.warning("[M3] Cannot open video for frame annotation: %s",
@@ -474,7 +339,6 @@ class FusionEngine:
         """
         h, w = frame.shape[:2]
 
-        # ── Subtitle bar at bottom ───────────────────────────────────────────
         bar_h  = max(52, h // 10)
         overlay = frame.copy()
         cv2.rectangle(overlay, (0, h - bar_h), (w, h), (0, 0, 0), -1)
@@ -492,7 +356,6 @@ class FusionEngine:
         cv2.putText(frame, text, (tx, ty), font, font_scale,
                     (255, 255, 255), thickness, cv2.LINE_AA)
 
-        # ── Top-left info badge ──────────────────────────────────────────────
         PRIORITY_COLOURS = {
             "HIGH":   (0,   80, 220),   # red-ish
             "MEDIUM": (30, 160,  30),   # green
@@ -511,7 +374,6 @@ class FusionEngine:
             cv2.putText(frame, line, (8, y), cv2.FONT_HERSHEY_SIMPLEX,
                         small_scale, badge_colour, small_thick, cv2.LINE_AA)
 
-    # ── Utility ──────────────────────────────────────────────────────────────
 
     @staticmethod
     def _any_face_detected(visual_scores: Dict[float, VisualScore]) -> bool:
@@ -521,7 +383,6 @@ class FusionEngine:
             for vs in visual_scores.values()
         )
 
-    # ── Reporting helper ─────────────────────────────────────────────────────
 
     def summary(self, entries: List[CaptionEntry]) -> str:
         """

@@ -1,31 +1,4 @@
-"""
-main.py
-=======
-Intelligent Closed Caption (CC) Suggestion Tool
-C4GT DMP 2026 — PlanetRead
-
-Entry point for the full three-module pipeline:
-    Module 1 → Sound Event Detection   (YAMNet)
-    Module 2 → Visual Reaction Scoring (MediaPipe Face Mesh)
-    Module 3 → Fusion Decision Engine  (weighted score + SRT output)
-
-Usage
------
-    # Full pipeline (recommended):
-    python main.py --video path/to/clip.mp4
-
-    # Audio-only mode (no face detection, faster):
-    python main.py --video path/to/clip.mp4 --no-visual
-
-    # Custom output directory + verbose debug logging:
-    python main.py --video path/to/clip.mp4 --output results/ --debug
-
-    # Run unit tests:
-    python -m pytest tests/ -v
-"""
-
 from __future__ import annotations
-
 import argparse
 import sys
 import time
@@ -88,10 +61,6 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Banner helpers
-# ─────────────────────────────────────────────────────────────────────────────
-
 def _print_banner() -> None:
     print(
         "\n"
@@ -144,32 +113,13 @@ def _print_final_summary(
             "     in config.py, or check the pipeline.log for details.\n"
         )
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Pipeline orchestration
-# ─────────────────────────────────────────────────────────────────────────────
-
 def run_pipeline(
     video_path:  str,
     output_dir:  str,
     skip_visual: bool = False,
     save_frames: bool = True,
 ) -> int:
-    """
-    Execute the full three-module pipeline.
-
-    Parameters
-    ----------
-    video_path  : path to the source video
-    output_dir  : root output directory
-    skip_visual : if True, Module 2 is bypassed
-    save_frames : if True, annotated frames are saved to output_dir/frames/
-
-    Returns
-    -------
-    Exit code: 0 = success, 1 = fatal error.
-    """
-    # ── Late imports so --help doesn't trigger TF initialisation ────────────
+    
     from modules.sound_detector  import SoundEventDetector
     from modules.visual_detector import VisualReactionDetector, VisualScore
     from modules.fusion_engine   import FusionEngine
@@ -273,9 +223,6 @@ def run_pipeline(
         log.error("[M3] Fatal error in fusion engine: %s", exc, exc_info=True)
         return 1
 
-    # ════════════════════════════════════════════════════════════════════════
-    # OUTPUT — SRT + JSON
-    # ════════════════════════════════════════════════════════════════════════
     srt_path  = str(out_dir / "output.srt")
     json_path = str(out_dir / "report.json")
 
@@ -292,11 +239,6 @@ def run_pipeline(
     _print_final_summary(entries, out_dir, elapsed, len(audio_events))
 
     return 0
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _write_empty_outputs(out_dir: Path) -> None:
     """Write empty SRT and minimal JSON so callers don't get FileNotFoundError."""
@@ -328,11 +270,6 @@ def _validate_video_path(path: str) -> str:
         )
     return str(p)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Entry point
-# ─────────────────────────────────────────────────────────────────────────────
-
 def main() -> None:
     args = _parse_args()
 
@@ -345,13 +282,11 @@ def main() -> None:
 
     _print_banner()
 
-    # ── Resolve paths ────────────────────────────────────────────────────────
     video_path = _validate_video_path(args.video)
 
     import config as cfg
     output_dir = args.output if args.output else cfg.OUTPUT_DIR
 
-    # ── Run ──────────────────────────────────────────────────────────────────
     exit_code = run_pipeline(
         video_path  = video_path,
         output_dir  = output_dir,

@@ -1,48 +1,13 @@
-"""
-modules/visual_detector.py
-==========================
-Module 2 — Visual Reaction Detection
-
-For each audio event timestamp, this module:
-
-1. Opens the video with OpenCV.
-2. Samples N frames inside a temporal window
-   [timestamp - BEFORE_SEC, timestamp + AFTER_SEC].
-3. Runs MediaPipe Face Mesh on each frame.
-4. Computes three facial action features:
-     • EAR  (Eye Aspect Ratio)  — wide eyes = surprise / fear
-     • MAR  (Mouth Aspect Ratio) — open mouth = reaction
-     • Brow Raise               — raised brows = surprise
-5. Normalises each feature relative to a neutral baseline.
-6. Aggregates across all valid frames using a weighted average
-   that up-weights the frame closest to the audio peak.
-7. Returns a VisualScore for each queried timestamp.
-
-Why temporal windows beat single-frame analysis
------------------------------------------------
-• Facial reactions are time-distributed (0.3–1.5 s after the stimulus).
-• A single frame at the exact audio timestamp may land between expressions.
-• Aggregating across a window removes blink artefacts and lighting glitches.
-"""
-
 from __future__ import annotations
-
 import math
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
-
 import cv2
 import numpy as np
-
 from utils.logger import get_logger
 import config as cfg
 
 log = get_logger(__name__)
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Data Structures
-# ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class FaceFrameScore:
@@ -68,21 +33,7 @@ class VisualScore:
     confidence:         str = "low"     # low | medium | high
     note:               str = ""
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# VisualReactionDetector
-# ─────────────────────────────────────────────────────────────────────────────
-
 class VisualReactionDetector:
-    """
-    Analyse facial reactions around audio event timestamps in a video.
-
-    Parameters
-    ----------
-    min_detection_confidence : MediaPipe detection confidence threshold
-    min_tracking_confidence  : MediaPipe tracking confidence threshold
-    """
-
     def __init__(
         self,
         min_detection_confidence: float = cfg.MEDIAPIPE_DETECTION_CONFIDENCE,
@@ -99,18 +50,6 @@ class VisualReactionDetector:
         video_path:  str,
         timestamps:  List[float],
     ) -> Dict[float, VisualScore]:
-        """
-        Compute visual reaction scores for each timestamp in *timestamps*.
-
-        Parameters
-        ----------
-        video_path  : path to the source video
-        timestamps  : list of audio event timestamps (seconds)
-
-        Returns
-        -------
-        dict mapping each timestamp to a VisualScore object.
-        """
         log.info("[M2] Opening video: %s", video_path)
         cap = cv2.VideoCapture(str(video_path))
         if not cap.isOpened():
@@ -145,8 +84,6 @@ class VisualReactionDetector:
                  len(results))
         return results
 
-    # ── Window Scoring ───────────────────────────────────────────────────────
-
     def _score_window(
         self,
         cap:           cv2.VideoCapture,
@@ -179,8 +116,6 @@ class VisualReactionDetector:
         # Aggregate
         return self._aggregate(query_time, frame_scores)
 
-    # ── Frame Seeking ────────────────────────────────────────────────────────
-
     @staticmethod
     def _seek_frame(
         cap: cv2.VideoCapture, frame_no: int
@@ -193,18 +128,13 @@ class VisualReactionDetector:
         ret, frame = cap.read()
         return frame if ret else None
 
-    # ── Single-Frame Face Scoring ────────────────────────────────────────────
-
     def _score_frame(
         self,
         frame:    np.ndarray,
         frame_no: int,
         time_sec: float,
     ) -> FaceFrameScore:
-        """
-        Run MediaPipe Face Mesh on one frame and compute EAR, MAR, Brow.
-        Returns a FaceFrameScore (with face_detected=False if no face found).
-        """
+
         # MediaPipe expects RGB
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         h, w = rgb.shape[:2]
@@ -264,8 +194,6 @@ class VisualReactionDetector:
             num_faces    = len(results.multi_face_landmarks),
         )
 
-    # ── Facial Metrics ───────────────────────────────────────────────────────
-
     @staticmethod
     def _compute_ear(pt) -> float:
         """
@@ -319,23 +247,11 @@ class VisualReactionDetector:
         )
         return (left_raise + right_raise) / 2.0
 
-    # ── Aggregation ──────────────────────────────────────────────────────────
-
     def _aggregate(
         self,
         query_time:   float,
         frame_scores: List[FaceFrameScore],
     ) -> VisualScore:
-        """
-        Combine per-frame scores into one VisualScore.
-
-        Strategy:
-          • Only use frames where a face was detected.
-          • Weight each frame by closeness to query_time:
-              weight ∝ exp(-|t - query_time| / 0.5)
-            so frames near the audio event contribute more.
-          • Return reaction_score = weighted mean composite.
-        """
         valid = [f for f in frame_scores if f.face_detected]
 
         if len(valid) < cfg.VISUAL_MIN_VALID_FRAMES:
@@ -384,8 +300,6 @@ class VisualReactionDetector:
             note             = "ok",
         )
 
-    # ── MediaPipe Lifecycle ──────────────────────────────────────────────────
-
     def _load_face_mesh(self) -> None:
         if self._face_mesh is not None:
             return
@@ -409,8 +323,6 @@ class VisualReactionDetector:
         if self._face_mesh is not None:
             self._face_mesh.close()
             self._face_mesh = None
-
-    # ── Helpers ──────────────────────────────────────────────────────────────
 
     @staticmethod
     def _null_score(ts: float, note: str) -> VisualScore:
