@@ -1,33 +1,4 @@
-"""
-modules/sound_detector.py
-=========================
-Module 1 — Sound Event Detection
-
-Pipeline
---------
-1. Load audio from video (via ffmpeg / soundfile / librosa).
-2. Resample to 16 kHz mono (YAMNet requirement).
-3. Slide a 0.96-second window across the audio with 50 % overlap.
-4. Run YAMNet on each window and collect top-k class predictions.
-5. Filter out blacklisted classes.
-6. Map surviving classes to semantic SOUND_CATEGORIES.
-7. Apply priority boost multipliers.
-8. Discard events below AUDIO_EMIT_THRESHOLD.
-9. Merge temporally close events of the same category.
-10. Return a sorted list of AudioEvent dataclasses.
-
-Why this is better than a single-pass YAMNet call
---------------------------------------------------
-• Shorter clips are processed frame-by-frame — unusual sounds that last
-  < 1 s (rat squeak, chair creak) are more reliably caught.
-• Blacklisting removes the transport/ambient false-positives YAMNet
-  is known to over-predict on Indian content.
-• Priority boosting compensates for YAMNet's under-confidence on
-  rare sound classes by explicitly amplifying their scores.
-"""
-
 from __future__ import annotations
-
 import os
 import shutil
 import subprocess
@@ -35,22 +6,15 @@ import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-
 import numpy as np
-
 from utils.logger import get_logger
 import config as cfg
 
 log = get_logger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Data Structures
-# ─────────────────────────────────────────────────────────────────────────────
-
 @dataclass
 class AudioEvent:
-    """One detected and filtered sound event."""
     timestamp_sec:  float           # centre of the detection window
     end_sec:        float           # estimated end time
     category:       str             # key from SOUND_CATEGORIES
@@ -61,16 +25,7 @@ class AudioEvent:
     raw_score:      float           # original YAMNet score before boost
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Helper: Build fast lookup structures from config at import time
-# ─────────────────────────────────────────────────────────────────────────────
-
 def _build_lookup() -> Tuple[List[str], Dict[str, dict]]:
-    """
-    Returns:
-        blacklist_tokens : lower-case substrings to reject
-        class_to_cat     : yamnet_class_substring → category_dict
-    """
     blacklist = [s.lower() for s in cfg.YAMNET_BLACKLIST]
 
     class_to_cat: Dict[str, dict] = {}
@@ -89,32 +44,16 @@ def _build_lookup() -> Tuple[List[str], Dict[str, dict]]:
 _BLACKLIST_TOKENS, _CLASS_TO_CAT = _build_lookup()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SoundEventDetector
-# ─────────────────────────────────────────────────────────────────────────────
-
 class SoundEventDetector:
-    """
-    Detects and categorises non-speech sound events in a video file.
-
-    Parameters
-    ----------
-    model_handle : TF-Hub URL or local path for YAMNet
-    """
-
+ 
     def __init__(self, model_handle: str = cfg.YAMNET_MODEL_PATH):
         self._model_handle = model_handle
         self._yamnet       = None          # lazy-loaded
         self._class_names  = None
 
-    # ── Public API ──────────────────────────────────────────────────────────
 
     def detect(self, video_path: str) -> List[AudioEvent]:
-        """
-        Run the full Module 1 pipeline on *video_path*.
 
-        Returns a list of AudioEvent objects sorted by timestamp.
-        """
         log.info("[M1] Starting sound detection on: %s", video_path)
 
         # Step 1: extract audio waveform
@@ -155,25 +94,15 @@ class SoundEventDetector:
 
         return sorted(capped, key=lambda e: e.timestamp_sec)
 
-    # ── Step 1: Audio Extraction ─────────────────────────────────────────────
 
     def _extract_audio(self, video_path: str) -> Optional[np.ndarray]:
-        """
-        Extract mono 16 kHz PCM float32 from *video_path*.
-
-        Strategy (in order of preference):
-          1. ffmpeg  → tmp WAV → soundfile (most reliable)
-          2. librosa (fallback if soundfile unavailable)
-        """
         video_path = str(Path(video_path).resolve())
 
-        # ── Try ffmpeg + soundfile ───────────────────────────────────────────
         try:
             return self._extract_via_ffmpeg(video_path)
         except Exception as exc:
             log.warning("[M1] ffmpeg extraction failed (%s), trying librosa", exc)
 
-        # ── Fallback: librosa ────────────────────────────────────────────────
         try:
             import librosa
             waveform, _ = librosa.load(
@@ -187,7 +116,6 @@ class SoundEventDetector:
             return None
 
     def _extract_via_ffmpeg(self, video_path: str) -> np.ndarray:
-        """Use ffmpeg to write a temporary WAV and read it with soundfile."""
         import soundfile as sf
 
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
@@ -224,7 +152,6 @@ class SoundEventDetector:
             except OSError:
                 pass
 
-    # ── Step 2: Model Loading ────────────────────────────────────────────────
 
     def _load_model(self) -> None:
         if self._yamnet is not None:
@@ -250,19 +177,11 @@ class SoundEventDetector:
                 "Run: pip install tensorflow tensorflow-hub"
             ) from exc
 
-    # ── Step 3: Sliding-Window Inference ────────────────────────────────────
 
     def _sliding_window_inference(
         self,
         waveform: np.ndarray,
     ) -> List[dict]:
-        """
-        Slide a 0.96-second window with 50 % overlap over the waveform
-        and collect YAMNet top-5 predictions for each window.
-
-        Returns a list of raw prediction dicts:
-            {timestamp_sec, end_sec, scores: [(class_name, score), ...]}
-        """
         import tensorflow as tf
 
         window_samples = int(cfg.AUDIO_WINDOW_SEC * cfg.AUDIO_SAMPLE_RATE)
@@ -312,16 +231,8 @@ class SoundEventDetector:
 
         return results
 
-    # ── Step 4: Filter, Map, Boost ───────────────────────────────────────────
 
     def _filter_and_map(self, raw_events: List[dict]) -> List[AudioEvent]:
-        """
-        For each raw window result:
-          1. Skip if all top classes are blacklisted.
-          2. Find the best matching category.
-          3. Apply boost and threshold.
-          4. Emit an AudioEvent.
-        """
         events: List[AudioEvent] = []
 
         for raw in raw_events:
@@ -341,12 +252,6 @@ class SoundEventDetector:
         timestamp_sec: float,
         end_sec:       float,
     ) -> Optional[AudioEvent]:
-        """
-        Among the top-k (class, score) pairs from YAMNet, find the best
-        matching SOUND_CATEGORY that is not blacklisted.
-
-        Returns an AudioEvent or None if nothing passes the threshold.
-        """
         best_score    = 0.0
         best_cat      = None
         best_raw_cls  = ""
@@ -355,11 +260,9 @@ class SoundEventDetector:
         for class_name, raw_score in scores:
             cname_lower = class_name.lower()
 
-            # ── Blacklist check ──────────────────────────────────────────────
             if any(bl in cname_lower for bl in _BLACKLIST_TOKENS):
                 continue
 
-            # ── Category match ───────────────────────────────────────────────
             matched_cat = None
             for token, cat_info in _CLASS_TO_CAT.items():
                 if token in cname_lower:
@@ -380,7 +283,6 @@ class SoundEventDetector:
         if best_cat is None:
             return None
 
-        # ── Threshold check ──────────────────────────────────────────────────
         if best_score < cfg.AUDIO_EMIT_THRESHOLD:
             return None
 
@@ -395,14 +297,8 @@ class SoundEventDetector:
             raw_score     = round(best_raw_score, 4),
         )
 
-    # ── Step 5: Temporal Merging ─────────────────────────────────────────────
 
     def _merge_events(self, events: List[AudioEvent]) -> List[AudioEvent]:
-        """
-        Merge overlapping / near-adjacent events of the **same category**.
-        The merged event keeps the highest-confidence detection's data
-        and spans from the earliest start to the latest end.
-        """
         if not events:
             return events
 
@@ -444,13 +340,7 @@ class SoundEventDetector:
 
         return merged_all
 
-    # ── Step 6: Cap per category ─────────────────────────────────────────────
-
     def _cap_per_category(self, events: List[AudioEvent]) -> List[AudioEvent]:
-        """
-        Keep only the top-N events per category (sorted by confidence desc).
-        Prevents noisy categories from dominating the output.
-        """
         from collections import defaultdict
         by_cat: Dict[str, List[AudioEvent]] = defaultdict(list)
         for ev in events:

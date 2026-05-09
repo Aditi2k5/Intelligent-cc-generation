@@ -1,17 +1,6 @@
-"""
-config.py
-=========
-Central configuration for the Intelligent CC Suggestion Tool.
-All tunable parameters live here — modify this file to adjust
-pipeline behavior without touching module code.
-"""
-
-# ─────────────────────────────────────────────
-# GENERAL
-# ─────────────────────────────────────────────
 OUTPUT_DIR = "demo_results"
 FRAMES_DIR = "demo_results/frames"
-LOG_LEVEL = "INFO"           # DEBUG | INFO | WARNING | ERROR
+LOG_LEVEL = "INFO"         
 
 # ─────────────────────────────────────────────
 # MODULE 1 — Sound Event Detection
@@ -38,19 +27,7 @@ MAX_EVENTS_PER_CATEGORY = 8
 # Default caption duration when no end-time is available (seconds)
 DEFAULT_CAPTION_DURATION_SEC = 2.0
 
-# ─────────────────────────────────────────────
-# Sound Category Definitions
-#
-# Each entry:
-#   "CATEGORY_KEY": {
-#       "display":   human-readable CC label
-#       "priority":  HIGH | MEDIUM | LOW
-#       "boost":     multiplier applied to raw YAMNet score
-#       "yamnet":    list of YAMNet class substrings to match
-#   }
-# ─────────────────────────────────────────────
 SOUND_CATEGORIES = {
-    # ── HIGH PRIORITY (scream / sudden impact / alarm) ──────────────────
     "SCREAM": {
         "display":  "[ Screaming ]",
         "priority": "HIGH",
@@ -88,7 +65,6 @@ SOUND_CATEGORIES = {
         "yamnet":   ["alarm", "siren", "beep", "buzzer", "alert", "horn"],
     },
 
-    # ── MEDIUM PRIORITY (human / social sounds) ─────────────────────────
     "LAUGHTER": {
         "display":  "[ Laughter ]",
         "priority": "MEDIUM",
@@ -126,7 +102,6 @@ SOUND_CATEGORIES = {
         "yamnet":   ["telephone", "ringtone", "phone", "mobile"],
     },
 
-    # ── MEDIUM PRIORITY (animal sounds) ─────────────────────────────────
     "DOG": {
         "display":  "[ Dog Barking ]",
         "priority": "MEDIUM",
@@ -146,7 +121,6 @@ SOUND_CATEGORIES = {
         "yamnet":   ["squeak", "squeal", "rodent", "mouse", "rat"],
     },
 
-    # ── MEDIUM PRIORITY (object / environment sounds) ────────────────────
     "CHAIR_CREAK": {
         "display":  "[ Creaking ]",
         "priority": "MEDIUM",
@@ -181,7 +155,6 @@ SOUND_CATEGORIES = {
         ],
     },
 
-    # ── LOW PRIORITY (ambient / filler — filtered aggressively) ─────────
     "AMBIENT": {
         "display":  "[ Background Noise ]",
         "priority": "LOW",
@@ -192,9 +165,6 @@ SOUND_CATEGORIES = {
         ],
     },
 }
-
-# YAMNet class substrings that should ALWAYS be discarded
-# (transport noise, common background that YAMNet over-predicts)
 YAMNET_BLACKLIST = [
     "vehicle", "car", "truck", "motorcycle", "bus", "train", "aircraft",
     "engine", "bicycle", "traffic", "road", "rail", "boat", "ship",
@@ -226,7 +196,6 @@ VISUAL_MIN_VALID_FRAMES = 2
 MEDIAPIPE_DETECTION_CONFIDENCE  = 0.5
 MEDIAPIPE_TRACKING_CONFIDENCE   = 0.5
 
-# ── Facial Landmark Indices ──────────────────────────────────────────────────
 # Eye Aspect Ratio (EAR) — wide eyes = surprise / fear
 EYE_LANDMARKS = {
     "left":  {"top": 159, "bottom": 145, "inner": 133, "outer": 33},
@@ -288,5 +257,4 @@ SRT_DISPLAY_DURATION = {
     "LOW":    1.5,
 }
 
-# Minimum gap between any two SRT entries (seconds)
 SRT_MIN_GAP_SEC = 0.3

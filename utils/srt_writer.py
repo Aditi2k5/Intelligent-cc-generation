@@ -1,17 +1,3 @@
-"""
-utils/srt_writer.py
-===================
-Utilities for writing SRT subtitle files and JSON event reports.
-
-SRT format:
-    1
-    00:00:01,000 --> 00:00:03,000
-    [ Sound Effect ]
-
-    2
-    ...
-"""
-
 import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -62,17 +48,6 @@ def _sec_to_srt_time(seconds: float) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def write_srt(entries: List[CaptionEntry], output_path: str) -> None:
-    """
-    Write a list of CaptionEntry objects as a valid .srt file.
-
-    Entries are sorted by start time.  Overlapping end/start times are
-    nudged so subtitles never overlap in the timeline.
-
-    Parameters
-    ----------
-    entries     : list of finalized CaptionEntry objects
-    output_path : destination file path (e.g. "demo_results/output.srt")
-    """
     if not entries:
         log.warning("No caption entries to write — SRT file will be empty.")
 
@@ -159,7 +134,6 @@ def write_json_report(
 
 
 def _serialise(obj) -> dict:
-    """Best-effort serialisation for dataclasses or plain objects."""
     try:
         return asdict(obj)
     except TypeError:

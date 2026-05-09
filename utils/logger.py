@@ -1,31 +1,11 @@
-"""
-utils/logger.py
-===============
-Provides a consistently formatted logger for the CC pipeline.
-
-Usage:
-    from utils.logger import get_logger
-    log = get_logger(__name__)
-    log.info("Processing clip: %s", path)
-"""
-
 import logging
 import sys
 from pathlib import Path
 
 
 def get_logger(name: str, level: str = "INFO") -> logging.Logger:
-    """
-    Return a named logger that writes colour-coded output to stdout.
 
-    Parameters
-    ----------
-    name  : module name, typically __name__
-    level : one of DEBUG | INFO | WARNING | ERROR
-    """
     logger = logging.getLogger(name)
-
-    # Avoid adding duplicate handlers if called multiple times
     if logger.handlers:
         return logger
 
@@ -45,7 +25,6 @@ def get_logger(name: str, level: str = "INFO") -> logging.Logger:
 
 
 class _ColourFormatter(logging.Formatter):
-    """ANSI colour coding for log levels (gracefully degrades on Windows)."""
 
     COLOURS = {
         "DEBUG":    "\033[36m",    # cyan
@@ -63,10 +42,6 @@ class _ColourFormatter(logging.Formatter):
 
 
 def setup_file_logger(output_dir: str, level: str = "DEBUG") -> None:
-    """
-    Attach a file handler to the root logger so every module's messages
-    are also written to  <output_dir>/pipeline.log.
-    """
     root = logging.getLogger()
     if any(isinstance(h, logging.FileHandler) for h in root.handlers):
         return  # already attached
