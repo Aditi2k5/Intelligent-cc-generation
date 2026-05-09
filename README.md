@@ -61,7 +61,7 @@ flowchart TD
 
 	F --> G1[output.srt]
 	F --> G2[report.json]
-	F --> G3[Annotated frames (optional)]
+	F --> G3[Annotated frames]
 ```
 
 ## Full directory structure (workspace snapshot)
