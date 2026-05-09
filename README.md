@@ -189,8 +189,12 @@ Why this design helps:
 1. Keeps critical sounds sensitive while suppressing low-value noise.
 2. De-duplication and gap handling make subtitle output more readable.
 
-## Features
+## Output Images
+C:\Users\Aditi P\Desktop\Intelligent-cc-generation\demo_results\frames\frame_04074_t169.92s_crash.jpg
+C:\Users\Aditi P\Desktop\Intelligent-cc-generation\demo_results\frames\frame_01668_t69.60s_door.jpg
+C:\Users\Aditi P\Desktop\Intelligent-cc-generation\demo_results\frames\frame_04522_t188.64s_glass_break.jpg
 
+## Features
 1. Three-stage audio-visual fusion architecture.
 2. Priority-aware emission logic.
 3. Audio-only fallback when faces are absent or visual step is skipped.
