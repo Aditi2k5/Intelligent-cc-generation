@@ -2,7 +2,7 @@
 
 ## Intelligent Closed Caption (CC) Suggestion Tool
 **Organization:** PlanetRead
-**Program:** Code for GovTech (C4GT) — Digital Mentorship Programme 2026
+**Program:** Code for Good Tech (C4GT) — Digital Mentorship Programme 2026
 **Project Category:** AI / Accessibility / Regional Language Media
 
 ---
