@@ -73,41 +73,7 @@ Intelligent-cc-generation/
 │   │   ├── frame_00000_t0.00s_music.jpg
 │   │   ├── frame_00817_t34.08s_rat_squeak.jpg
 │   │   ├── frame_00851_t35.52s_door.jpg
-│   │   ├── frame_01438_t60.00s_alarm.jpg
-│   │   ├── frame_01461_t60.96s_door.jpg
-│   │   ├── frame_01668_t69.60s_door.jpg
-│   │   ├── frame_02301_t96.00s_door.jpg
-│   │   ├── frame_03072_t128.16s_explosion.jpg
-│   │   ├── frame_03383_t141.12s_music.jpg
-│   │   ├── frame_03429_t143.04s_glass_break.jpg
-│   │   ├── frame_03521_t146.88s_explosion.jpg
-│   │   ├── frame_03671_t153.12s_crash.jpg
-│   │   ├── frame_03705_t154.56s_rat_squeak.jpg
-│   │   ├── frame_03786_t157.92s_glass_break.jpg
-│   │   ├── frame_03832_t159.84s_music.jpg
-│   │   ├── frame_03866_t161.28s_knock.jpg
-│   │   ├── frame_03878_t161.76s_explosion.jpg
-│   │   ├── frame_03947_t164.64s_music.jpg
-│   │   ├── frame_04074_t169.92s_crash.jpg
-│   │   ├── frame_04085_t170.40s_explosion.jpg
-│   │   ├── frame_04166_t173.76s_explosion.jpg
-│   │   ├── frame_04177_t174.24s_crash.jpg
-│   │   ├── frame_04396_t183.36s_explosion.jpg
-│   │   ├── frame_04488_t187.20s_explosion.jpg
-│   │   ├── frame_04522_t188.64s_glass_break.jpg
-│   │   ├── frame_04672_t194.88s_door.jpg
-│   │   ├── frame_04718_t196.80s_music.jpg
-│   │   ├── frame_04729_t197.28s_glass_break.jpg
-│   │   ├── frame_04787_t199.68s_alarm.jpg
-│   │   ├── frame_04799_t200.16s_doorbell.jpg
-│   │   ├── frame_04822_t201.12s_glass_break.jpg
-│   │   ├── frame_04914_t204.96s_glass_break.jpg
-│   │   ├── frame_05040_t210.24s_explosion.jpg
-│   │   ├── frame_05075_t211.68s_music.jpg
-│   │   ├── frame_05167_t215.52s_music.jpg
-│   │   ├── frame_05581_t232.80s_glass_break.jpg
-│   │   ├── frame_05616_t234.24s_music.jpg
-│   │   └── frame_05765_t240.48s_ambient.jpg
+│   │   ├──(...remaining annotated frames of video)
 │   ├── final_results.json
 │   ├── output.srt
 │   ├── pipeline.log
