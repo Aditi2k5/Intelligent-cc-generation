@@ -190,10 +190,9 @@ Why this design helps:
 2. De-duplication and gap handling make subtitle output more readable.
 
 ## Output Images
-C:\Users\Aditi P\Desktop\Intelligent-cc-generation\demo_results\frames\frame_04074_t169.92s_crash.jpg
-C:\Users\Aditi P\Desktop\Intelligent-cc-generation\demo_results\frames\frame_01668_t69.60s_door.jpg
-C:\Users\Aditi P\Desktop\Intelligent-cc-generation\demo_results\frames\frame_04522_t188.64s_glass_break.jpg
-
+<img width="2560" height="1440" alt="frame_01668_t69 60s_door" src="https://github.com/user-attachments/assets/819f07d1-89a9-4006-adcd-d3ff377459b6" />
+<img width="2560" height="1440" alt="frame_04522_t188 64s_glass_break" src="https://github.com/user-attachments/assets/f3e1a9c3-3f41-41a0-b52c-a7d921ddb2b3" />
+<img width="2560" height="1440" alt="frame_05581_t232 80s_glass_break" src="https://github.com/user-attachments/assets/42b066ac-6b1a-4803-85e0-1f64f986a201" />
 ## Features
 1. Three-stage audio-visual fusion architecture.
 2. Priority-aware emission logic.
