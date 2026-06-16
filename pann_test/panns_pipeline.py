@@ -10,12 +10,14 @@ import json
 import logging
 from datetime import timedelta
 import argparse
+from tqdm import tqdm
 from panns_inference import AudioTagging
 
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+# ====================== CONFIG ======================
 SAMPLE_RATE = 32000
 WINDOW_SEC = 0.96
 HOP_SEC = 0.20
@@ -253,125 +255,134 @@ def decide_caption(audio_conf: float, visual_score: float, reaction_type: str) -
     return False
 
 
-def annotate_frame(frame, event_info, output_path):
+def annotate_frame(frame, caption_text, output_path):
+    """Clean annotated frame - only caption at bottom center"""
     h, w = frame.shape[:2]
+    
     overlay = frame.copy()
-    cv2.rectangle(overlay, (0, h-130), (w, h), (0, 0, 0), -1)
-    frame = cv2.addWeighted(overlay, 0.7, frame, 0.3, 0)
-
-    is_accepted = event_info.get("should_caption", False)
-    color = (0, 255, 100) if is_accepted else (100, 100, 255)
-
-    y = h - 105
-    cv2.putText(frame, f"Time: {event_info['timestamp_sec']:.2f}s", (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
-    y += 26
-    cv2.putText(frame, f"Audio: {event_info['label'][:50]} (Conf: {event_info['audio_confidence']:.2f})", (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (200, 200, 255), 2)
-    y += 24
-    cv2.putText(frame, f"Visual: {event_info['reaction_type']} (Score: {event_info['visual_score']:.2f})", (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.55, color, 2)
-    y += 24
-    status = "ACCEPTED" if is_accepted else "SKIPPED"
-    cv2.putText(frame, f"Decision: {status}", (20, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-
+    cv2.rectangle(overlay, (0, h - 55), (w, h), (0, 0, 0), -1)
+    frame = cv2.addWeighted(overlay, 0.65, frame, 0.35, 0)
+    
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 0.85
+    thickness = 2
+    
+    text_size = cv2.getTextSize(caption_text, font, font_scale, thickness)[0]
+    text_x = (w - text_size[0]) // 2
+    text_y = h - 18
+    
+    cv2.putText(frame, caption_text, (text_x, text_y), font, font_scale, (255, 255, 255), thickness, cv2.LINE_AA)
     cv2.imwrite(str(output_path), frame)
-    return frame
+
 
 def generate_final_video(video_path: str, events: list, output_path: Path):
-    """Generate final video with burned-in captions (MoviePy 2.x + robust font handling)"""
-    try:
-        from moviepy import VideoFileClip, TextClip, CompositeVideoClip
-    except ImportError:
-        try:
-            from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
-        except ImportError:
-            print("⚠️ moviepy not installed. Skipping final video generation.")
-            return
+    """Generate final video with burned-in captions + original audio using ffmpeg"""
+    import tempfile
+    import subprocess
+    import shutil
 
-    # === Find a reliable system font (Windows) ===
-    def get_system_font():
-        possible_fonts = [
-            r"C:\Windows\Fonts\arial.ttf",
-            r"C:\Windows\Fonts\calibri.ttf",
-            r"C:\Windows\Fonts\segoeui.ttf",
-            r"C:\Windows\Fonts\tahoma.ttf",
-            r"C:\Windows\Fonts\verdana.ttf",
-        ]
-        for font_path in possible_fonts:
-            if os.path.exists(font_path):
-                return font_path
-        return None  # Will fallback to default
+    accepted_events = [e for e in events if e.get("should_caption")]
+    if not accepted_events:
+        print("No accepted events → skipping final video generation.")
+        return
 
-    font_path = get_system_font()
-    if font_path:
-        print(f"Using system font: {font_path}")
-    else:
-        print("⚠️ No system font found. MoviePy will try default (may fail).")
+    print(f"Generating final video with {len(accepted_events)} captions + audio...")
 
-    try:
-        clip = VideoFileClip(video_path)
-        text_clips = []
+    # Step 1: Create captioned video using OpenCV (silent)
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        print("❌ Could not open video.")
+        return
 
-        for ev in events:
-            if not ev.get("should_caption"):
-                continue
+    fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
+    # Create temporary silent video with captions
+    with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
+        silent_video_path = tmp.name
+
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(silent_video_path, fourcc, fps, (width, height))
+
+    pbar = tqdm(total=total_frames, desc="Burning captions")
+
+    frame_idx = 0
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        current_time = frame_idx / fps
+
+        # Find active caption for this frame
+        active_caption = None
+        for ev in accepted_events:
             start = ev["timestamp_sec"]
-            duration = 1.8
-            txt = f"[{ev['reaction_type'].upper()}] {ev['label']}"
+            end = start + 1.8
+            if start <= current_time < end:
+                active_caption = f"[{ev['reaction_type'].upper()}] {ev['label']}"
+                break
 
-            try:
-                if font_path:
-                    txt_clip = (TextClip(
-                        txt,
-                        font_size=24,
-                        color='white',
-                        bg_color='black',
-                        font=font_path,                    # ← Explicit font path
-                        size=(clip.w * 0.92, None)
-                    )
-                    .set_position(('center', 'bottom'))
-                    .set_start(start)
-                    .set_duration(duration))
-                else:
-                    # Fallback without explicit font
-                    txt_clip = (TextClip(
-                        txt,
-                        font_size=24,
-                        color='white',
-                        bg_color='black',
-                        size=(clip.w * 0.92, None)
-                    )
-                    .set_position(('center', 'bottom'))
-                    .set_start(start)
-                    .set_duration(duration))
+        if active_caption:
+            h, w = frame.shape[:2]
+            overlay = frame.copy()
+            cv2.rectangle(overlay, (0, h - 55), (w, h), (0, 0, 0), -1)
+            frame = cv2.addWeighted(overlay, 0.65, frame, 0.35, 0)
 
-                text_clips.append(txt_clip)
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            font_scale = 0.85
+            thickness = 2
+            text_size = cv2.getTextSize(active_caption, font, font_scale, thickness)[0]
+            text_x = (w - text_size[0]) // 2
+            text_y = h - 18
+            cv2.putText(frame, active_caption, (text_x, text_y), font, font_scale, (255, 255, 255), thickness, cv2.LINE_AA)
 
-            except Exception as e:
-                print(f"⚠️ Skipping caption at {start}s due to font error: {e}")
-                continue
+        out.write(frame)
+        frame_idx += 1
+        pbar.update(1)
 
-        if text_clips:
-            final = CompositeVideoClip([clip] + text_clips)
-            final.write_videofile(
-                str(output_path),
-                codec="libx264",
-                audio_codec="aac",
-                logger=None,
-                threads=4
-            )
-            print(f"✅ Final video with captions saved: {output_path}")
+    pbar.close()
+    cap.release()
+    out.release()
+
+    # Step 2: Merge captioned video + original audio using ffmpeg
+    try:
+        ffmpeg_bin = shutil.which("ffmpeg")
+        if not ffmpeg_bin:
+            import imageio_ffmpeg
+            ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
+
+        cmd = [
+            ffmpeg_bin,
+            "-y",
+            "-i", silent_video_path,      # captioned video (no audio)
+            "-i", video_path,             # original video (has audio)
+            "-c:v", "copy",               # copy video stream
+            "-c:a", "aac",                # re-encode audio
+            "-map", "0:v:0",              # take video from first input
+            "-map", "1:a:0",              # take audio from second input
+            "-shortest",
+            str(output_path)
+        ]
+
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+
+        if result.returncode == 0:
+            print(f"✅ Final video with audio saved: {output_path}")
         else:
-            print("No accepted events → skipping final video generation.")
+            print(f"❌ ffmpeg failed: {result.stderr}")
 
     except Exception as e:
-        print(f"❌ Error generating final video: {e}")
+        print(f"❌ Error during audio merge: {e}")
 
     finally:
+        # Clean up temporary silent video
         try:
-            clip.close()
+            os.unlink(silent_video_path)
         except:
             pass
-
 
 def process_video(video_path: str, output_dir: Path):
     video_name = Path(video_path).stem
@@ -412,28 +423,30 @@ def process_video(video_path: str, output_dir: Path):
         event['should_caption'] = should_caption
         event['caption_class'] = event['label'] if should_caption else None
 
-        # Save annotated frame
-        cap = cv2.VideoCapture(video_path)
-        fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
-        frame_no = int(event['timestamp_sec'] * fps)
-        cap.set(cv2.CAP_PROP_POS_FRAMES, frame_no)
-        ret, frame = cap.read()
-        cap.release()
-
-        if ret:
-            frame_path = frames_dir / f"frame_{event['timestamp_sec']:.2f}s.png"
-            annotate_frame(frame, event, frame_path)
-
         status = "ACCEPTED" if should_caption else "SKIPPED"
         logger.info(f"{event['timestamp_sec']:6.2f}s | {event['label']:<38} | "
                     f"Audio={event['audio_confidence']:.2f} | Visual={visual_result['visual_score']:.2f} | "
                     f"Reaction={visual_result['reaction_type']:<18} | {status}")
 
         if should_caption:
+            # Save clean annotated frame
+            cap = cv2.VideoCapture(video_path)
+            fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
+            frame_no = int(event['timestamp_sec'] * fps)
+            cap.set(cv2.CAP_PROP_POS_FRAMES, frame_no)
+            ret, frame = cap.read()
+            cap.release()
+
+            if ret:
+                caption_text = f"[{visual_result['reaction_type'].upper()}] {event['label']}"
+                frame_path = frames_dir / f"frame_{event['timestamp_sec']:.2f}s.png"
+                annotate_frame(frame, caption_text, frame_path)
+
             final_captions.append(event)
 
     logger.info(f"\nFinal captions generated: {len(final_captions)} / {len(audio_events)}")
 
+    # Save SRT
     def format_srt_time(seconds):
         td = timedelta(seconds=seconds)
         h, r = divmod(td.seconds, 3600)
@@ -446,6 +459,7 @@ def process_video(video_path: str, output_dir: Path):
             end = start + 1.8
             f.write(f"{i}\n{format_srt_time(start)} --> {format_srt_time(end)}\n[{ev['reaction_type'].upper()}] {ev['label']}\n\n")
 
+    # Save JSON
     with open(output_dir / "results.json", "w", encoding="utf-8") as f:
         json.dump({
             "video_name": video_name,
@@ -454,6 +468,7 @@ def process_video(video_path: str, output_dir: Path):
             "events": audio_events
         }, f, indent=2, ensure_ascii=False)
 
+    # Generate final video
     if GENERATE_FINAL_VIDEO and final_captions:
         generate_final_video(video_path, final_captions, output_dir / "final_output.mp4")
 
