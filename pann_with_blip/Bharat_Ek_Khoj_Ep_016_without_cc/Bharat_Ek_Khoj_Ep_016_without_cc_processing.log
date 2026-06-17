@@ -1,0 +1,209 @@
+2026-06-17 20:28:13,051 | INFO | ======================================================================
+2026-06-17 20:28:13,053 | INFO | PROCESSING: Bharat_Ek_Khoj_Ep_016_without_cc (Reusing saved BLIP captions)
+2026-06-17 20:28:13,060 | INFO | ======================================================================
+2026-06-17 20:28:13,064 | INFO | Loaded 394 BLIP captions from previous log.
+2026-06-17 20:28:16,406 | INFO | Detected Scene from saved captions: forest_jungle
+2026-06-17 20:28:16,406 | INFO | Extracting audio from: data\Bharat_Ek_Khoj_Ep_016_without_cc.mp4
+2026-06-17 20:33:37,622 | INFO | Detected 200 audio events
+2026-06-17 20:33:37,632 | INFO |   0.20s | Bird vocalization, bird call, bird song | Audio=0.79 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:37,933 | INFO |   1.20s | Bird vocalization, bird call, bird song | Audio=0.66 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:38,118 | INFO |   2.60s | Bird vocalization, bird call, bird song | Audio=0.93 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:38,338 | INFO |   3.20s | Bird vocalization, bird call, bird song | Audio=0.79 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:38,519 | INFO |   4.20s | Bird vocalization, bird call, bird song | Audio=0.70 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:38,746 | INFO |   5.00s | Bird vocalization, bird call, bird song | Audio=0.74 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:38,988 | INFO |   5.60s | Bird vocalization, bird call, bird song | Audio=0.62 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:39,166 | INFO |   6.80s | Bird vocalization, bird call, bird song | Audio=0.71 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:39,339 | INFO |   7.80s | Bird vocalization, bird call, bird song | Audio=0.67 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:39,501 | INFO |   8.60s | Rodents, rats, mice                    | Audio=0.26 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:39,501 | INFO |  10.00s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:39,667 | INFO |  11.00s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:39,817 | INFO |  11.80s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:39,959 | INFO |  12.40s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:40,089 | INFO |  13.20s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:40,221 | INFO |  14.00s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:40,377 | INFO |  15.00s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:40,530 | INFO |  16.00s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:40,673 | INFO |  17.60s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:40,839 | INFO |  18.40s | Speech                                 | Audio=0.82 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:40,968 | INFO |  19.40s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,087 | INFO |  20.00s | Speech                                 | Audio=0.75 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,226 | INFO |  22.00s | Speech                                 | Audio=0.82 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,342 | INFO |  22.60s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,472 | INFO |  23.60s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,609 | INFO |  24.20s | Speech                                 | Audio=0.79 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,745 | INFO |  25.20s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,873 | INFO |  25.80s | Speech                                 | Audio=0.79 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:41,984 | INFO |  26.80s | Speech                                 | Audio=0.84 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:42,112 | INFO |  27.40s | Speech                                 | Audio=0.82 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:42,266 | INFO |  28.20s | Speech                                 | Audio=0.75 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:42,266 | INFO |  29.80s | Speech                                 | Audio=0.76 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:42,376 | INFO |  30.80s | Animal                                 | Audio=0.31 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:42,376 | INFO |  31.40s | Animal                                 | Audio=0.19 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:42,376 | INFO |  33.20s | Bird vocalization, bird call, bird song | Audio=0.71 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:42,503 | INFO |  35.00s | Bird vocalization, bird call, bird song | Audio=0.75 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:42,624 | INFO |  36.40s | Bird vocalization, bird call, bird song | Audio=0.79 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:42,757 | INFO |  37.60s | Bird vocalization, bird call, bird song | Audio=0.78 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:42,895 | INFO |  38.20s | Fowl                                   | Audio=0.53 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:42,895 | INFO |  39.80s | Bird vocalization, bird call, bird song | Audio=0.67 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,008 | INFO |  41.20s | Bird vocalization, bird call, bird song | Audio=0.88 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,137 | INFO |  41.80s | Bird vocalization, bird call, bird song | Audio=0.74 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,268 | INFO |  42.80s | Bird vocalization, bird call, bird song | Audio=0.78 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,391 | INFO |  43.40s | Bird vocalization, bird call, bird song | Audio=0.72 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,515 | INFO |  44.60s | Bird vocalization, bird call, bird song | Audio=0.66 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,653 | INFO |  45.20s | Bird vocalization, bird call, bird song | Audio=0.67 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,807 | INFO |  45.80s | Animal                                 | Audio=0.33 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:43,811 | INFO |  46.60s | Bird vocalization, bird call, bird song | Audio=0.65 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:43,939 | INFO |  47.20s | Bird                                   | Audio=0.21 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:43,939 | INFO |  48.20s | Bird vocalization, bird call, bird song | Audio=0.65 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:44,085 | INFO |  49.80s | Bird vocalization, bird call, bird song | Audio=0.70 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:44,198 | INFO |  50.80s | Animal                                 | Audio=0.31 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:44,198 | INFO |  51.40s | Rodents, rats, mice                    | Audio=0.25 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:44,198 | INFO |  52.60s | Bird vocalization, bird call, bird song | Audio=0.69 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:44,325 | INFO |  53.60s | Rodents, rats, mice                    | Audio=0.62 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:44,325 | INFO |  54.40s | Bird vocalization, bird call, bird song | Audio=0.63 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:44,448 | INFO |  56.20s | Speech                                 | Audio=0.71 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:44,448 | INFO |  58.00s | Speech                                 | Audio=0.91 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:44,588 | INFO |  59.60s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:44,718 | INFO |  60.20s | Speech                                 | Audio=0.77 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:44,868 | INFO |  61.60s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,001 | INFO |  62.80s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,142 | INFO |  63.40s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,277 | INFO |  64.60s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,398 | INFO |  65.20s | Speech                                 | Audio=0.77 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,533 | INFO |  65.80s | Speech                                 | Audio=0.16 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:45,533 | INFO |  66.80s | Animal                                 | Audio=0.26 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:45,533 | INFO |  68.80s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,664 | INFO |  69.40s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,782 | INFO |  70.00s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:45,923 | INFO |  71.00s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:46,052 | INFO |  71.80s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:46,184 | INFO |  72.40s | Speech                                 | Audio=0.82 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:46,321 | INFO |  73.60s | Speech                                 | Audio=0.91 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:46,448 | INFO |  75.00s | Speech                                 | Audio=0.91 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:46,589 | INFO |  75.60s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:46,728 | INFO |  76.40s | Animal                                 | Audio=0.65 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:46,728 | INFO |  77.00s | Animal                                 | Audio=0.48 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:46,728 | INFO |  77.80s | Crow                                   | Audio=0.64 | Boost=0.50 | ACCEPTED
+2026-06-17 20:33:46,859 | INFO |  78.60s | Fowl                                   | Audio=0.70 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:46,859 | INFO |  79.80s | Bird vocalization, bird call, bird song | Audio=0.89 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:46,984 | INFO |  81.20s | Bird vocalization, bird call, bird song | Audio=0.64 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:47,119 | INFO |  82.20s | Animal                                 | Audio=0.46 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:47,123 | INFO |  83.80s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:47,269 | INFO |  84.40s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:47,414 | INFO |  86.80s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:47,714 | INFO |  87.60s | Speech                                 | Audio=0.69 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:47,714 | INFO |  88.20s | Speech                                 | Audio=0.70 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:47,714 | INFO |  89.80s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:47,830 | INFO |  90.40s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:47,949 | INFO |  91.40s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:48,072 | INFO |  92.00s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:48,182 | INFO |  92.60s | Speech                                 | Audio=0.80 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:48,299 | INFO |  93.80s | Animal                                 | Audio=0.44 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:48,299 | INFO |  94.60s | Crow                                   | Audio=1.00 | Boost=0.50 | ACCEPTED
+2026-06-17 20:33:48,430 | INFO |  95.20s | Crow                                   | Audio=0.69 | Boost=0.50 | ACCEPTED
+2026-06-17 20:33:48,551 | INFO |  95.80s | Crow                                   | Audio=0.71 | Boost=0.50 | ACCEPTED
+2026-06-17 20:33:48,673 | INFO |  96.40s | Duck                                   | Audio=0.44 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:48,675 | INFO |  97.40s | Fowl                                   | Audio=0.20 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:48,675 | INFO |  98.40s | Animal                                 | Audio=0.38 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:48,676 | INFO |  99.40s | Animal                                 | Audio=0.50 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:48,676 | INFO | 100.60s | Animal                                 | Audio=0.58 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:48,676 | INFO | 102.80s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:48,778 | INFO | 103.80s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:48,901 | INFO | 104.80s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,008 | INFO | 105.40s | Speech                                 | Audio=0.81 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,196 | INFO | 106.20s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,301 | INFO | 106.80s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,394 | INFO | 108.20s | Speech                                 | Audio=0.91 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,503 | INFO | 109.00s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,600 | INFO | 110.40s | Speech                                 | Audio=0.91 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,729 | INFO | 111.00s | Speech                                 | Audio=0.84 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,836 | INFO | 112.40s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:49,966 | INFO | 114.00s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:50,062 | INFO | 115.20s | Speech                                 | Audio=0.80 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:50,185 | INFO | 115.80s | Bird vocalization, bird call, bird song | Audio=0.75 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:50,319 | INFO | 117.60s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:50,447 | INFO | 118.40s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:50,558 | INFO | 119.80s | Speech                                 | Audio=0.81 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:50,687 | INFO | 122.00s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:50,803 | INFO | 122.60s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:50,924 | INFO | 124.40s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,037 | INFO | 125.60s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,150 | INFO | 126.20s | Speech                                 | Audio=0.75 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:51,150 | INFO | 127.20s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,256 | INFO | 127.80s | Speech                                 | Audio=0.84 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,362 | INFO | 128.40s | Speech                                 | Audio=0.67 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:51,362 | INFO | 130.00s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,468 | INFO | 130.60s | Speech                                 | Audio=0.75 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:51,468 | INFO | 131.40s | Bird vocalization, bird call, bird song | Audio=0.64 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:51,602 | INFO | 133.00s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,715 | INFO | 133.60s | Speech                                 | Audio=0.77 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,826 | INFO | 135.40s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:51,930 | INFO | 136.20s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,045 | INFO | 137.40s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,158 | INFO | 138.00s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,264 | INFO | 139.40s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,378 | INFO | 140.00s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,523 | INFO | 140.60s | Speech                                 | Audio=0.74 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:52,523 | INFO | 141.60s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,649 | INFO | 142.40s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,762 | INFO | 143.00s | Speech                                 | Audio=0.82 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:52,864 | INFO | 144.60s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,009 | INFO | 145.80s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,108 | INFO | 146.40s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,214 | INFO | 147.40s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,323 | INFO | 149.20s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,447 | INFO | 149.80s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,552 | INFO | 151.80s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,719 | INFO | 153.40s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,817 | INFO | 155.00s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:53,955 | INFO | 156.60s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:54,083 | INFO | 157.20s | Speech                                 | Audio=0.68 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:54,083 | INFO | 158.60s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:54,184 | INFO | 159.20s | Speech                                 | Audio=0.92 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:54,338 | INFO | 159.80s | Speech                                 | Audio=0.75 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:54,511 | INFO | 161.00s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:54,619 | INFO | 161.80s | Speech                                 | Audio=0.83 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:54,741 | INFO | 163.00s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:54,884 | INFO | 163.60s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:55,033 | INFO | 164.20s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:55,145 | INFO | 164.80s | Speech                                 | Audio=0.76 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:55,292 | INFO | 166.00s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:55,424 | INFO | 167.00s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:55,558 | INFO | 168.60s | Speech                                 | Audio=0.91 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:55,682 | INFO | 169.20s | Speech                                 | Audio=0.84 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:55,806 | INFO | 169.80s | Bird vocalization, bird call, bird song | Audio=0.67 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:55,942 | INFO | 171.40s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:56,058 | INFO | 172.20s | Bird vocalization, bird call, bird song | Audio=0.71 | Boost=0.55 | ACCEPTED
+2026-06-17 20:33:56,179 | INFO | 174.20s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:56,327 | INFO | 175.60s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:56,452 | INFO | 176.40s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:56,559 | INFO | 178.00s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:56,696 | INFO | 178.60s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:56,834 | INFO | 179.20s | Speech                                 | Audio=0.69 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:56,834 | INFO | 179.80s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:56,959 | INFO | 181.00s | Speech                                 | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,083 | INFO | 182.60s | Speech                                 | Audio=0.91 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,230 | INFO | 183.20s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,353 | INFO | 184.20s | Speech                                 | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,469 | INFO | 185.40s | Speech                                 | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,593 | INFO | 187.00s | Speech                                 | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,705 | INFO | 187.60s | Speech                                 | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,826 | INFO | 188.20s | Speech                                 | Audio=0.87 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:57,953 | INFO | 188.80s | Speech                                 | Audio=0.67 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:57,954 | INFO | 190.00s | Animal                                 | Audio=0.42 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:57,955 | INFO | 190.60s | Animal                                 | Audio=0.11 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:57,955 | INFO | 192.20s | Music                                  | Audio=0.84 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,073 | INFO | 194.00s | Music                                  | Audio=0.90 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,182 | INFO | 194.60s | Music                                  | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,307 | INFO | 195.60s | Music                                  | Audio=0.89 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,402 | INFO | 197.00s | Music                                  | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,551 | INFO | 197.60s | Tabla                                  | Audio=0.77 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,660 | INFO | 199.00s | Music                                  | Audio=0.92 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,779 | INFO | 199.60s | Music                                  | Audio=0.85 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:58,879 | INFO | 200.40s | Tabla                                  | Audio=0.81 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:59,008 | INFO | 201.00s | Music                                  | Audio=0.84 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:59,134 | INFO | 202.20s | Music                                  | Audio=0.86 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:59,301 | INFO | 203.40s | Music                                  | Audio=0.88 | Boost=0.00 | ACCEPTED
+2026-06-17 20:33:59,445 | INFO | 204.40s | Music                                  | Audio=0.74 | Boost=0.00 | SKIPPED
+2026-06-17 20:33:59,472 | INFO | 
+Final captions generated: 165 / 200

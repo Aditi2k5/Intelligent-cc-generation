@@ -1,0 +1,3207 @@
+{
+  "video_name": "Bharat_Ek_Khoj_Ep_016_without_cc",
+  "total_audio_events": 200,
+  "captions_generated": 165,
+  "events": [
+    {
+      "timestamp_sec": 0.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7892,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 1.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6595,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 2.6,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.9329,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 3.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7929,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 4.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7045,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 5.0,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7386,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 5.6,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6247,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 6.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7067,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 7.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6691,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 8.6,
+      "label": "Rodents, rats, mice",
+      "audio_confidence": 0.2594,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 10.0,
+      "label": "Speech",
+      "audio_confidence": 0.8635,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 11.0,
+      "label": "Speech",
+      "audio_confidence": 0.8796,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 11.8,
+      "label": "Speech",
+      "audio_confidence": 0.8525,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 12.4,
+      "label": "Speech",
+      "audio_confidence": 0.8534,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 13.2,
+      "label": "Speech",
+      "audio_confidence": 0.8914,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 14.0,
+      "label": "Speech",
+      "audio_confidence": 0.8319,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 15.0,
+      "label": "Speech",
+      "audio_confidence": 0.8982,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 16.0,
+      "label": "Speech",
+      "audio_confidence": 0.8794,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 17.6,
+      "label": "Speech",
+      "audio_confidence": 0.8619,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 18.4,
+      "label": "Speech",
+      "audio_confidence": 0.8176,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 19.4,
+      "label": "Speech",
+      "audio_confidence": 0.8539,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 20.0,
+      "label": "Speech",
+      "audio_confidence": 0.7548,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 22.0,
+      "label": "Speech",
+      "audio_confidence": 0.8159,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 22.6,
+      "label": "Speech",
+      "audio_confidence": 0.8267,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 23.6,
+      "label": "Speech",
+      "audio_confidence": 0.8534,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 24.2,
+      "label": "Speech",
+      "audio_confidence": 0.7943,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 25.2,
+      "label": "Speech",
+      "audio_confidence": 0.856,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 25.8,
+      "label": "Speech",
+      "audio_confidence": 0.7887,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 26.8,
+      "label": "Speech",
+      "audio_confidence": 0.8449,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 27.4,
+      "label": "Speech",
+      "audio_confidence": 0.8197,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 28.2,
+      "label": "Speech",
+      "audio_confidence": 0.7467,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 29.8,
+      "label": "Speech",
+      "audio_confidence": 0.7595,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 30.8,
+      "label": "Animal",
+      "audio_confidence": 0.3102,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 31.4,
+      "label": "Animal",
+      "audio_confidence": 0.1892,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 33.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.71,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 35.0,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7508,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 36.4,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7947,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 37.6,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.775,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 38.2,
+      "label": "Fowl",
+      "audio_confidence": 0.5344,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 39.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6706,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 41.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.8822,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 41.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.744,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 42.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7765,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 43.4,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7178,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 44.6,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6603,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 45.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6659,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 45.8,
+      "label": "Animal",
+      "audio_confidence": 0.3298,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 46.6,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6531,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 47.2,
+      "label": "Bird",
+      "audio_confidence": 0.2112,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 48.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6487,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 49.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6991,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 50.8,
+      "label": "Animal",
+      "audio_confidence": 0.3135,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 51.4,
+      "label": "Rodents, rats, mice",
+      "audio_confidence": 0.2538,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 52.6,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6906,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 53.6,
+      "label": "Rodents, rats, mice",
+      "audio_confidence": 0.6161,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 54.4,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6286,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 56.2,
+      "label": "Speech",
+      "audio_confidence": 0.7111,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 58.0,
+      "label": "Speech",
+      "audio_confidence": 0.9141,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 59.6,
+      "label": "Speech",
+      "audio_confidence": 0.8855,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 60.2,
+      "label": "Speech",
+      "audio_confidence": 0.7701,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 61.6,
+      "label": "Speech",
+      "audio_confidence": 0.863,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 62.8,
+      "label": "Speech",
+      "audio_confidence": 0.8617,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 63.4,
+      "label": "Speech",
+      "audio_confidence": 0.8338,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 64.6,
+      "label": "Speech",
+      "audio_confidence": 0.8488,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 65.2,
+      "label": "Speech",
+      "audio_confidence": 0.7729,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 65.8,
+      "label": "Speech",
+      "audio_confidence": 0.1616,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 66.8,
+      "label": "Animal",
+      "audio_confidence": 0.2629,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 68.8,
+      "label": "Speech",
+      "audio_confidence": 0.8785,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 69.4,
+      "label": "Speech",
+      "audio_confidence": 0.8606,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 70.0,
+      "label": "Speech",
+      "audio_confidence": 0.8566,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 71.0,
+      "label": "Speech",
+      "audio_confidence": 0.9029,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 71.8,
+      "label": "Speech",
+      "audio_confidence": 0.8671,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 72.4,
+      "label": "Speech",
+      "audio_confidence": 0.8219,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 73.6,
+      "label": "Speech",
+      "audio_confidence": 0.9085,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 75.0,
+      "label": "Speech",
+      "audio_confidence": 0.9148,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 75.6,
+      "label": "Speech",
+      "audio_confidence": 0.8339,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 76.4,
+      "label": "Animal",
+      "audio_confidence": 0.6537,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 77.0,
+      "label": "Animal",
+      "audio_confidence": 0.4752,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 77.8,
+      "label": "Crow",
+      "audio_confidence": 0.6388,
+      "should_caption": true,
+      "caption_class": "Crow",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 78.6,
+      "label": "Fowl",
+      "audio_confidence": 0.6983,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 79.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.8921,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 81.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6447,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 82.2,
+      "label": "Animal",
+      "audio_confidence": 0.4599,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 83.8,
+      "label": "Speech",
+      "audio_confidence": 0.8933,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 84.4,
+      "label": "Speech",
+      "audio_confidence": 0.8551,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 86.8,
+      "label": "Speech",
+      "audio_confidence": 0.8915,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 87.6,
+      "label": "Speech",
+      "audio_confidence": 0.6885,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 88.2,
+      "label": "Speech",
+      "audio_confidence": 0.7014,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 89.8,
+      "label": "Speech",
+      "audio_confidence": 0.8913,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 90.4,
+      "label": "Speech",
+      "audio_confidence": 0.8981,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 91.4,
+      "label": "Speech",
+      "audio_confidence": 0.8822,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 92.0,
+      "label": "Speech",
+      "audio_confidence": 0.8303,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 92.6,
+      "label": "Speech",
+      "audio_confidence": 0.7956,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 93.8,
+      "label": "Animal",
+      "audio_confidence": 0.4449,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 94.6,
+      "label": "Crow",
+      "audio_confidence": 1.0,
+      "should_caption": true,
+      "caption_class": "Crow",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 95.2,
+      "label": "Crow",
+      "audio_confidence": 0.6943,
+      "should_caption": true,
+      "caption_class": "Crow",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 95.8,
+      "label": "Crow",
+      "audio_confidence": 0.7065,
+      "should_caption": true,
+      "caption_class": "Crow",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 96.4,
+      "label": "Duck",
+      "audio_confidence": 0.4389,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 97.4,
+      "label": "Fowl",
+      "audio_confidence": 0.1985,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 98.4,
+      "label": "Animal",
+      "audio_confidence": 0.3764,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 99.4,
+      "label": "Animal",
+      "audio_confidence": 0.5032,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 100.6,
+      "label": "Animal",
+      "audio_confidence": 0.5838,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 102.8,
+      "label": "Speech",
+      "audio_confidence": 0.8659,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 103.8,
+      "label": "Speech",
+      "audio_confidence": 0.8802,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 104.8,
+      "label": "Speech",
+      "audio_confidence": 0.8747,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 105.4,
+      "label": "Speech",
+      "audio_confidence": 0.8143,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 106.2,
+      "label": "Speech",
+      "audio_confidence": 0.9017,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 106.8,
+      "label": "Speech",
+      "audio_confidence": 0.8485,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 108.2,
+      "label": "Speech",
+      "audio_confidence": 0.9066,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 109.0,
+      "label": "Speech",
+      "audio_confidence": 0.851,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 110.4,
+      "label": "Speech",
+      "audio_confidence": 0.9126,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 111.0,
+      "label": "Speech",
+      "audio_confidence": 0.8389,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 112.4,
+      "label": "Speech",
+      "audio_confidence": 0.8518,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 114.0,
+      "label": "Speech",
+      "audio_confidence": 0.897,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 115.2,
+      "label": "Speech",
+      "audio_confidence": 0.7952,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 115.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7498,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 117.6,
+      "label": "Speech",
+      "audio_confidence": 0.8834,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 118.4,
+      "label": "Speech",
+      "audio_confidence": 0.8951,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 119.8,
+      "label": "Speech",
+      "audio_confidence": 0.812,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 122.0,
+      "label": "Speech",
+      "audio_confidence": 0.8769,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 122.6,
+      "label": "Speech",
+      "audio_confidence": 0.8618,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 124.4,
+      "label": "Speech",
+      "audio_confidence": 0.901,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 125.6,
+      "label": "Speech",
+      "audio_confidence": 0.8537,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 126.2,
+      "label": "Speech",
+      "audio_confidence": 0.7499,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 127.2,
+      "label": "Speech",
+      "audio_confidence": 0.862,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 127.8,
+      "label": "Speech",
+      "audio_confidence": 0.8393,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 128.4,
+      "label": "Speech",
+      "audio_confidence": 0.6661,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 130.0,
+      "label": "Speech",
+      "audio_confidence": 0.8336,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 130.6,
+      "label": "Speech",
+      "audio_confidence": 0.7461,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 131.4,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6356,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 133.0,
+      "label": "Speech",
+      "audio_confidence": 0.8541,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 133.6,
+      "label": "Speech",
+      "audio_confidence": 0.7726,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 135.4,
+      "label": "Speech",
+      "audio_confidence": 0.8874,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 136.2,
+      "label": "Speech",
+      "audio_confidence": 0.8546,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 137.4,
+      "label": "Speech",
+      "audio_confidence": 0.8845,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 138.0,
+      "label": "Speech",
+      "audio_confidence": 0.8654,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 139.4,
+      "label": "Speech",
+      "audio_confidence": 0.9009,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 140.0,
+      "label": "Speech",
+      "audio_confidence": 0.8749,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 140.6,
+      "label": "Speech",
+      "audio_confidence": 0.7371,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 141.6,
+      "label": "Speech",
+      "audio_confidence": 0.8816,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 142.4,
+      "label": "Speech",
+      "audio_confidence": 0.8831,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 143.0,
+      "label": "Speech",
+      "audio_confidence": 0.818,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 144.6,
+      "label": "Speech",
+      "audio_confidence": 0.8819,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 145.8,
+      "label": "Speech",
+      "audio_confidence": 0.886,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 146.4,
+      "label": "Speech",
+      "audio_confidence": 0.8931,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 147.4,
+      "label": "Speech",
+      "audio_confidence": 0.8491,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 149.2,
+      "label": "Speech",
+      "audio_confidence": 0.8759,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 149.8,
+      "label": "Speech",
+      "audio_confidence": 0.8265,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 151.8,
+      "label": "Speech",
+      "audio_confidence": 0.8928,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 153.4,
+      "label": "Speech",
+      "audio_confidence": 0.8904,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 155.0,
+      "label": "Speech",
+      "audio_confidence": 0.9038,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 156.6,
+      "label": "Speech",
+      "audio_confidence": 0.8613,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 157.2,
+      "label": "Speech",
+      "audio_confidence": 0.6752,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 158.6,
+      "label": "Speech",
+      "audio_confidence": 0.878,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 159.2,
+      "label": "Speech",
+      "audio_confidence": 0.9214,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 159.8,
+      "label": "Speech",
+      "audio_confidence": 0.7545,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 161.0,
+      "label": "Speech",
+      "audio_confidence": 0.8335,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 161.8,
+      "label": "Speech",
+      "audio_confidence": 0.8331,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 163.0,
+      "label": "Speech",
+      "audio_confidence": 0.8844,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 163.6,
+      "label": "Speech",
+      "audio_confidence": 0.8968,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 164.2,
+      "label": "Speech",
+      "audio_confidence": 0.8558,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 164.8,
+      "label": "Speech",
+      "audio_confidence": 0.7579,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 166.0,
+      "label": "Speech",
+      "audio_confidence": 0.8684,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 167.0,
+      "label": "Speech",
+      "audio_confidence": 0.8777,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 168.6,
+      "label": "Speech",
+      "audio_confidence": 0.9124,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 169.2,
+      "label": "Speech",
+      "audio_confidence": 0.8425,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 169.8,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.6697,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 171.4,
+      "label": "Speech",
+      "audio_confidence": 0.8793,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 172.2,
+      "label": "Bird vocalization, bird call, bird song",
+      "audio_confidence": 0.7093,
+      "should_caption": true,
+      "caption_class": "Bird vocalization, bird call, bird song",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 174.2,
+      "label": "Speech",
+      "audio_confidence": 0.9002,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 175.6,
+      "label": "Speech",
+      "audio_confidence": 0.8805,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 176.4,
+      "label": "Speech",
+      "audio_confidence": 0.8828,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 178.0,
+      "label": "Speech",
+      "audio_confidence": 0.8797,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 178.6,
+      "label": "Speech",
+      "audio_confidence": 0.8676,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 179.2,
+      "label": "Speech",
+      "audio_confidence": 0.688,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 179.8,
+      "label": "Speech",
+      "audio_confidence": 0.8763,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 181.0,
+      "label": "Speech",
+      "audio_confidence": 0.8527,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 182.6,
+      "label": "Speech",
+      "audio_confidence": 0.912,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 183.2,
+      "label": "Speech",
+      "audio_confidence": 0.8997,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 184.2,
+      "label": "Speech",
+      "audio_confidence": 0.8605,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 185.4,
+      "label": "Speech",
+      "audio_confidence": 0.8774,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 187.0,
+      "label": "Speech",
+      "audio_confidence": 0.9028,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 187.6,
+      "label": "Speech",
+      "audio_confidence": 0.8914,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 188.2,
+      "label": "Speech",
+      "audio_confidence": 0.8692,
+      "should_caption": true,
+      "caption_class": "Speech",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 188.8,
+      "label": "Speech",
+      "audio_confidence": 0.6696,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 190.0,
+      "label": "Animal",
+      "audio_confidence": 0.422,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 190.6,
+      "label": "Animal",
+      "audio_confidence": 0.1117,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 192.2,
+      "label": "Music",
+      "audio_confidence": 0.8369,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 194.0,
+      "label": "Music",
+      "audio_confidence": 0.9002,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 194.6,
+      "label": "Music",
+      "audio_confidence": 0.8482,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 195.6,
+      "label": "Music",
+      "audio_confidence": 0.8949,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 197.0,
+      "label": "Music",
+      "audio_confidence": 0.8494,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 197.6,
+      "label": "Tabla",
+      "audio_confidence": 0.7681,
+      "should_caption": true,
+      "caption_class": "Tabla",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 199.0,
+      "label": "Music",
+      "audio_confidence": 0.9172,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 199.6,
+      "label": "Music",
+      "audio_confidence": 0.8509,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 200.4,
+      "label": "Tabla",
+      "audio_confidence": 0.8051,
+      "should_caption": true,
+      "caption_class": "Tabla",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 201.0,
+      "label": "Music",
+      "audio_confidence": 0.8435,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 202.2,
+      "label": "Music",
+      "audio_confidence": 0.8643,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 203.4,
+      "label": "Music",
+      "audio_confidence": 0.8798,
+      "should_caption": true,
+      "caption_class": "Music",
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    },
+    {
+      "timestamp_sec": 204.4,
+      "label": "Music",
+      "audio_confidence": 0.7404,
+      "should_caption": false,
+      "caption_class": null,
+      "scene_boosts": {
+        "Bird vocalization, bird call, bird song": 0.55,
+        "Crow": 0.5,
+        "Wind": 0.4,
+        "Leaves rustling": 0.35,
+        "Laughter": 0.45,
+        "Screaming": 0.38,
+        "Crying": 0.32
+      }
+    }
+  ]
+}

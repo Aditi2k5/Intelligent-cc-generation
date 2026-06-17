@@ -11,60 +11,40 @@ import logging
 from datetime import timedelta
 import argparse
 from tqdm import tqdm
-from panns_inference import AudioTagging
 
-import mediapipe as mp
-from mediapipe.tasks import python
-from mediapipe.tasks.python import vision
+from PIL import Image
+import torch
+from sentence_transformers import SentenceTransformer, util
+from panns_inference import AudioTagging
 
 # ====================== CONFIG ======================
 SAMPLE_RATE = 32000
 WINDOW_SEC = 0.96
 HOP_SEC = 0.20
 CONFIDENCE_THRESHOLD = 0.07
-MAX_EVENTS = 200
+MAX_EVENTS = 2000
 DEDUP_GAP_SEC = 0.50
-
-FACE_WEIGHT = 0.45
-BODY_WEIGHT = 0.55
-
 GENERATE_FINAL_VIDEO = True
 
-SCRIPT_DIR = Path(__file__).parent.resolve()
-FACE_MODEL_PATH = SCRIPT_DIR / "face_landmarker.task"
-POSE_MODEL_PATH = SCRIPT_DIR / "pose_landmarker_heavy.task"
-
-if not FACE_MODEL_PATH.exists():
-    raise FileNotFoundError(f"face_landmarker.task not found at: {FACE_MODEL_PATH}")
-if not POSE_MODEL_PATH.exists():
-    raise FileNotFoundError(f"pose_landmarker_full.task not found at: {POSE_MODEL_PATH}")
-
-print("Loading MediaPipe models...")
-
-face_base_options = python.BaseOptions(model_asset_path=str(FACE_MODEL_PATH))
-face_options = vision.FaceLandmarkerOptions(
-    base_options=face_base_options,
-    running_mode=vision.RunningMode.IMAGE,
-    num_faces=4,
-    output_face_blendshapes=True
-)
-face_detector = vision.FaceLandmarker.create_from_options(face_options)
-
-pose_base_options = python.BaseOptions(model_asset_path=str(POSE_MODEL_PATH))
-pose_options = vision.PoseLandmarkerOptions(
-    base_options=pose_base_options,
-    running_mode=vision.RunningMode.IMAGE
-)
-pose_detector = vision.PoseLandmarker.create_from_options(pose_options)
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"\n{'='*70}")
+print(f"Using device: {device.upper()}")
+if device == "cuda":
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+print(f"{'='*70}\n")
 
 print("Loading PANNs model...")
-panns_model = AudioTagging(checkpoint_path=None, device='cpu')
-print("All models loaded successfully!\n")
+panns_model = AudioTagging(checkpoint_path=None, device=device)
+print("PANNs loaded.\n")
+
+print("Loading Sentence Transformer on GPU...")
+sentence_model = SentenceTransformer('all-MiniLM-L6-v2', device=device)
+print("Sentence Transformer loaded.\n")
 
 
 def setup_logger(video_name: str, output_dir: Path):
     logger = logging.getLogger(video_name)
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     log_file = output_dir / f"{video_name}_processing.log"
     fh = logging.FileHandler(log_file, mode='w', encoding='utf-8')
     ch = logging.StreamHandler()
@@ -74,6 +54,24 @@ def setup_logger(video_name: str, output_dir: Path):
     logger.addHandler(fh)
     logger.addHandler(ch)
     return logger
+
+
+def load_blip_captions_from_log(log_path: Path, logger) -> list:
+    """Parse already generated BLIP captions from previous log file."""
+    if not log_path or not log_path.exists():
+        logger.warning("No previous BLIP log provided. Will skip scene detection.")
+        return []
+    
+    captions = []
+    with open(log_path, "r", encoding="utf-8") as f:
+        for line in f:
+            if "BLIP Caption:" in line:
+                caption = line.split("BLIP Caption:", 1)[1].strip()
+                if caption and len(caption) > 5:
+                    captions.append(caption)
+    
+    logger.info(f"Loaded {len(captions)} BLIP captions from previous log.")
+    return captions
 
 
 def extract_audio(video_path: str, logger):
@@ -94,7 +92,7 @@ def extract_audio(video_path: str, logger):
         data, _ = sf.read(tmp_path, dtype="float32")
         return data
     except Exception as e:
-        logger.warning(f"ffmpeg failed. Trying librosa...")
+        logger.warning("ffmpeg failed. Trying librosa...")
         try:
             import librosa
             waveform, _ = librosa.load(video_path, sr=SAMPLE_RATE, mono=True)
@@ -110,14 +108,11 @@ def extract_audio(video_path: str, logger):
 
 
 def should_boost(label: str) -> bool:
-    BOOST_KEYWORDS = [
-        "firecracker", "firework", "explosion", "blast", "bang",
-        "splash", "water", "glass", "break", "crash", "rat", "squeak"
-    ]
-    return any(kw in label.lower() for kw in BOOST_KEYWORDS)
+    keywords = ["firecracker", "firework", "explosion", "blast", "splash", "glass", "break", "crash", "rat"]
+    return any(kw in label.lower() for kw in keywords)
 
 
-def detect_audio_events(waveform: np.ndarray, logger):
+def detect_audio_events(waveform: np.ndarray, logger, scene_boosts: dict = None):
     window_samples = int(WINDOW_SEC * SAMPLE_RATE)
     hop_samples = int(HOP_SEC * SAMPLE_RATE)
     events = []
@@ -147,14 +142,17 @@ def detect_audio_events(waveform: np.ndarray, logger):
                 boost = 0.18 if should_boost(label) else 0.0
                 final_score = min(raw_score + boost, 1.0)
 
+                if scene_boosts and label in scene_boosts:
+                    final_score = min(final_score + scene_boosts[label], 1.0)
+
                 events.append({
                     "timestamp_sec": round(timestamp, 2),
                     "label": label,
-                    "audio_confidence": round(final_score, 4),
-                    "raw_confidence": round(raw_score, 4)
+                    "audio_confidence": round(final_score, 4)
                 })
         start += hop_samples
 
+    # Deduplication
     final_events = []
     for ev in events:
         if not final_events or (ev["timestamp_sec"] - final_events[-1]["timestamp_sec"] > DEDUP_GAP_SEC):
@@ -165,122 +163,89 @@ def detect_audio_events(waveform: np.ndarray, logger):
     return final_events[:MAX_EVENTS]
 
 
-def classify_reaction_type(face_blendshapes, pose_landmarks) -> dict:
-    face_reaction = "neutral"
-    body_reaction = "still"
-    visual_score = 0.0
-
-    if face_blendshapes:
-        for face in face_blendshapes:
-            eye_wide = max([b.score for b in face if b.category_name in ["eyeWideLeft", "eyeWideRight"]], default=0)
-            jaw_open = max([b.score for b in face if b.category_name == "jawOpen"], default=0)
-            brow_raise = max([b.score for b in face if b.category_name in ["browInnerUp", "browOuterUpLeft", "browOuterUpRight"]], default=0)
-
-            if eye_wide > 0.55 and brow_raise > 0.45:
-                face_reaction = "surprised"
-                visual_score = max(visual_score, 0.72)
-            elif jaw_open > 0.60 and eye_wide > 0.45:
-                face_reaction = "shocked"
-                visual_score = max(visual_score, 0.82)
-            elif jaw_open > 0.68:
-                face_reaction = "screaming"
-                visual_score = max(visual_score, 0.78)
-            elif brow_raise > 0.50 and eye_wide > 0.40:
-                face_reaction = "scared"
-                visual_score = max(visual_score, 0.68)
-
-    if pose_landmarks:
-        for pose in pose_landmarks:
-            left_shoulder_y = pose[11].y
-            right_shoulder_y = pose[12].y
-            nose_y = pose[0].y
-            movement = abs(left_shoulder_y - right_shoulder_y) + abs(nose_y - (left_shoulder_y + right_shoulder_y) / 2)
-
-            if movement > 0.09:
-                body_reaction = "sudden_flinch"
-                visual_score = max(visual_score, 0.65)
-            if movement > 0.13:
-                body_reaction = "strong_reaction"
-                visual_score = max(visual_score, 0.78)
-
-    final_score = round(min(visual_score, 1.0), 4)
-
-    if face_reaction in ["shocked", "screaming"] or body_reaction == "strong_reaction":
-        reaction_type = face_reaction if face_reaction != "neutral" else "strong_reaction"
-    elif face_reaction in ["surprised", "scared"]:
-        reaction_type = face_reaction
-    elif body_reaction == "sudden_flinch":
-        reaction_type = "flinched"
-    else:
-        reaction_type = face_reaction if face_reaction != "neutral" else "no_significant_reaction"
-
-    return {
-        "reaction_type": reaction_type,
-        "face_reaction": face_reaction,
-        "body_reaction": body_reaction,
-        "visual_score": final_score
-    }
-
-
-def analyze_visual_reaction(video_path: str, timestamp: float, logger):
-    cap = cv2.VideoCapture(video_path)
-    fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
-    frame_no = int(timestamp * fps)
-    cap.set(cv2.CAP_PROP_POS_FRAMES, frame_no)
-    ret, frame = cap.read()
-    cap.release()
-
-    if not ret or frame is None:
-        return {"visual_score": 0.0, "reaction_type": "no_face_detected", "face_reaction": "none", "body_reaction": "none"}
-
-    rgb_frame = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
-    face_result = face_detector.detect(rgb_frame)
-    pose_result = pose_detector.detect(rgb_frame)
-
-    return classify_reaction_type(
-        face_result.face_blendshapes if face_result else None,
-        pose_result.pose_landmarks if pose_result else None
-    )
-
-
-def decide_caption(audio_conf: float, visual_score: float, reaction_type: str) -> bool:
-    if reaction_type in ["shocked", "screaming", "strong_reaction"]:
+def decide_caption(audio_conf: float, scene_boosts: dict, label: str) -> bool:
+    if audio_conf >= 0.75:
         return True
-    if visual_score >= 0.38:
-        return True
-    if audio_conf >= 0.70 and visual_score >= 0.18:
-        return True
-    if audio_conf >= 0.80:
+    if scene_boosts and label in scene_boosts:
+        boost_value = scene_boosts[label]
+        if audio_conf >= 0.55 and boost_value >= 0.30:
+            return True
+        if audio_conf >= 0.45 and boost_value >= 0.45:
+            return True
+    if audio_conf >= 0.82:
         return True
     return False
 
 
+def get_scene_from_saved_captions(captions: list, logger) -> dict:
+    """Use already saved BLIP captions to detect scene (no re-running BLIP)."""
+    if not captions:
+        return {"scene": "unknown", "boosts": {}}
+
+    full_description = " ".join(captions)
+
+    scene_descriptions = {
+        "forest_jungle": "dense forest, jungle, trees, green vegetation, outdoor nature scene",
+        "temple": "traditional Indian temple, religious place, pooja, worship",
+        "marriage_wedding": "Indian wedding, marriage ceremony, bride and groom, festive",
+        "grassland_rural": "grass field, rural village, dirt path, countryside",
+        "street_road": "busy street, road, traffic, vehicles, urban outdoor",
+        "indoor_room": "inside a room, indoor setting, people gathering",
+        "mela_festival": "festival, mela, celebration, crowd, cultural event"
+    }
+
+    video_embedding = sentence_model.encode(full_description, convert_to_tensor=True)
+    scene_embeddings = sentence_model.encode(list(scene_descriptions.values()), convert_to_tensor=True)
+
+    similarities = util.cos_sim(video_embedding, scene_embeddings)[0]
+    best_idx = similarities.argmax().item()
+    best_scene = list(scene_descriptions.keys())[best_idx]
+
+    logger.info(f"Detected Scene from saved captions: {best_scene}")
+
+    scene_boosts = {}
+    if best_scene == "forest_jungle":
+        scene_boosts = {
+            "Bird vocalization, bird call, bird song": 0.55,
+            "Crow": 0.50,
+            "Wind": 0.40,
+            "Leaves rustling": 0.35
+        }
+    elif best_scene == "temple":
+        scene_boosts = {"Bell": 0.55, "Chime": 0.42}
+    elif best_scene in ["marriage_wedding", "mela_festival"]:
+        scene_boosts = {"Shehnai": 0.50, "Dhol": 0.45, "Firecracker": 0.40}
+    elif best_scene == "grassland_rural":
+        scene_boosts = {"Footsteps": 0.48, "Wind": 0.40, "Grass rustling": 0.42, "Crow": 0.35}
+    elif best_scene == "street_road":
+        scene_boosts = {"Vehicle": 0.45, "Traffic": 0.38, "Horn": 0.35}
+
+    if any(word in full_description.lower() for word in ["people", "group", "women", "man", "person", "crowd", "laugh", "sit"]):
+        scene_boosts["Laughter"] = scene_boosts.get("Laughter", 0) + 0.45
+        scene_boosts["Screaming"] = scene_boosts.get("Screaming", 0) + 0.38
+        scene_boosts["Crying"] = scene_boosts.get("Crying", 0) + 0.32
+
+    return {"scene": best_scene, "boosts": scene_boosts}
+
+
 def annotate_frame(frame, caption_text, output_path):
-    """Clean annotated frame - only caption at bottom center"""
     h, w = frame.shape[:2]
-    
     overlay = frame.copy()
     cv2.rectangle(overlay, (0, h - 55), (w, h), (0, 0, 0), -1)
     frame = cv2.addWeighted(overlay, 0.65, frame, 0.35, 0)
-    
+
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 0.85
     thickness = 2
-    
     text_size = cv2.getTextSize(caption_text, font, font_scale, thickness)[0]
     text_x = (w - text_size[0]) // 2
     text_y = h - 18
-    
+
     cv2.putText(frame, caption_text, (text_x, text_y), font, font_scale, (255, 255, 255), thickness, cv2.LINE_AA)
     cv2.imwrite(str(output_path), frame)
 
 
 def generate_final_video(video_path: str, events: list, output_path: Path):
-    """Generate final video with burned-in captions + original audio using ffmpeg"""
-    import tempfile
-    import subprocess
-    import shutil
-
     accepted_events = [e for e in events if e.get("should_caption")]
     if not accepted_events:
         print("No accepted events → skipping final video generation.")
@@ -288,18 +253,12 @@ def generate_final_video(video_path: str, events: list, output_path: Path):
 
     print(f"Generating final video with {len(accepted_events)} captions + audio...")
 
-    # Step 1: Create captioned video using OpenCV (silent)
     cap = cv2.VideoCapture(video_path)
-    if not cap.isOpened():
-        print("❌ Could not open video.")
-        return
-
     fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    # Create temporary silent video with captions
     with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
         silent_video_path = tmp.name
 
@@ -315,14 +274,12 @@ def generate_final_video(video_path: str, events: list, output_path: Path):
             break
 
         current_time = frame_idx / fps
-
-        # Find active caption for this frame
         active_caption = None
         for ev in accepted_events:
             start = ev["timestamp_sec"]
             end = start + 1.8
             if start <= current_time < end:
-                active_caption = f"[{ev['reaction_type'].upper()}] {ev['label']}"
+                active_caption = f"[{ev['label']}]"
                 break
 
         if active_caption:
@@ -330,7 +287,6 @@ def generate_final_video(video_path: str, events: list, output_path: Path):
             overlay = frame.copy()
             cv2.rectangle(overlay, (0, h - 55), (w, h), (0, 0, 0), -1)
             frame = cv2.addWeighted(overlay, 0.65, frame, 0.35, 0)
-
             font = cv2.FONT_HERSHEY_SIMPLEX
             font_scale = 0.85
             thickness = 2
@@ -347,7 +303,6 @@ def generate_final_video(video_path: str, events: list, output_path: Path):
     cap.release()
     out.release()
 
-    # Step 2: Merge captioned video + original audio using ffmpeg
     try:
         ffmpeg_bin = shutil.which("ffmpeg")
         if not ffmpeg_bin:
@@ -355,48 +310,49 @@ def generate_final_video(video_path: str, events: list, output_path: Path):
             ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
 
         cmd = [
-            ffmpeg_bin,
-            "-y",
-            "-i", silent_video_path,      # captioned video (no audio)
-            "-i", video_path,             # original video (has audio)
-            "-c:v", "copy",               # copy video stream
-            "-c:a", "aac",                # re-encode audio
-            "-map", "0:v:0",              # take video from first input
-            "-map", "1:a:0",              # take audio from second input
+            ffmpeg_bin, "-y",
+            "-i", silent_video_path,
+            "-i", video_path,
+            "-c:v", "copy",
+            "-c:a", "aac",
+            "-map", "0:v:0",
+            "-map", "1:a:0",
             "-shortest",
             str(output_path)
         ]
-
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-
         if result.returncode == 0:
             print(f"✅ Final video with audio saved: {output_path}")
         else:
             print(f"❌ ffmpeg failed: {result.stderr}")
-
     except Exception as e:
         print(f"❌ Error during audio merge: {e}")
-
     finally:
-        # Clean up temporary silent video
         try:
             os.unlink(silent_video_path)
         except:
             pass
 
-def process_video(video_path: str, output_dir: Path):
+
+def process_video(video_path: str, output_dir: Path, blip_log_path: Path = None):
     video_name = Path(video_path).stem
     logger = setup_logger(video_name, output_dir)
 
     logger.info(f"{'='*70}")
-    logger.info(f"PROCESSING: {video_name}")
+    logger.info(f"PROCESSING: {video_name} (Reusing saved BLIP captions)")
     logger.info(f"{'='*70}")
 
+    # === Load saved BLIP captions instead of running BLIP ===
+    saved_captions = load_blip_captions_from_log(blip_log_path, logger)
+    scene_context = get_scene_from_saved_captions(saved_captions, logger)
+    scene_boosts = scene_context.get("boosts", {})
+
+    # === Continue from Audio Extraction ===
     waveform = extract_audio(video_path, logger)
     if waveform is None:
         return
 
-    audio_events = detect_audio_events(waveform, logger)
+    audio_events = detect_audio_events(waveform, logger, scene_boosts=scene_boosts)
     logger.info(f"Detected {len(audio_events)} audio events")
 
     if not audio_events:
@@ -407,29 +363,18 @@ def process_video(video_path: str, output_dir: Path):
 
     final_captions = []
 
-    for i, event in enumerate(audio_events):
-        visual_result = analyze_visual_reaction(video_path, event['timestamp_sec'], logger)
+    for event in audio_events:
+        should_caption = decide_caption(event['audio_confidence'], scene_boosts, event['label'])
 
-        event['visual_score'] = visual_result['visual_score']
-        event['reaction_type'] = visual_result['reaction_type']
-        event['face_reaction'] = visual_result['face_reaction']
-        event['body_reaction'] = visual_result['body_reaction']
-
-        should_caption = decide_caption(
-            event['audio_confidence'],
-            visual_result['visual_score'],
-            visual_result['reaction_type']
-        )
         event['should_caption'] = should_caption
         event['caption_class'] = event['label'] if should_caption else None
+        event['scene_boosts'] = scene_boosts
 
         status = "ACCEPTED" if should_caption else "SKIPPED"
         logger.info(f"{event['timestamp_sec']:6.2f}s | {event['label']:<38} | "
-                    f"Audio={event['audio_confidence']:.2f} | Visual={visual_result['visual_score']:.2f} | "
-                    f"Reaction={visual_result['reaction_type']:<18} | {status}")
+                    f"Audio={event['audio_confidence']:.2f} | Boost={scene_boosts.get(event['label'], 0):.2f} | {status}")
 
         if should_caption:
-            # Save clean annotated frame
             cap = cv2.VideoCapture(video_path)
             fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
             frame_no = int(event['timestamp_sec'] * fps)
@@ -438,7 +383,7 @@ def process_video(video_path: str, output_dir: Path):
             cap.release()
 
             if ret:
-                caption_text = f"[{visual_result['reaction_type'].upper()}] {event['label']}"
+                caption_text = f"[{event['label']}]"
                 frame_path = frames_dir / f"frame_{event['timestamp_sec']:.2f}s.png"
                 annotate_frame(frame, caption_text, frame_path)
 
@@ -446,7 +391,6 @@ def process_video(video_path: str, output_dir: Path):
 
     logger.info(f"\nFinal captions generated: {len(final_captions)} / {len(audio_events)}")
 
-    # Save SRT
     def format_srt_time(seconds):
         td = timedelta(seconds=seconds)
         h, r = divmod(td.seconds, 3600)
@@ -457,9 +401,8 @@ def process_video(video_path: str, output_dir: Path):
         for i, ev in enumerate(final_captions, 1):
             start = ev["timestamp_sec"]
             end = start + 1.8
-            f.write(f"{i}\n{format_srt_time(start)} --> {format_srt_time(end)}\n[{ev['reaction_type'].upper()}] {ev['label']}\n\n")
+            f.write(f"{i}\n{format_srt_time(start)} --> {format_srt_time(end)}\n[{ev['label']}]")
 
-    # Save JSON
     with open(output_dir / "results.json", "w", encoding="utf-8") as f:
         json.dump({
             "video_name": video_name,
@@ -468,14 +411,14 @@ def process_video(video_path: str, output_dir: Path):
             "events": audio_events
         }, f, indent=2, ensure_ascii=False)
 
-    # Generate final video
     if GENERATE_FINAL_VIDEO and final_captions:
         generate_final_video(video_path, final_captions, output_dir / "final_output.mp4")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Intelligent CC Pipeline - Single Video")
-    parser.add_argument("--video", type=str, required=True, help="Path to input video file")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--video", type=str, required=True, help="Path to input video")
+    parser.add_argument("--blip-log", type=str, default=None, help="Path to previous processing log containing BLIP captions")
     args = parser.parse_args()
 
     video_path = Path(args.video)
@@ -483,14 +426,15 @@ def main():
         print(f"❌ Video not found: {video_path}")
         return
 
-    output_root = Path("panns_visual_results")
-    output_root.mkdir(exist_ok=True)
+    blip_log_path = Path(args.blip_log) if args.blip_log else None
 
+    output_root = Path("pann_with_blip")
+    output_root.mkdir(exist_ok=True)
     video_out_dir = output_root / video_path.stem
     video_out_dir.mkdir(exist_ok=True)
 
     try:
-        process_video(str(video_path), video_out_dir)
+        process_video(str(video_path), video_out_dir, blip_log_path)
         print(f"\n✅ Done! Results saved in: {video_out_dir}")
     except Exception as e:
         print(f"❌ Error: {e}")
