@@ -1,0 +1,277 @@
+{
+  "caption_segments": 24,
+  "timeline": [
+    {
+      "start_sec": 0.0,
+      "end_sec": 2.2,
+      "caption": "Birds chirp and tweet in the background.",
+      "raw_caption": "Ambient sounds can be heard.",
+      "families": [
+        "environmental noise",
+        "bird",
+        "chirp, tweet"
+      ],
+      "scene_text": "The image is a black background with white text in Hindi. The text reads \"Episode 16: The Sangam Per"
+    },
+    {
+      "start_sec": 2.6,
+      "end_sec": 8.8,
+      "caption": "Birds sing amidst the lush greenery and thick trees.",
+      "raw_caption": "Ambient sounds can be heard.",
+      "families": [
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": "The trees have thick trunks and the ground is covered in greenery. In the center of the image, there"
+    },
+    {
+      "start_sec": 32.8,
+      "end_sec": 40.4,
+      "caption": "Birds chirp softly in the background.",
+      "raw_caption": "Birds can be heard chirping in the background.",
+      "families": [
+        "bird",
+        "environmental noise",
+        "chirp, tweet"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 41.2,
+      "end_sec": 56.4,
+      "caption": "Birds chirp in the background as a person walks through the forest.",
+      "raw_caption": "Birds can be heard chirping in the background.",
+      "families": [
+        "bird",
+        "environmental noise",
+        "rodents, rats, mice"
+      ],
+      "scene_text": "The image is a still from a movie or TV show. It shows a person walking through a forest with trees "
+    },
+    {
+      "start_sec": 66.8,
+      "end_sec": 68.8,
+      "caption": "Birds sing as a man and woman stand in a grassy field.",
+      "raw_caption": "Ambient sounds can be heard.",
+      "families": [
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": "The image shows two people, a man and a woman, standing in a field of tall grass and bushes. They ar"
+    },
+    {
+      "start_sec": 76.8,
+      "end_sec": 84.4,
+      "caption": "Birds are chirping in the background.",
+      "raw_caption": "Birds can be heard chirping in the background.",
+      "families": [
+        "bird",
+        "environmental noise",
+        "goose"
+      ],
+      "scene_text": "The person on the left is wearing a red shirt and is standing in the center of the image, while the "
+    },
+    {
+      "start_sec": 93.6,
+      "end_sec": 98.6,
+      "caption": "A crow caws in the distance as three people stand nearby.",
+      "raw_caption": "A crow can be heard cawing in the distance.",
+      "families": [
+        "crow",
+        "animal",
+        "duck"
+      ],
+      "scene_text": "The image shows a scene from a movie or TV show. It shows three people, two women and one man, stand"
+    },
+    {
+      "start_sec": 99.0,
+      "end_sec": 103.4,
+      "caption": "Ambient sounds of nature fill the wooded area.",
+      "raw_caption": "Ambient sounds can be heard.",
+      "families": [
+        "ratchet, pawl",
+        "environmental noise",
+        "animal"
+      ],
+      "scene_text": "The image shows three people sitting on the ground in a wooded area. He is sitting with his back to "
+    },
+    {
+      "start_sec": 190.0,
+      "end_sec": 191.8,
+      "caption": "The man sits quietly, deep in thought among the trees.",
+      "raw_caption": "Ambient sounds can be heard.",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "He appears to be deep in thought, with his eyes closed and his head tilted downwards. The background"
+    },
+    {
+      "start_sec": 199.0,
+      "end_sec": 202.2,
+      "caption": "Music and tabla play softly in the background.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 203.4,
+      "end_sec": 206.0,
+      "caption": "Tabla music plays softly in the background.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 208.0,
+      "end_sec": 211.0,
+      "caption": "Tabla music plays softly in the background.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 211.4,
+      "end_sec": 215.0,
+      "caption": "Music plays softly in the background as he holds a bag.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows three people standing in a field with trees in the background. He is holding a large"
+    },
+    {
+      "start_sec": 223.4,
+      "end_sec": 225.8,
+      "caption": "Music and tabla play in the background as he stands in the field.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows three people standing in a field with trees in the background. He is holding a large"
+    },
+    {
+      "start_sec": 226.2,
+      "end_sec": 228.0,
+      "caption": "Music plays softly in the background as three people stand in a field.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows three people standing in a field with trees in the background. He is holding a large"
+    },
+    {
+      "start_sec": 229.6,
+      "end_sec": 231.4,
+      "caption": "Music plays softly in the background.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 232.0,
+      "end_sec": 235.6,
+      "caption": "Music and tabla play softly in the background.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 237.8,
+      "end_sec": 246.8,
+      "caption": "Music and tabla play softly in the background.",
+      "raw_caption": "Music can be heard playing in the background.",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 249.6,
+      "end_sec": 273.2,
+      "caption": "A crow caws in the distance as the man walks.",
+      "raw_caption": "A crow can be heard cawing in the distance.",
+      "families": [
+        "crow",
+        "animal",
+        "goose"
+      ],
+      "scene_text": "The image shows a man with long dark hair and a beard walking through a jungle-like environment. The"
+    },
+    {
+      "start_sec": 273.8,
+      "end_sec": 280.6,
+      "caption": "Laughter fills the air as they embrace on the garden bench.",
+      "raw_caption": "Laughter can be heard.",
+      "families": [
+        "animal",
+        "bird",
+        "laugh_full"
+      ],
+      "scene_text": "The image shows a man and a woman sitting on a bench in a garden. They are embracing each other tigh"
+    },
+    {
+      "start_sec": 281.0,
+      "end_sec": 283.4,
+      "caption": "Wild animals and birds can be heard in the garden.",
+      "raw_caption": "Ambient sounds can be heard.",
+      "families": [
+        "animal",
+        "bird"
+      ],
+      "scene_text": "The image shows a man and a woman sitting on a bench in a garden. They are embracing each other tigh"
+    },
+    {
+      "start_sec": 287.4,
+      "end_sec": 289.4,
+      "caption": "An owl hoots and a bird chirps in the garden.",
+      "raw_caption": "Ambient sounds can be heard.",
+      "families": [
+        "owl",
+        "bird"
+      ],
+      "scene_text": "The image shows a man and a woman sitting on a bench in a garden. They are embracing each other tigh"
+    },
+    {
+      "start_sec": 293.2,
+      "end_sec": 295.8,
+      "caption": "Crows caw and birds chirp in the background.",
+      "raw_caption": "Crows cawing and birds chirping can be heard.",
+      "families": [
+        "crow",
+        "animal",
+        "bird"
+      ],
+      "scene_text": "The image is a still from a Malayalam movie. It shows a man and a woman standing close together, wit"
+    },
+    {
+      "start_sec": 314.0,
+      "end_sec": 316.0,
+      "caption": "Birds chirp softly in the background of the garden.",
+      "raw_caption": "Birds can be heard chirping in the background.",
+      "families": [
+        "bird",
+        "animal"
+      ],
+      "scene_text": "The image shows a man and a woman in a romantic embrace. They are standing in a garden with green pl"
+    }
+  ],
+  "raw_events": 593,
+  "deduped_events": 149,
+  "speech_segments": 34
+}

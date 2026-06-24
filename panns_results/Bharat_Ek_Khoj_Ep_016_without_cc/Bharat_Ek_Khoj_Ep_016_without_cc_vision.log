@@ -1,0 +1,110 @@
+2026-06-23 16:48:25,270 | INFO | Vision extraction: 105 frames over 5.3 min (20 FPM)
+2026-06-23 16:48:32,945 | INFO | [0.0s] scene='The image is a black background with white text in Hindi. The text reads "Episod' | hints=[] | expr=[]
+2026-06-23 16:48:33,018 | INFO | [3.0s] skip unstable frame (diff=36.5)
+2026-06-23 16:48:37,395 | INFO | [6.0s] scene='The trees have thick trunks and the ground is covered in greenery. In the center' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:48:43,008 | INFO | [9.1s] scene='The image is a still from a movie or TV show. It shows a person walking through ' | hints=['owl hooting', 'distant music', 'crickets chirping'] | expr=[]
+2026-06-23 16:48:48,378 | INFO | [12.1s] scene='The image is a still from a video titled "WAVES OTT FOR SLC". The ground is cove' | hints=['crowd shouting', 'fan humming', 'frogs croaking'] | expr=[]
+2026-06-23 16:48:48,436 | INFO | [15.1s] skip unstable frame (diff=25.1)
+2026-06-23 16:48:53,733 | INFO | [18.2s] scene='The trees have thick trunks and the ground is covered in greenery. In the center' | hints=['insects buzzing', 'crickets', 'footsteps on dirt'] | expr=[]
+2026-06-23 16:48:53,787 | INFO | [21.2s] skip unstable frame (diff=28.9)
+2026-06-23 16:48:53,841 | INFO | [24.2s] skip unstable frame (diff=27.5)
+2026-06-23 16:48:53,880 | INFO | [27.2s] skip unstable frame (diff=30.7)
+2026-06-23 16:48:53,932 | INFO | [30.3s] skip unstable frame (diff=31.6)
+2026-06-23 16:48:53,973 | INFO | [33.3s] skip unstable frame (diff=32.3)
+2026-06-23 16:48:54,019 | INFO | [36.3s] skip unstable frame (diff=30.4)
+2026-06-23 16:48:54,063 | INFO | [39.4s] skip unstable frame (diff=26.4)
+2026-06-23 16:48:54,094 | INFO | [42.4s] skip unstable frame (diff=30.0)
+2026-06-23 16:48:54,136 | INFO | [45.4s] skip unstable frame (diff=25.3)
+2026-06-23 16:49:00,904 | INFO | [48.4s] scene='The image is a still from a movie or TV show. It shows a person walking through ' | hints=['insects buzzing', 'crickets', 'footsteps on dirt'] | expr=[]
+2026-06-23 16:49:07,944 | INFO | [51.5s] scene='The image is a black and white photograph of a group of trees and bushes. The bu' | hints=['night insects', 'wind', 'insects buzzing'] | expr=[]
+2026-06-23 16:49:07,996 | INFO | [54.5s] skip unstable frame (diff=37.8)
+2026-06-23 16:49:08,034 | INFO | [57.6s] skip unstable frame (diff=34.7)
+2026-06-23 16:49:08,078 | INFO | [60.6s] skip unstable frame (diff=25.0)
+2026-06-23 16:49:14,589 | INFO | [63.6s] scene='The image shows two women standing in a field of tall grass and bushes. They app' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:49:20,943 | INFO | [66.6s] scene='The image shows two people, a man and a woman, standing in a field of tall grass' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:49:27,024 | INFO | [69.7s] scene='The image shows two women standing in a field of tall grass and bushes. They app' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:49:32,969 | INFO | [72.7s] scene='The image shows two women standing in a field of tall grass and bushes. They app' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:49:39,191 | INFO | [75.7s] scene='The image shows two women standing in a field of tall grass and bushes. They app' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:49:45,035 | INFO | [78.8s] scene='The person on the left is wearing a red shirt and is standing in the center of t' | hints=['owl hooting', 'distant music', 'crickets chirping'] | expr=[]
+2026-06-23 16:49:45,079 | INFO | [81.8s] skip unstable frame (diff=47.3)
+2026-06-23 16:49:45,124 | INFO | [84.8s] skip unstable frame (diff=41.8)
+2026-06-23 16:49:45,166 | INFO | [87.8s] skip unstable frame (diff=34.1)
+2026-06-23 16:49:45,204 | INFO | [90.9s] skip unstable frame (diff=28.5)
+2026-06-23 16:49:52,025 | INFO | [93.9s] scene='The image shows a scene from a movie or TV show. It shows three people, two wome' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:49:52,073 | INFO | [96.9s] skip unstable frame (diff=36.2)
+2026-06-23 16:49:52,120 | INFO | [100.0s] skip unstable frame (diff=36.1)
+2026-06-23 16:49:52,157 | INFO | [103.0s] skip unstable frame (diff=39.6)
+2026-06-23 16:49:59,232 | INFO | [106.0s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['owl hooting', 'distant music', 'crickets chirping'] | expr=[]
+2026-06-23 16:50:08,119 | INFO | [109.0s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['owl hooting', 'distant music', 'crickets chirping'] | expr=[]
+2026-06-23 16:50:16,104 | INFO | [112.1s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['owl hooting', 'distant music', 'crickets chirping'] | expr=[]
+2026-06-23 16:50:23,167 | INFO | [115.1s] scene='The image shows three people sitting on the ground in a wooded area. The person ' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:50:30,257 | INFO | [118.1s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['owl hooting', 'distant music', 'crickets chirping'] | expr=[]
+2026-06-23 16:50:37,353 | INFO | [121.2s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['owl hooting', 'distant music', 'crickets chirping'] | expr=[]
+2026-06-23 16:50:37,406 | INFO | [124.2s] skip unstable frame (diff=39.0)
+2026-06-23 16:50:37,437 | INFO | [127.2s] skip unstable frame (diff=39.2)
+2026-06-23 16:50:37,490 | INFO | [130.2s] skip unstable frame (diff=49.0)
+2026-06-23 16:50:37,527 | INFO | [133.3s] skip unstable frame (diff=34.3)
+2026-06-23 16:50:42,599 | INFO | [136.3s] scene='The image is a still from a movie or TV show. He is standing in a wooded area wi' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:50:42,653 | INFO | [139.4s] skip unstable frame (diff=43.8)
+2026-06-23 16:50:48,613 | INFO | [142.4s] scene='The image is a still from a movie or TV show. It shows a close-up of a man's fac' | hints=['insects buzzing', 'crickets', 'footsteps on dirt'] | expr=[]
+2026-06-23 16:50:54,595 | INFO | [145.4s] scene='The image is a still from a movie or TV show. It shows a close-up of a man's fac' | hints=['insects buzzing', 'crickets', 'footsteps on dirt'] | expr=[]
+2026-06-23 16:50:54,650 | INFO | [148.4s] skip unstable frame (diff=39.5)
+2026-06-23 16:51:01,059 | INFO | [151.5s] scene='The image is a still from a movie or TV show. He is standing in a wooded area wi' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:51:06,601 | INFO | [154.5s] scene='The image is a still from a movie or TV show. It shows a young man wearing a whi' | hints=['insects buzzing', 'crickets', 'footsteps on dirt'] | expr=[]
+2026-06-23 16:51:12,091 | INFO | [157.5s] scene='The image is a still from a movie or TV show. It shows a close-up of a person's ' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:51:12,132 | INFO | [160.6s] skip unstable frame (diff=40.5)
+2026-06-23 16:51:12,188 | INFO | [163.6s] skip unstable frame (diff=42.6)
+2026-06-23 16:51:17,378 | INFO | [166.6s] scene='The person appears to be in a forest or wooded area, with trees and bushes in th' | hints=['insects buzzing', 'crickets', 'footsteps on dirt'] | expr=[]
+2026-06-23 16:51:22,631 | INFO | [169.6s] scene='The image is a still from a movie or TV show. It shows a young man wearing a whi' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:51:22,696 | INFO | [172.7s] skip unstable frame (diff=51.2)
+2026-06-23 16:51:22,746 | INFO | [175.7s] skip unstable frame (diff=42.2)
+2026-06-23 16:51:22,797 | INFO | [178.7s] skip unstable frame (diff=41.0)
+2026-06-23 16:51:22,836 | INFO | [181.8s] skip unstable frame (diff=41.5)
+2026-06-23 16:51:22,890 | INFO | [184.8s] skip unstable frame (diff=45.3)
+2026-06-23 16:51:27,623 | INFO | [187.8s] scene='The image is a still from a movie or TV show. He is standing in a wooded area wi' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:51:32,516 | INFO | [190.8s] scene='He appears to be deep in thought, with his eyes closed and his head tilted downw' | hints=['running', 'horses', 'wind'] | expr=[]
+2026-06-23 16:51:32,566 | INFO | [193.9s] skip unstable frame (diff=46.6)
+2026-06-23 16:51:32,612 | INFO | [196.9s] skip unstable frame (diff=59.8)
+2026-06-23 16:51:32,657 | INFO | [199.9s] skip unstable frame (diff=25.7)
+2026-06-23 16:51:32,714 | INFO | [203.0s] skip unstable frame (diff=27.6)
+2026-06-23 16:51:32,770 | INFO | [206.0s] skip unstable frame (diff=32.4)
+2026-06-23 16:51:32,819 | INFO | [209.0s] skip unstable frame (diff=27.8)
+2026-06-23 16:51:32,864 | INFO | [212.0s] skip unstable frame (diff=37.7)
+2026-06-23 16:51:32,908 | INFO | [215.1s] skip unstable frame (diff=49.2)
+2026-06-23 16:51:32,958 | INFO | [218.1s] skip unstable frame (diff=28.4)
+2026-06-23 16:51:39,820 | INFO | [221.2s] scene='The image shows three people standing in a field with trees in the background. H' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:51:39,898 | INFO | [224.2s] skip unstable frame (diff=48.7)
+2026-06-23 16:51:39,975 | INFO | [227.2s] skip unstable frame (diff=41.5)
+2026-06-23 16:51:40,032 | INFO | [230.2s] skip unstable frame (diff=27.9)
+2026-06-23 16:51:40,078 | INFO | [233.3s] skip unstable frame (diff=34.6)
+2026-06-23 16:51:40,125 | INFO | [236.3s] skip unstable frame (diff=29.3)
+2026-06-23 16:51:40,167 | INFO | [239.3s] skip unstable frame (diff=28.5)
+2026-06-23 16:51:40,210 | INFO | [242.4s] skip unstable frame (diff=33.8)
+2026-06-23 16:51:40,263 | INFO | [245.4s] skip unstable frame (diff=41.6)
+2026-06-23 16:51:40,326 | INFO | [248.4s] skip unstable frame (diff=30.4)
+2026-06-23 16:51:40,398 | INFO | [251.4s] skip unstable frame (diff=36.6)
+2026-06-23 16:51:40,461 | INFO | [254.5s] skip unstable frame (diff=41.6)
+2026-06-23 16:51:40,518 | INFO | [257.5s] skip unstable frame (diff=40.4)
+2026-06-23 16:51:47,891 | INFO | [260.5s] scene='The image shows a man with long dark hair and a beard walking through a jungle-l' | hints=['night insects', 'wind', 'insects buzzing'] | expr=[]
+2026-06-23 16:51:54,253 | INFO | [263.6s] scene='The image is a still from a movie or TV show. It shows a man with long dark hair' | hints=['night insects', 'wind', 'insects buzzing'] | expr=[]
+2026-06-23 16:51:54,316 | INFO | [266.6s] skip unstable frame (diff=35.5)
+2026-06-23 16:51:54,370 | INFO | [269.6s] skip unstable frame (diff=35.0)
+2026-06-23 16:51:54,412 | INFO | [272.6s] skip unstable frame (diff=29.3)
+2026-06-23 16:51:54,462 | INFO | [275.7s] skip unstable frame (diff=38.5)
+2026-06-23 16:51:54,519 | INFO | [278.7s] skip unstable frame (diff=33.5)
+2026-06-23 16:51:54,568 | INFO | [281.7s] skip unstable frame (diff=27.6)
+2026-06-23 16:52:02,357 | INFO | [284.8s] scene='The image shows a man and a woman sitting on a bench in a garden. They are embra' | hints=['insects buzzing', 'crickets', 'wind over water'] | expr=[]
+2026-06-23 16:52:02,413 | INFO | [287.8s] skip unstable frame (diff=25.1)
+2026-06-23 16:52:02,468 | INFO | [290.8s] skip unstable frame (diff=33.0)
+2026-06-23 16:52:02,538 | INFO | [293.8s] skip unstable frame (diff=58.8)
+2026-06-23 16:52:02,634 | INFO | [296.9s] skip unstable frame (diff=46.2)
+2026-06-23 16:52:10,834 | INFO | [299.9s] scene='The image is a still from a Malayalam movie. It shows a man and a woman standing' | hints=['insects buzzing', 'crickets', 'footsteps on dirt'] | expr=['smiling']
+2026-06-23 16:52:10,918 | INFO | [303.0s] skip unstable frame (diff=52.1)
+2026-06-23 16:52:11,015 | INFO | [306.0s] skip unstable frame (diff=51.4)
+2026-06-23 16:52:11,083 | INFO | [309.0s] skip unstable frame (diff=30.5)
+2026-06-23 16:52:19,426 | INFO | [312.0s] scene='The image shows a man and a woman in a romantic embrace. They are standing in a ' | hints=['night insects', 'wind', 'insects buzzing'] | expr=[]
+2026-06-23 16:52:19,473 | INFO | [315.1s] skip unstable frame (diff=51.3)
+2026-06-23 16:52:19,553 | INFO | Vision log: 36 frames → panns_pyannote_results\Bharat_Ek_Khoj_Ep_016_without_cc\florence_log.jsonl
+2026-06-23 16:52:19,553 | INFO | 
+Stage 1 done. Stage 2:
+  python pann_pyannote.py --video data\Bharat_Ek_Khoj_Ep_016_without_cc.mp4 --florence-log panns_pyannote_results\Bharat_Ek_Khoj_Ep_016_without_cc\florence_log.jsonl
