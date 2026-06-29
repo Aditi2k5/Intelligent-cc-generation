@@ -27,7 +27,7 @@ print(f"\nGPU: {torch.cuda.get_device_name(0)}\n")
 SAMPLE_RATE          = 32000
 WINDOW_SEC           = 0.96
 HOP_SEC              = 0.20
-FRAMES_PER_MINUTE    = 20
+FRAMES_PER_MINUTE    = 10
 SCENE_WINDOW_SEC     = 8.0
 DEDUP_GAP_SEC        = 1.5
 BURST_GAP_SEC        = 2.0       # events closer than this merge into one caption
@@ -467,7 +467,7 @@ def extract_vision_log(video_path: str, output_path: Path, logger):
                 with torch.no_grad():
                     ids = fm.generate(input_ids=inputs["input_ids"],
                                       pixel_values=inputs["pixel_values"],
-                                      max_new_tokens=512)
+                                      max_new_tokens=256)
                 return fp.batch_decode(ids, skip_special_tokens=True)[0].strip()
 
             scene_cap  = run_florence("<MORE_DETAILED_CAPTION>")
@@ -1139,7 +1139,7 @@ def main():
     if not video_path.exists():
         print(f"Video not found: {video_path}"); return
 
-    out = Path("panns_pyannote_results") / video_path.stem
+    out = Path("results_v3") / video_path.stem
     out.mkdir(parents=True, exist_ok=True)
 
     if args.extract_vision:
