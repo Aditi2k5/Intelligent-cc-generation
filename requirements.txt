@@ -1,7 +1,26 @@
-tensorflow>=2.12.0
-tensorflow-hub>=0.13.0
-mediapipe>=0.10.0
-opencv-python>=4.8.0
-numpy>=1.24.0
-soundfile>=0.12.1
-librosa>=0.10.0
+# Core ML & Deep Learning
+numpy==1.26.4
+packaging==24.1
+
+# PyTorch (CUDA 12.1)
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.4.1+cu121
+torchvision==0.19.1+cu121
+torchaudio==2.4.1+cu121
+
+# Hugging Face Stack (Stable versions for Florence-2)
+huggingface_hub==0.25.2
+transformers==4.46.3
+sentence-transformers==3.1.1
+jinja2
+
+# Audio Processing
+panns_inference
+soundfile
+
+# Computer Vision
+opencv-python
+Pillow
+
+# Utilities
+python-dotenv

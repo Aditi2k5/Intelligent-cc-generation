@@ -1,18 +1,20 @@
 import os, sys, subprocess, tempfile, shutil, json, logging, re, argparse
 from pathlib import Path
-from datetime import timedelta
+import random
+from datetime import timedelta, datetime
 from collections import defaultdict
-
+from venv import logger
+import csv
 import numpy as np
 import soundfile as sf
 import cv2
 import torch
 import torchaudio
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from transformers import AutoProcessor, AutoModelForCausalLM
 from sentence_transformers import SentenceTransformer, util
 from panns_inference import AudioTagging
-from dotenv import load_dotenv   # ADD THIS
+from dotenv import load_dotenv  
 load_dotenv()
 
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
@@ -32,10 +34,10 @@ SCENE_WINDOW_SEC     = 8.0
 DEDUP_GAP_SEC        = 1.5
 BURST_GAP_SEC        = 2.0       # events closer than this merge into one caption
 PALETTE_SIZE         = 20
-SEMANTIC_THRESHOLD   = 0.17
-W_AUDIO              = 0.55
-W_PALETTE            = 0.45
-ACCEPT_THRESHOLD     = 0.12      # lowered slightly; speech gate is now hard not soft
+SEMANTIC_THRESHOLD   = 0.24      # short-phrase embeddings
+W_AUDIO              = 0.65      # trust real audio 
+W_PALETTE            = 0.35      
+ACCEPT_THRESHOLD     = 0.12      
 FRAME_STABILITY_THRESHOLD = 25.0
 USE_NOISE_REDUCTION  = True
 GENERATE_FINAL_VIDEO = True
@@ -50,29 +52,111 @@ CLASS_THRESHOLD_KEYWORDS = [
     (["rustl"],                             0.028),
     (["creak", "creaking"],                 0.028),
     (["wood"],                              0.032),
-    (["cricket"],                           0.028),
-    (["insect"],                            0.048),
+    (["cricket"],                           0.07),
+    (["insect"],                            0.09),
     (["wind noise"],                        0.045),
     (["wind"],                              0.038),
-    (["laughter"],                          0.030),
-    (["giggle"],                            0.028),
-    (["chuckle", "chortle"],                0.032),
-    (["belly laugh"],                       0.035),
+    (["laughter"],                          0.025),
+    (["giggle"],                            0.022),
+    (["chuckle", "chortle"],                0.025),
+    (["belly laugh"],                       0.028),
     (["walk", "footstep"],                  0.028),
     (["run", "jog"],                        0.042),
-    (["music"],                             0.095),
-    (["musical instrument"],                0.060),
+    (["music"],                             0.06),
+    (["musical instrument"],                0.055),
+    (["tabla", "sitar", "dhol", "shehnai"], 0.030),
     (["drum"],                              0.048),
+    (["owl", "hoot"],                       0.35),
     (["plucked string"],                    0.048),
     (["singing"],                           0.075),
     (["crowd", "cheering", "chatter"],      0.055),
     (["water", "stream", "splash", "rain"], 0.038),
     (["thunder"],                           0.045),
     (["fire", "crackling"],                 0.032),
-    (["animal", "cattle", "dog", "cat"],    0.038),
+    (["cattle", "sheep", "cow"],            0.025),
+    # Generic / rare animal classes are AudioSet's worst false-positive
+    # offenders — they fire on incidental noise, reverb, cloth rustle, etc.
+    # Give them a much higher bar than specific classes like cattle/moo.
+    (["duck", "quack", "goose", "honk"],    0.09),
+    (["wild animal", "domestic animal"],    0.09),
+    (["animal", "dog", "cat"],              0.09),
 ]
 DEFAULT_THRESHOLD = 0.052
 _threshold_cache: dict = {}
+
+SCENE_CATEGORY_KEYWORDS = {
+    "forest": ["forest", "tree", "trees", "jungle", "woods", "bushes",
+               "leaves", "branch", "greenery", "foliage"],
+    "path_walking": ["path", "walking", "walk", "trail", "road", "person walking",
+                     "footpath", "dirt road"],
+}
+
+SCENE_PHRASE_BANKS = {
+    "forest": [
+        "पत्तों की सरसराहट सुनाई दे रही है",
+        "झाड़ियों में हल्की आवाज़ है",
+        "हवा से पेड़ों की टहनियाँ हिल रही हैं",
+        "सूखी पत्तियों के चरमराने की आवाज़ है",
+        "घास में हल्की सी आवाज़ है",
+    ],
+    "path_walking": [
+        "कदमों की आहट सुनाई दे रही है",
+        "पैरों तले मिट्टी चलने की आवाज़ है",
+        "चलने की धीमी आवाज़ आ रही है",
+        "रास्ते किनारे पत्तों की सरसराहट है",
+        "घास और झाड़ियों की सरसराहट है",
+        "चलते हुए सूखी टहनियों की आवाज़ है",
+    ],
+}
+
+def classify_scene_category(scene_text: str) -> str:
+    """Match the Florence-derived visual scene description to a rough
+    setting category, so the ambient fallback can be grounded in what's
+    actually on screen instead of being setting-agnostic filler."""
+    if not scene_text:
+        return None
+    st = scene_text.lower()
+    for category, keywords in SCENE_CATEGORY_KEYWORDS.items():
+        if any(kw in st for kw in keywords):
+            return category
+    return None
+
+AMBIENT_FALLBACK_NATURE = [
+    "प्रकृति की धीमी आवाज़ सुनाई दे रही है",
+    "बाहर से हल्की प्राकृतिक आवाज़ आ रही है",
+    "पेड़-पौधों के बीच हल्की आवाज़ है",
+]
+AMBIENT_FALLBACK_INDOOR = [
+    "कमरे में हल्की आवाज़ है",
+    "पास में कोई हल्की गतिविधि हो रही है",
+    "कोई हल्की आवाज़ महसूस हो रही है",
+]
+AMBIENT_FALLBACK_GENERIC = [
+    "दूर से हल्की आवाज़ आ रही है",
+    "हल्की सी आवाज़ सुनाई दे रही है",
+    "कोई हल्की आवाज़ सुनाई दे रही है",
+]
+NATURE_FAMILIES = {"animal", "bird", "insect", "cricket", "wind", "rustling",
+                    "creak", "thunder", "crow"}
+INDOOR_FAMILIES = {"footstep", "mechanisms", "rodents, rats, mice",
+                    "environmental noise"}
+
+def ambient_fallback_caption(families: list = None, scene_text: str = None) -> str:
+    """Randomised ambient fallback so the exact same sentence doesn't
+    repeat every time a low-confidence"""
+    category = classify_scene_category(scene_text)
+    if category and category in SCENE_PHRASE_BANKS:
+        return f"[{random.choice(SCENE_PHRASE_BANKS[category])}]"
+
+    fams = set(f.lower() for f in (families or []))
+    if fams & NATURE_FAMILIES:
+        pool = AMBIENT_FALLBACK_NATURE
+    elif fams & INDOOR_FAMILIES:
+        pool = AMBIENT_FALLBACK_INDOOR
+    else:
+        pool = AMBIENT_FALLBACK_GENERIC
+    return f"[{random.choice(pool)}]"
+
 
 def resolve_label_thresholds(panns_labels: list) -> dict:
     global _threshold_cache
@@ -171,17 +255,6 @@ def detect_scene_hints(text: str) -> list:
             hints.extend(scene["sound_hints"])
     return list(set(hints))
 
-CLOTHING_WORDS = {
-    "wearing", "dressed", "saari", "sari", "hoodie", "cloak", "robe", "turban",
-    "garment", "cloth", "outfit", "attire", "costume", "dhoti", "kurta", "dupatta",
-    "shawl", "veil", "uniform", "armor", "armour", "helmet", "crown",
-    "hair", "skin", "complexion", "beard", "mustache", "bald", "tall", "short",
-    "thin", "fat", "muscular", "elderly", "wrinkled",
-}
-CLOTHING_COLOUR_PATTERNS = [
-    "wearing a", "dressed in", "clothed in", "garment is", "robe is",
-    "white cloth", "red cloth", "blue cloth", "saffron robe", "yellow robe",
-]
 ACTION_WORDS = {
     "walking", "running", "standing", "sitting", "laughing", "smiling", "crying",
     "shouting", "fighting", "dancing", "talking", "looking", "approaching",
@@ -258,7 +331,6 @@ def get_silero_vad():
 def get_speech_segments(wav_path: str, logger) -> list:
     """
     Reliable speech segmentation using Silero VAD.
-    Much more stable than pyannote on Windows.
     """
     model, utils = get_silero_vad()
     (get_speech_timestamps, _, _, _, _) = utils
@@ -301,7 +373,7 @@ def get_speech_segments(wav_path: str, logger) -> list:
         segments = merged
 
     total_speech = sum(e - s for s, e in segments)
-    logger.info(f"✅ Silero detected {len(segments)} speech segments "
+    logger.info(f"Silero detected {len(segments)} speech segments "
                 f"({total_speech:.1f}s total speech)")
 
     if len(segments) == 0:
@@ -310,7 +382,7 @@ def get_speech_segments(wav_path: str, logger) -> list:
     return segments
 
 
-# ====================== SPEECH DETECTION (PYANNOTE) ======================
+# ====================== SPEECH DETECTION ======================
 
 def build_speech_mask_from_segments(segments: list, n_samples: int) -> np.ndarray:
     """Convert (start_sec, end_sec) list to a sample-level boolean mask."""
@@ -322,10 +394,18 @@ def build_speech_mask_from_segments(segments: list, n_samples: int) -> np.ndarra
     return mask
 
 def is_speech_window(start_sec: float, speech_segments: list,
-                     threshold_ratio: float = 0.25) -> bool:
+                     threshold_ratio: float = 0.15) -> bool:
+    # Lowered from 0.25 and added boundary padding: VAD segment edges are
+    # imprecise (soft/trailing speech at onset/offset often gets slightly
+    # clipped), and a 25% overlap requirement was letting some genuinely
+    # speech-containing windows through as "AMBIENT", causing non-speech
+    # captions to wrongly appear over dialogue. 
+    PAD_SEC = 0.3
     end_sec = start_sec + WINDOW_SEC
     overlap = 0.0
     for seg_start, seg_end in speech_segments:
+        seg_start -= PAD_SEC
+        seg_end   += PAD_SEC
         overlap += max(0.0, min(end_sec, seg_end) - max(start_sec, seg_start))
     return (overlap / WINDOW_SEC) >= threshold_ratio
 
@@ -373,61 +453,331 @@ def extract_audio(video_path: str, logger) -> tuple:
     data, _ = sf.read(tmp.name, dtype="float32")
     return data, tmp.name
 
+def enforce_caption_format(caption: str) -> str:
+    """Force short length, square brackets, and remove punctuation."""
+    if not caption:
+        return "[sound]"
+
+    # Remove existing brackets
+    caption = caption.replace("[", "").replace("]", "").strip()
+
+    # Remove punctuation
+    caption = caption.replace(".", "").replace(",", "").replace("!", "").replace("?", "").strip()
+
+    # Limit to ~10 words max
+    words = caption.split()
+    if len(words) > 10:
+        caption = " ".join(words[:10])
+
+    # Add square brackets
+    if not caption.startswith("["):
+        caption = "[" + caption
+    if not caption.endswith("]"):
+        caption = caption + "]"
+
+    return caption
+
+def group_into_bursts(events: list, gap_sec: float = 1.5) -> list:
+    """
+    Group consecutive audio events into bursts if they are close in time.
+    """
+    if not events:
+        return []
+
+    bursts = []
+    current_burst = [events[0]]
+
+    for ev in events[1:]:
+        if ev["timestamp_sec"] - current_burst[-1]["timestamp_sec"] <= gap_sec:
+            current_burst.append(ev)
+        else:
+            bursts.append(current_burst)
+            current_burst = [ev]
+
+    bursts.append(current_burst)
+    return bursts
+
 # ====================== CAPTION RENDERING ======================
-def render_caption(frame: np.ndarray, text: str) -> np.ndarray:
-    """Renders text on frame with automatic two-line wrapping and adaptive
-    font scaling. Black outline ensures readability on any background."""
-    h, w = frame.shape[:2]
-    font  = cv2.FONT_HERSHEY_SIMPLEX
-    thick = 2
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from langsmith import traceable
 
-    def text_width(t, scale):
-        return cv2.getTextSize(t, font, scale, thick)[0][0]
+# ====================== LANGCHAIN + LANGSMITH SETUP ======================
+llm = ChatOpenAI(
+    model="gpt-4o",
+    temperature=0.06,
+    max_tokens=60,
+    api_key=OPENAI_API_KEY,
+)
 
-    # Find the largest scale that fits the full text in one line
-    scale = 0.75
-    for s in [0.75, 0.68, 0.60, 0.52]:
-        if text_width(text, s) <= w - 40:
-            scale = s
-            break
+@traceable(name="generate_hindi_caption")
+def generate_hindi_caption(raw_caption: str, scene_text: str,
+                           detected_labels, expressions: list,
+                           logger) -> str:
+    # detected_labels is a dict {family: raw_label} — use the actual raw
+    # label values (e.g. "Moo", "Dog") for GPT, not the dict's family-name
+    # keys. Joining the dict directly iterates its keys, which for some
+    # families (e.g. generic "animal") doesn't match the real label text.
+    label_values = list(detected_labels.values()) if isinstance(detected_labels, dict) else detected_labels
+    labels_str = ", ".join(label_values) if label_values else "None"
+    expr_str = ", ".join(expressions) if expressions else "None"
 
-    # If still too wide, split into two lines
-    lines = [text]
-    if text_width(text, scale) > w - 40:
+    # If the audio itself is generic/unclear, ground the fallback in what's
+    # actually on screen (visual scene text from Florence) instead of a
+    # setting-agnostic filler phrase — a forest scene suggests leaves/grass/
+    # twigs, a walking scene suggests footsteps, etc.
+    scene_category = classify_scene_category(scene_text)
+    scene_hint = ""
+    if scene_category and scene_category in SCENE_PHRASE_BANKS:
+        examples = "، ".join(SCENE_PHRASE_BANKS[scene_category][:3])
+        scene_hint = (f"\n7. If the sound is generic/unclear and no specific "
+                      f"species/instrument is detected, the visual scene looks "
+                      f"like a {scene_category.replace('_',' ')} setting — prefer "
+                      f"something concrete and plausible for that setting over "
+                      f"vague filler, e.g.: {examples}")
+
+    prompt = f"""You are a strict Hindi closed caption writer for non-speech sounds only.
+
+        Rules (follow strictly):
+        1. ONLY describe sounds that are clearly present in "Detected sounds".
+        2. If "animal"/"duck"/"wild animal"/"domestic animal" appears BUT no specific species (cattle, moo, dog, cat, horse, owl, etc.) is ALSO listed anywhere in Detected sounds, do NOT name any animal or bird species. Also do NOT use the vague filler words "पृष्ठभूमि" (background), "वातावरण" (environment/atmosphere), "आस-पास" (nearby/around), or "हलचल" (movement/stir) — they tell the viewer nothing concrete about what the sound actually is. Instead pick from (or write something similarly concrete and varied): "हल्की सी आवाज़ सुनाई दे रही है", "दूर से हल्की आवाज़ आ रही है", "कोई हल्की आवाज़ है". If a specific species IS listed, always name that species and ignore this generic rule. If MULTIPLE specific species are listed together (e.g. Moo and Roar both present), name the one that appears first in Detected sounds specifically — do NOT collapse them into a vague collective phrase like "जानवरों की आवाज़ें" (animal sounds); naming one real species beats a vague plural covering all of them.
+        3. If laughter-related labels are present, describe it as "हल्की हँसी सुनाई दे रही है".
+        4. For music, name the instrument EXACTLY as it appears in "Detected sounds" (translate faithfully, do not substitute a different instrument):
+        - Tabla → "संगीत के साथ तबला बज रहा है"
+        - Sitar → "संगीत के साथ सितार बज रहा है"
+        - Dhol → "संगीत के साथ ढोल बज रहा है"
+        - Shehnai → "संगीत के साथ शहनाई बज रहा है"
+        - Flute → "संगीत के साथ बांसुरी बज रहा है"
+        - Harmonium → "संगीत के साथ हारमोनियम बज रहा है"
+        - Violin → "संगीत के साथ वायलिन बज रहा है"
+        - No specific instrument named in Detected sounds → "संगीत बज रहा है" (do NOT default to tabla when no instrument is specified)
+        - Generic "Drum"/"Bass drum"/"Drum kit"/"Percussion" (not Tabla/Sitar specifically) → "ढोल-नगाड़े जैसी थाप सुनाई दे रही है"
+        5. For crow-cawing sounds, ALWAYS use exactly this phrasing: "कौआ काँव-काँव कर रहा है" (do not use "कौए की", "कौवा", or any other variant/case form). For owl sounds, use "उल्लू की आवाज़ सुनाई दे रही है".
+        6. Never describe time of day (रात/night, दिन/day) — you only know what was HEARD, not what time it is. Describe only the sound itself.{scene_hint}
+        8. Keep captions short (max 7-8 words). No punctuation. Output ONLY inside square brackets [].
+        9. Never describe visuals or actions. Only describe what can be HEARD.
+
+        Detected sounds: {labels_str}
+        Expressions: {expr_str}
+        Original: {raw_caption}
+
+        Output ONLY the caption in this exact format: [short hindi text]"""
+
+    try:
+        messages = [HumanMessage(content=prompt)]
+        response = llm.invoke(messages)
+        
+        caption = response.content.strip()
+        return caption
+
+    except Exception as e:
+        logger.error(f"LangChain GPT error in generate_hindi_caption: {e}")
+        return ambient_fallback_caption(scene_text=scene_text)
+
+
+@traceable(name="polish_hindi_caption")
+def polish_hindi_caption(caption: str, detected_labels, logger) -> str:
+    label_values = list(detected_labels.values()) if isinstance(detected_labels, dict) else detected_labels
+    labels_str = ", ".join(label_values) if label_values else "None"
+
+    prompt = f"""You are a Hindi closed caption editor.
+
+        Strict Rules:
+        1. Keep it short and natural (max 7-8 words).
+        2. Use square brackets [] only. No punctuation.
+        3. If the caption names an animal/bird species (including "जानवर", "बत्तख", "हंस") but no specific species is in Detected sounds, replace it with a generic ambient description — vary the wording, don't reuse the exact same sentence every time.
+        4. For music, keep whichever specific instrument (tabla/sitar/dhol/shehnai/flute/harmonium/violin) is already named in the caption — do not change it to a different instrument, and do not add "तबला" unless it was already there.
+        5. Output ONLY the improved caption inside square brackets.
+
+        Detected sounds: {labels_str}
+        Current caption: {caption}
+
+        Output ONLY the polished caption in square brackets."""
+
+    try:
+        messages = [HumanMessage(content=prompt)]
+        response = llm.invoke(messages)
+        
+        polished = response.content.strip()
+        return polished
+
+    except Exception as e:
+        logger.error(f"LangChain GPT error in polish_hindi_caption: {e}")
+        return caption
+
+
+
+def fix_hindi_issues(caption: str) -> str:
+    # Fix crow word: standard spelling is कौआ (nominative) / कौए (oblique,
+    # used before "की"). Normalize all common variants GPT might produce.
+    for variant in ["कौवा", "कव्वा", "काऊआ"]:
+        caption = caption.replace(variant, "कौआ")
+    for variant in ["कौवे", "कव्वे"]:
+        caption = caption.replace(variant, "कौए")
+
+    # Fix crow's call matra: the nasalized "kaanv" sound on आ (a vowel with
+    # no ascender) takes chandrabindu (ँ), not anusvara (ं).
+    caption = caption.replace("कांव", "काँव")
+
+    caption = caption.replace("कौवा काँव-काँव", "कौआ काँव-काँव")
+    caption = caption.replace("कौए की काँव-काँव", "कौआ काँव-काँव")
+    caption = caption.replace("कौआ की आवाज", "कौए की आवाज")
+    caption = caption.replace("कौए की आवाज", "कौए की आवाज़")
+    caption = caption.replace("कीटों की आवाज़", "कीड़ों की आवाज़")
+
+    # Removes any mention of vague phrases of aas paas GPT doesn't reliably follow the prompt
+    # instruction against these words, so enforce it here unconditionally on every caption rather than relying on GPT to comply.
+    if "आस-पास" in caption or "आसपास" in caption or "हलचल" in caption or "इर्द-गिर्द" in caption:
+        caption = caption.replace("आस-पास", "").replace("आसपास", "")
+        caption = caption.replace("इर्द-गिर्द", "")
+        caption = caption.replace("हलचल", "आवाज़")
+        caption = caption.replace("  ", " ").strip()
+        caption = caption.replace(" की आवाज़ सुनाई", " आवाज़ सुनाई")
+        if caption in ("[]", "[ ]", ""):
+            caption = "[हल्की सी आवाज़ सुनाई दे रही है]"
+
+    # Fix incomplete captions
+    if caption.strip() == "[संगीत]":
+        caption = "[संगीत सुनाई दे रहा है]"
+    if "सुनाई दे रही]" in caption and "है" not in caption:
+        caption = caption.replace("सुनाई दे रही]", "सुनाई दे रही है]")
+
+    return caption
+
+
+def render_caption(frame: np.ndarray, text: str,
+                   font_path: str = "TiroDevanagariHindi-Italic.ttf",
+                   font_size: int = 26,
+                   max_width_ratio: float = 0.82) -> np.ndarray:
+    """
+    Renders clean, professional Hindi subtitles on video frames.
+    """
+    if not text or not text.strip():
+        return frame
+
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+        import os
+
+        h, w = frame.shape[:2]
+        img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        draw = ImageDraw.Draw(img)
+
+        # === Smart Font Loading (prioritizes your folder) ===
+        font = None
+        possible_paths = [
+            font_path,                                           
+            os.path.join(os.getcwd(), font_path),                
+            os.path.join(os.path.dirname(__file__), font_path),  
+            r"C:\Windows\Fonts\TiroDevanagari-Regular.ttf",      
+        ]
+
+        for path in possible_paths:
+            if path and os.path.exists(path):
+                try:
+                    font = ImageFont.truetype(path, font_size)
+                    break
+                except:
+                    continue
+
+        if font is None:
+            font = ImageFont.load_default()
+            logger.warning("Tiro Devanagari font not found. Using default.")
+
+        # === Word Wrapping (max 2 lines) ===
+        max_text_width = int(w * max_width_ratio)
+        lines = []
         words = text.split()
-        mid = len(words) // 2
-        for attempt in range(min(4, len(words))):
-            for offset in [attempt, -attempt]:
-                idx = mid + offset
-                if 1 <= idx < len(words):
-                    l1 = " ".join(words[:idx])
-                    l2 = " ".join(words[idx:])
-                    if text_width(l1, scale) <= w - 40 and text_width(l2, scale) <= w - 40:
-                        lines = [l1, l2]
-                        break
+        current_line = ""
+
+        for word in words:
+            test_line = current_line + " " + word if current_line else word
+            bbox = draw.textbbox((0, 0), test_line, font=font)
+            if bbox[2] - bbox[0] <= max_text_width:
+                current_line = test_line
             else:
-                continue
-            break
+                if current_line:
+                    lines.append(current_line)
+                current_line = word
+        if current_line:
+            lines.append(current_line)
 
-    line_h   = cv2.getTextSize("A", font, scale, thick)[0][1]
-    bar_h    = len(lines) * (line_h + 14) + 18
-    overlay  = frame.copy()
-    cv2.rectangle(overlay, (0, h - bar_h), (w, h), (0, 0, 0), -1)
-    cv2.addWeighted(overlay, 0.70, frame, 0.30, 0, frame)
+        if len(lines) > 2:
+            lines = lines[:2]   # Force max 2 lines
 
-    for i, line in enumerate(lines):
-        tw = text_width(line, scale)
-        tx = max(20, (w - tw) // 2)
-        ty = h - 16 - (len(lines) - 1 - i) * (line_h + 14)
-        # Outline pass
-        cv2.putText(frame, line, (tx, ty), font, scale, (0, 0, 0), thick + 2, cv2.LINE_AA)
-        # Text pass
-        cv2.putText(frame, line, (tx, ty), font, scale, (255, 255, 255), thick, cv2.LINE_AA)
-    return frame
+        # === Calculate text block size ===
+        line_heights = []
+        line_widths = []
+        for line in lines:
+            bbox = draw.textbbox((0, 0), line, font=font)
+            line_widths.append(bbox[2] - bbox[0])
+            line_heights.append(bbox[3] - bbox[1])
 
-def annotate_frame(frame: np.ndarray, text: str, path: Path):
-    render_caption(frame.copy(), text)
-    cv2.imwrite(str(path), frame)
+        text_block_width = max(line_widths) if line_widths else 0
+        text_block_height = sum(line_heights) + (len(lines) - 1) * 8
+
+        # === Background Box ===
+        padding_x = 28
+        padding_y = 16
+        box_width = text_block_width + 2 * padding_x
+        box_height = text_block_height + 2 * padding_y
+
+        margin_bottom = 48
+        x = (w - box_width) // 2
+        y = h - box_height - margin_bottom
+
+        # Semi-transparent rounded background
+        overlay = Image.new('RGBA', img.size, (0, 0, 0, 0))
+        overlay_draw = ImageDraw.Draw(overlay)
+        overlay_draw.rounded_rectangle(
+            [x, y, x + box_width, y + box_height],
+            radius=14,
+            fill=(0, 0, 0, 215)
+        )
+        img = Image.alpha_composite(img.convert('RGBA'), overlay).convert('RGB')
+        draw = ImageDraw.Draw(img)
+
+        # === Draw text with shadow ===
+        shadow_offset = 2
+        for i, line in enumerate(lines):
+            line_y = y + padding_y + sum(line_heights[:i]) + i * 8 + shadow_offset
+            line_x = x + padding_x + (text_block_width - line_widths[i]) // 2
+            draw.text((line_x + shadow_offset, line_y), line, font=font, fill=(0, 0, 0, 180))
+
+        for i, line in enumerate(lines):
+            line_y = y + padding_y + sum(line_heights[:i]) + i * 8
+            line_x = x + padding_x + (text_block_width - line_widths[i]) // 2
+            draw.text((line_x, line_y), line, font=font, fill=(255, 255, 255))
+
+        return cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+
+    except Exception as e:
+        logger.warning(f"render_caption failed: {e}")
+        return frame
+    
+def annotate_frame(frame, caption_text, output_path):
+    rendered_frame = render_caption(frame.copy(), caption_text)
+    cv2.imwrite(str(output_path), rendered_frame)
+
+def normalize_hindi_caption(caption: str) -> str:
+    """Standardize common phrases for consistency."""
+    caption = caption.strip()
+    
+    # Standardize bird sounds
+    if "पक्षी" in caption or "चहचहाहट" in caption or "चिड़िया" in caption:
+        if "पेड़ों के बीच" not in caption:
+            caption = caption.replace("पक्षियों की आवाज़ गूंज रही है", "पक्षियों की चहचहाहट सुनाई दे रही है")
+    
+    # Standardize music
+    if "संगीत" in caption:
+        caption = caption.replace("संगीत की मधुर धुन गूंज रही है", "संगीत की धुन सुनाई दे रही है")
+        caption = caption.replace("चारों ओर मधुर संगीत गूंज रहा है", "संगीत की धुन सुनाई दे रही है")
+
+    # Remove repetitive or robotic phrases
+    caption = caption.replace("सुनाई दे रही है।", "सुनाई दे रही है")
+    caption = caption.replace("गूंज रही है।", "गूंज रही है")
+
+    return caption
 
 # ====================== STAGE 1: VISION LOG ======================
 def extract_vision_log(video_path: str, output_path: Path, logger):
@@ -585,7 +935,7 @@ def get_scene_at(t: float, scene_index: list) -> dict:
 def detect_audio_events(waveform: np.ndarray, scene_index: list,
                          speech_segments: list, logger) -> list:
     logger.info("=" * 65)
-    logger.info("AUDIO ANALYSIS — PANNs detection with pyannote speech gate")
+    logger.info("AUDIO ANALYSIS — PANNs detection with SileroVAD speech gate")
     logger.info("=" * 65)
 
     panns_model = get_panns()
@@ -607,8 +957,6 @@ def detect_audio_events(waveform: np.ndarray, scene_index: list,
             chunk = np.pad(chunk, (0, win_samples - len(chunk)))
 
         # ---- HARD SPEECH GATE ----
-        # If pyannote flagged this window as speech (even 25% overlap),
-        # skip it entirely. No ambient caption is ever shown during speech.
         if is_speech_window(start_sec, speech_segments, threshold_ratio=0.25):
             logger.debug(f"[{start_sec:.2f}s] SPEECH — skipped")
             start += hop_samples
@@ -637,9 +985,7 @@ def detect_audio_events(waveform: np.ndarray, scene_index: list,
             thresh = get_class_threshold(label)
             if raw < thresh: continue
 
-            # No VAD penalty — speech windows are hard-gated above, so any
-            # window reaching here is definitively non-speech. Applying a
-            # speech penalty here just hurts recall for no benefit.
+            # No VAD penalty — speech windows are hard-gated above, so any window reaching here is definitively non-speech. 
             palette_score = palette.get(label, 0.0)
             combined      = W_AUDIO * raw + W_PALETTE * palette_score
             passed        = combined >= ACCEPT_THRESHOLD
@@ -685,6 +1031,26 @@ def detect_audio_events(waveform: np.ndarray, scene_index: list,
         if best:
             events.append(best)
 
+        NAMED_INSTRUMENTS = {"tabla", "sitar", "dhol", "shehnai",
+                             "flute", "harmonium", "violin"}
+        for c in candidates:
+            if not c["pass"]:
+                continue
+            if c["label"].lower() not in NAMED_INSTRUMENTS:
+                continue
+            if best and c["label"] == best["label"]:
+                continue  # already recorded as the winner event above
+            events.append({
+                "timestamp_sec":      round(start_sec, 2),
+                "label":              c["label"],
+                "raw_confidence":     c["raw"],
+                "palette_score":      c["palette"],
+                "combined_score":     c["combined"],
+                "should_caption":     True,
+                "scene_text":         scene["scene_text"][:120],
+                "expressions":        scene.get("expressions", []),
+            })
+
         start += hop_samples
 
     accepted = sum(1 for e in events if e["should_caption"])
@@ -705,6 +1071,57 @@ def dedup_events(events: list) -> list:
     merged.sort(key=lambda e: e["timestamp_sec"])
     return merged
 
+SPECIFIC_ANIMAL_LABELS = {
+    "cattle, bovinae", "moo", "cow", "livestock, farm animals, working animals",
+    "dog", "bark", "bow-wow", "canidae, dogs, wolves",
+    "cat", "meow", "purr",
+    "horse", "neigh, whinny", "clip-clop",
+    "owl", "hoot",
+}
+
+def filter_labels_for_caption(events: list, min_combined_score: float = 0.18) -> list:
+    """
+    Filter out weak detections before sending to LLM.
+    This is the fix against random animal captions.
+    """
+    filtered = []
+    for ev in events:
+        score = ev.get("combined_score", 0)
+        label = ev.get("label", "")
+        fam   = _family(label)
+
+        if fam == "animal" and label.lower() not in SPECIFIC_ANIMAL_LABELS:
+            # Higher bar for generic/rare animal classes (Animal, Duck,
+            # Wild animals, Domestic animals, etc.) — these are AudioSet's
+            # noisiest classes and need strong, unambiguous evidence.
+            if score < 0.28:
+                continue
+
+        if score >= min_combined_score:
+            filtered.append(ev)
+
+    return filtered
+
+
+def final_cleanup(caption: str, detected_labels, scene_text: str = None) -> str:
+    """
+    Post-processing safety net to catch remaining generic animal captions.
+    """
+    caption_lower = caption.lower()
+    label_values = list(detected_labels.values()) if isinstance(detected_labels, dict) else detected_labels
+    labels_str = " ".join(label_values).lower()
+    
+    # If caption mentions any animal (generic or specific, incl. duck/goose)
+    # but we don't have strong, specific-species evidence, downgrade it.
+    ANIMAL_MENTION_WORDS = ["जानवरों की आवाज़", "जानवर", "बत्तख", "हंस"]  # animal(s), duck, goose
+    if any(w in caption for w in ANIMAL_MENTION_WORDS):
+        strong_animal = any(x in labels_str for x in
+                             ["cattle", "moo", "cow", "dog", "cat", "horse"])
+        if not strong_animal:
+            caption = ambient_fallback_caption(["animal"], scene_text)
+
+    return caption
+
 # ====================== OPENAI CAPTION REFINEMENT ======================
 def _gender_from_scene(scene_text: str) -> str:
     st = scene_text.lower()
@@ -715,8 +1132,11 @@ def _gender_from_scene(scene_text: str) -> str:
     return "unknown"
 
 def refine_caption_with_openai(raw_caption: str, scene_text: str,
-                                 detected_labels: list,
-                                 expressions: list, logger) -> str:
+                               detected_labels: list,
+                               expressions: list, logger) -> str:
+    """
+    Generates natural, grammatically correct Hindi captions.
+    """
     if not OPENAI_API_KEY:
         return raw_caption
 
@@ -724,37 +1144,78 @@ def refine_caption_with_openai(raw_caption: str, scene_text: str,
         import openai
         client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
-        gender = _gender_from_scene(scene_text)
-        gender_note = f" The person in frame appears to be {gender}." if gender != "unknown" else ""
+        gender = _gender_from_scene(scene_text) if '_gender_from_scene' in globals() else "unknown"
+        gender_note = f" व्यक्ति {gender} प्रतीत होता है।" if gender != "unknown" else ""
 
-        prompt = (
-            f"You are writing closed captions for a deaf viewer watching an old Indian TV drama. "
-            f"Rewrite the following as ONE natural, clear English sentence. "
-            f"Maximum 12 words. Do not invent sounds not in the detected list. "
-            f"Use present tense. Be specific and natural — write as a professional subtitler would.\n\n"
-            f"Detected audio labels: {', '.join(detected_labels)}\n"
-            f"Scene description: {scene_text[:200]}\n"
-            f"Visible expressions: {', '.join(expressions) if expressions else 'none'}\n"
-            f"{gender_note}\n"
-            f"Draft caption: {raw_caption}\n\n"
-            f"Refined caption (ONE sentence, max 12 words, no quotes):"
-        )
+        prompt = f"""You are a professional Hindi subtitle writer for Indian TV dramas and accessibility content.
+
+            Rewrite the following caption into **natural, correct and professional Hindi**.
+
+            Strict Rules:
+            - Use proper Hindi grammar with correct matras (मात्राएँ).
+            - NEVER repeat the word "पृष्ठभूमि" more than once in the sentence.
+            - Avoid robotic phrases like "पृष्ठभूमि में", "सुना जा सकता है", "आवाज़ आ रही है" repeatedly.
+            - Make it sound like natural spoken Hindi used in good subtitles.
+            - Maximum 12 words.
+            - Do not invent any sounds that are not in the detected labels.
+            - Vary the sentence structure. Make it feel human-written.
+
+            Detected non-speech sounds: {', '.join(detected_labels)}
+            Scene context: {scene_text[:200]}
+            {gender_note}
+            Original caption: {raw_caption}
+
+            Write ONLY the improved Hindi caption. Do not add any explanation."""
 
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=60,
-            temperature=0.2,
+            max_tokens=80,
+            temperature=0.3,
         )
-        refined = response.choices[0].message.content.strip().strip('"').strip("'")
-        # Sanity check: must be a sentence, not too long
-        if refined and len(refined.split()) <= 16 and len(refined) > 5:
-            logger.info(f"  GPT refined: '{raw_caption}' → '{refined}'")
-            return refined
-        return raw_caption
+
+        hindi_caption = response.choices[0].message.content.strip().strip('"').strip("'")
+
+        # Safety check: if still repetitive, fall back
+        if hindi_caption.count("पृष्ठभूमि") >= 2:
+            logger.warning("GPT still produced repetitive 'पृष्ठभूमि'. Using cleaned version.")
+            return _clean_hindi_caption(raw_caption)
+
+        return hindi_caption
+
     except Exception as e:
-        logger.warning(f"OpenAI refinement failed: {e} — using rule-based caption")
+        logger.warning(f"OpenAI Hindi generation failed: {e}")
         return raw_caption
+
+def _clean_hindi_caption(caption: str) -> str:
+    """Strong cleanup for repetitive, robotic, English-mixed, or vague Hindi.
+
+    पृष्ठभूमि ("background") is grammatically correct but tells the viewer
+    almost nothing — it could mean literally any ambient sound. Replace it
+    with phrasing that at least signals *what kind* of ambient texture it
+    is (natural vs. mechanical/crowd), picked from a varied pool so it
+    doesn't just become a new repeated filler word.
+    """
+    NATURE_ALTS = ["प्रकृति की हल्की आवाज़ें हैं",
+                   "हल्की प्राकृतिक ध्वनियाँ हैं",
+                   "दूर से हल्की सी आवाज़ आ रही है"]
+    caption = caption.replace("पृष्ठभूमि में हल्की आवाज़ें हैं", random.choice(NATURE_ALTS))
+    caption = caption.replace("पृष्ठभूमि में ", "चारों ओर ")
+    caption = caption.replace("पृष्ठभूमि ", "हल्की ")
+    caption = caption.replace("सुना जा सकता है", "")
+    caption = caption.replace("आवाज़ आ रही है", "")
+    caption = caption.replace("buzzing", "भिनभिनाहट")
+    caption = caption.replace("music", "संगीत")
+    caption = caption.replace("Music", "संगीत")
+    caption = caption.replace("background", "हल्की")
+    caption = caption.replace("आस-पास", "")
+    caption = caption.replace("आसपास", "")
+    caption = caption.replace("हलचल", "आवाज़")
+    caption = caption.replace("  ", " ").strip()
+
+    if caption:
+        caption = caption[0].upper() + caption[1:]
+    return caption
 
 # ====================== RULE-BASED CAPTION (FALLBACK) ======================
 SOUND_FAMILIES = {
@@ -772,12 +1233,14 @@ SOUND_FAMILIES = {
     "water":      ["water", "stream", "river", "splash", "rain"],
     "thunder":    ["thunder"],
     "fire":       ["fire", "crackling"],
-    "music":      ["music", "musical instrument", "drum", "plucked string",
+    "music":      ["music", "musical instrument", "plucked string",
                    "singing", "flute", "string"],
     "crowd":      ["crowd", "cheering", "chatter"],
     "animal":     ["cattle", "cow", "bull", "dog", "bark", "cat", "horse",
-                   "neigh", "frog", "animal"],
+                   "neigh", "frog", "animal", "duck", "quack", "goose",
+                   "honk", "wild animal", "domestic animal"],
     "bell":       ["bell", "ring"],
+    "siren":      ["siren", "alarm", "civil defense"],
 }
 
 def _family(label: str) -> str:
@@ -813,6 +1276,82 @@ def _rule_caption(families: list, best_labels: dict,
                   for x in ["forest","outdoor","trees","jungle","nature","path"])
     gender  = _gender_from_scene(scene_text)
 
+    # NOTE: best_labels is {family_name: raw_label}. We need the actual
+    # raw label strings here (e.g. "Tabla", "Sitar", "Moo"), not the dict
+    # keys — using keys silently broke matching for any family whose name
+    # differs from its label, and meant multi-instrument bursts always
+    # fell through to whichever check appeared first in the code below.
+    bl = [v.lower() for v in best_labels.values()]
+
+    # IMPORTANT: check for a SPECIFIC species first. "Cattle, bovinae"
+    # folds into the generic "animal" family (via the keyword list), same
+    # as plain "Animal"/"Wild animals" do — so if the blanket "only animal
+    # family present -> ambient fallback" check below ran first, a real,
+    # confidently-detected cow would get swallowed into a generic ambient
+    # sentence before we ever looked at what it actually was. Specific
+    # species must always win over the generic fallback.
+    if "moo" in bl or any("cattle" in b for b in bl):
+        return "[गाय की मूँ मूँ सुनाई दे रही है]"
+
+    if "dog" in bl or "bark" in bl or "bow-wow" in bl:
+        return "[कुत्ते के भौंकने की आवाज़ सुनाई दे रही है]"
+
+    if "cat" in bl or "meow" in bl or "purr" in bl:
+        return "[बिल्ली की म्याऊं सुनाई दे रही है]"
+
+    if "horse" in bl or any("neigh" in b for b in bl) or "clip-clop" in bl:
+        return "[घोड़े की टापों की आवाज़ सुनाई दे रही है]"
+
+    if "owl" in bl or "hoot" in bl:
+        return "[उल्लू की आवाज़ सुनाई दे रही है]"
+
+    # "Patter" was being freely interpreted by GPT as rain ("बारिश की हल्की
+    # आवाज़") with no basis.
+    if "patter" in bl:
+        return "[हल्की थपथपाहट जैसी आवाज़ सुनाई दे रही है]"
+
+    if "animal" in families and len(families) == 1:
+        return ambient_fallback_caption(families, scene_text)
+
+    if "laugh_soft" in bl or "laughter" in bl or "giggle" in bl:
+        return "[हल्की हँसी सुनाई दे रही है]"
+
+    # Instrument detection: pick whichever instrument family ranks highest instead of choosing tabla no matter what.
+    INSTRUMENT_HINDI = {
+        "tabla":   "तबला",
+        "sitar":   "सितार",
+        "dhol":    "ढोल",
+        "shehnai": "शहनाई",
+        "flute":   "बांसुरी",
+        "harmonium": "हारमोनियम",
+        "violin":  "वायलिन",
+    }
+    detected_instruments = [INSTRUMENT_HINDI[fam.lower()] for fam in families
+                            if fam.lower() in INSTRUMENT_HINDI]
+
+    # Mantra/chant: this was a real gap — it was being confidently detected
+    # (e.g. combined score 0.35+) and correctly surviving all the way into
+    # the burst's family list but none named it.
+    has_mantra = any(f.lower() in ("mantra", "chant") for f in families)
+
+    if has_mantra and detected_instruments:
+        joined = " और ".join(detected_instruments[:2])
+        return f"[मंत्रोच्चारण के साथ {joined} बज रहा है]"
+    if has_mantra:
+        return "[मंत्रों का उच्चारण सुनाई दे रहा है]"
+
+    if len(detected_instruments) == 1:
+        return f"[संगीत के साथ {detected_instruments[0]} बज रहा है]"
+    elif len(detected_instruments) >= 2:
+        # Multiple instruments genuinely detected together in the same
+        # burst — name both instead of arbitrarily picking just one.
+        joined = " और ".join(detected_instruments[:2])
+        return f"[{joined} के साथ संगीत बज रहा है]"
+
+    LARGE_DRUM_FAMILIES = {"drum", "bass drum", "drum kit", "percussion"}
+    if any(fam.lower() in LARGE_DRUM_FAMILIES for fam in families):
+        return "[ढोल-नगाड़े जैसी थाप सुनाई दे रही है]"
+
     # Laughter — gender-aware
     if "laugh_soft" in fset or "laugh_full" in fset:
         soft = "laugh_soft" in fset and "laugh_full" not in fset
@@ -826,12 +1365,7 @@ def _rule_caption(families: list, best_labels: dict,
 
     # Music
     if "music" in fset:
-        ll = best_labels.get("music", "").lower()
-        if "drum" in ll:            return "Music with drums can be heard."
-        if "plucked string" in ll:  return "Music with a string instrument can be heard."
-        if "flute" in ll:           return "Music with a flute can be heard softly."
-        if "sing" in ll:            return "Singing can be heard in the background."
-        return "Music can be heard playing in the background."
+        return "[संगीत बज रहा है]"
 
     # Walking through undergrowth — audio+vision synthesis
     walking = any(x in scene_text.lower()
@@ -839,44 +1373,81 @@ def _rule_caption(families: list, best_labels: dict,
     if outdoor and walking and fset & {"rustling", "creak", "footstep"}:
         ambient = fset & {"bird","crow","cricket","insect","wind"}
         if "crow" in ambient:
-            return ("Footsteps through undergrowth can be heard, "
-                    "with a crow cawing in the distance.")
+            return "[कदमों की आहट के साथ कौआ काँव-काँव कर रहा है]"
         if "bird" in ambient:
-            return ("Footsteps and rustling through the undergrowth, "
-                    "with birds in the background.")
-        return "Footsteps and rustling can be heard through the undergrowth."
+            return "[कदमों की आहट के साथ पक्षियों की चहचहाहट सुनाई दे रही है]"
+        return "[कदमों की आहट और पत्तों की सरसराहट सुनाई दे रही है]"
 
-    # Multi-sound combos
+    # Multi-sound combos — all deterministic Hindi so these bypass GPT entirely and stay consistent, instead of being handed to GPT as English reference text that then gets freely reinterpreted.
     if "crow" in fset and "bird" in fset:
         if "wind" in fset:
-            return "Crows cawing, birds chirping, and wind can be heard."
-        return "Crows cawing and birds chirping can be heard."
+            return "[कौआ काँव-काँव कर रहा है, पक्षी चहचहा रहे हैं, हवा भी चल रही है]"
+        return "[कौआ काँव-काँव कर रहा है और पक्षियों की चहचहाहट है]"
     if "bird" in fset and "wind" in fset:
-        return "Birds can be heard chirping as wind blows through the trees."
+        return "[हवा के साथ पक्षियों की चहचहाहट सुनाई दे रही है]"
     if "bird" in fset and "cricket" in fset:
-        return "Birds chirping and crickets can be heard in the background."
+        return "[पक्षियों की चहचहाहट और झींगुरों की आवाज़ है]"
     if "rustling" in fset and "wind" in fset:
-        return "Wind can be heard rustling through the trees."
+        return "[हवा से पत्तों की सरसराहट सुनाई दे रही है]"
     if "rustling" in fset and "creak" in fset:
-        return "Leaves rustling and branches creaking can be heard."
+        return "[पत्तों की सरसराहट और टहनियों की चरमराहट है]"
     if "crow" in fset and "wind" in fset:
-        return "A crow cawing and wind blowing can be heard."
+        return "[कौआ काँव-काँव कर रहा है और हवा चल रही है]"
     if "water" in fset and "bird" in fset:
-        return "Water flowing and birds chirping can be heard."
+        return "[पानी बहने की आवाज़ और पक्षियों की चहचहाहट है]"
 
-    # Single family
-    fam = families[0] if families else "unknown"
-    return FAMILY_CAPTION_MAP.get(fam, f"Ambient sounds can be heard.")
+
+    if "crow" in fset:
+        return "[कौआ काँव-काँव कर रहा है]"
+    if "bird" in fset:
+        return "[पक्षियों की चहचहाहट सुनाई दे रही है]"
+    if "cricket" in fset:
+        return "[झींगुरों की आवाज़ सुनाई दे रही है]"
+    if "insect" in fset:
+        return "[कीड़ों की आवाज़ सुनाई दे रही है]"
+    if "wind" in fset:
+        return "[हवा चलने की आवाज़ सुनाई दे रही है]"
+    if "rustling" in fset:
+        return "[पत्तों की सरसराहट सुनाई दे रही है]"
+    if "creak" in fset:
+        return "[टहनियों की चरमराहट सुनाई दे रही है]"
+
+    # Single/unclear family with no confident, specific identification 
+    return ambient_fallback_caption(families, scene_text)
 
 # ====================== BURST CONSOLIDATION ======================
-def build_timeline(events: list, scene_index: list, logger) -> list:
-    """Groups dedup'd events into bursts (BURST_GAP_SEC), generates one
-    rule-based caption per burst, then refines with GPT-4o-mini."""
+def build_timeline(events: list, scene_index: list, logger, output_dir: Path = None) -> list:    
     accepted = [ev for ev in events if ev.get("should_caption")]
     if not accepted:
         return []
 
     accepted.sort(key=lambda e: e["timestamp_sec"])
+
+    # Require music-family detections to persist across at least 2
+    # consecutive accepted frames within a short window. 
+    MUSIC_PERSISTENCE_SEC = 3.0
+    music_fams = {"music", "tabla", "sitar", "dhol", "shehnai",
+                  "flute", "harmonium", "violin"}
+    filtered_accepted = []
+    for i, ev in enumerate(accepted):
+        fam = _family(ev["label"])
+        if fam not in music_fams:
+            filtered_accepted.append(ev)
+            continue
+        # Check for ANY music-family neighbor, not strictly the same
+        # instrument. A specific instrument (e.g. Tabla) only "wins" the
+        # odd frame even when playing continuously throughout.
+        has_neighbor = any(
+            _family(other["label"]) in music_fams
+            and other is not ev
+            and abs(other["timestamp_sec"] - ev["timestamp_sec"]) <= MUSIC_PERSISTENCE_SEC
+            for other in accepted
+        )
+        if has_neighbor:
+            filtered_accepted.append(ev)
+    accepted = filtered_accepted
+    if not accepted:
+        return []
 
     # Group into bursts
     bursts, cur = [], [accepted[0]]
@@ -892,9 +1463,19 @@ def build_timeline(events: list, scene_index: list, logger) -> list:
     logger.info("=" * 65)
 
     timeline = []
+    MIN_SIREN_SPAN_SEC = 4.0  
     for burst in bursts:
         start_sec = burst[0]["timestamp_sec"]
         end_sec   = burst[-1]["timestamp_sec"] + 1.8
+
+
+        siren_events = [ev for ev in burst if _family(ev["label"]) == "siren"]
+        if siren_events:
+            span = siren_events[-1]["timestamp_sec"] - siren_events[0]["timestamp_sec"]
+            if span < MIN_SIREN_SPAN_SEC:
+                burst = [ev for ev in burst if _family(ev["label"]) != "siren"]
+                if not burst:
+                    continue
 
         # Best label per family
         fam_best = {}
@@ -903,35 +1484,90 @@ def build_timeline(events: list, scene_index: list, logger) -> list:
             if fam not in fam_best:
                 fam_best[fam] = ev
 
-        top_fams    = sorted(fam_best, key=lambda f: fam_best[f]["combined_score"],
-                             reverse=True)[:3]
+        # Sort by score, but ensure high-value families are never squeezed out of the top-3 by a higher-scoring but
+        # less important family
+        PRIORITY_FAMILIES = {"laugh_soft", "laugh_full"}
+        ranked   = sorted(fam_best, key=lambda f: fam_best[f]["combined_score"], reverse=True)
+        priority = [f for f in ranked if f in PRIORITY_FAMILIES]
+        rest     = [f for f in ranked if f not in PRIORITY_FAMILIES]
+        top_fams = (priority + rest)[:3]
         best_labels = {f: fam_best[f]["label"] for f in top_fams}
-        all_labels  = [fam_best[f]["label"] for f in top_fams]
+
+        # If a SPECIFIC species (moo, cattle, dog, cat, horse) is present
+        # in this burst, drop any co-occurring GENERIC animal.
+        specific_present = any(
+            lbl.lower() in SPECIFIC_ANIMAL_LABELS for lbl in best_labels.values()
+        )
+
+        AMBIGUOUS_VOCALIZATION_FAMILIES = {"roar", "howl", "growl", "growling",
+                                            "whale vocalization"}
+        if specific_present:
+            for f, lbl in list(best_labels.items()):
+                if _family(lbl) == "animal" and lbl.lower() not in SPECIFIC_ANIMAL_LABELS:
+                    del best_labels[f]
+                elif f.lower() in AMBIGUOUS_VOCALIZATION_FAMILIES:
+                    del best_labels[f]
+
+        for f, lbl in list(best_labels.items()):
+            if _family(lbl) == "animal" and lbl.lower() not in SPECIFIC_ANIMAL_LABELS:
+                best_labels[f] = "Ambient/unclear sound (do not name species)"
 
         # Use scene from highest-scoring event
-        best_ev    = max(burst, key=lambda e: e["combined_score"])
-        scene_text = best_ev.get("scene_text", "")
-        expressions= best_ev.get("expressions", [])
+        best_ev     = max(burst, key=lambda e: e["combined_score"])
+        scene_text  = best_ev.get("scene_text", "")
+        expressions = best_ev.get("expressions", [])
 
         # 1. Rule-based caption
         raw_caption = _rule_caption(top_fams, best_labels, scene_text, expressions)
 
-        # 2. GPT-4o-mini refinement
-        final_caption = refine_caption_with_openai(
-            raw_caption, scene_text, all_labels, expressions, logger)
+        # If _rule_caption already gave us a confident, deterministic Hindi
+        # phrase (specific species, named instrument, owl/crow, laughter,
+        # or a scene-grounded ambient fallback), use it directly instead of
+        # sending it through GPT. GPT has repeatedly been shown to
+        # paraphrase these into inconsistent variants
+        is_deterministic = (
+            raw_caption.startswith("[") and
+            any("\u0900" <= ch <= "\u097F" for ch in raw_caption)
+        )
+
+        if is_deterministic:
+            hindi_caption = raw_caption
+        else:
+            # 2. Generate Hindi caption (LangSmith traces this automatically)
+            hindi_caption = generate_hindi_caption(
+                raw_caption=raw_caption,
+                scene_text=scene_text,
+                detected_labels=best_labels,
+                expressions=expressions,
+                logger=logger
+            )
+
+            # 3. Polish the caption
+            if hindi_caption and len(hindi_caption) > 5:
+                hindi_caption = polish_hindi_caption(
+                    caption=hindi_caption,
+                    detected_labels=best_labels,
+                    logger=logger
+                )
+
+        hindi_caption = enforce_caption_format(hindi_caption)
+        hindi_caption = final_cleanup(hindi_caption, best_labels, scene_text)
+        hindi_caption = fix_hindi_issues(hindi_caption)  
+        if ("पृष्ठभूमि" in hindi_caption or 
+            any(word in hindi_caption.lower() for word in ["buzzing", "music", "background"])):
+            hindi_caption = _clean_hindi_caption(hindi_caption)
 
         timeline.append({
             "start_sec":   round(start_sec, 2),
             "end_sec":     round(end_sec, 2),
-            "caption":     final_caption,
-            "raw_caption": raw_caption,
+            "caption":     hindi_caption,
             "families":    top_fams,
             "scene_text":  scene_text[:100],
         })
+
         logger.info(
             f"  [{start_sec:.1f}→{end_sec:.1f}s] families={top_fams}\n"
-            f"    raw='{raw_caption}'\n"
-            f"    final='{final_caption}'"
+            f"    final='{hindi_caption}'"
         )
 
     logger.info("=" * 65)
@@ -997,7 +1633,7 @@ def process_video(video_path: str, output_dir: Path,
     vname  = Path(video_path).stem
     logger = setup_logger(vname, output_dir)
     logger.info("=" * 70)
-    logger.info(f"PROCESSING: {vname} (v4 — pyannote + GPT-4o-mini)")
+    logger.info(f"PROCESSING: {vname} (PANNs + GPT-4o-mini)")
     logger.info("=" * 70)
 
     panns_model = get_panns()
@@ -1016,7 +1652,6 @@ def process_video(video_path: str, output_dir: Path,
     # ---- Audio extraction ----
     waveform, wav_path = extract_audio(video_path, logger)
 
-    # ---- Speech detection (pyannote) ----
     speech_segments = get_speech_segments(wav_path, logger)
     try: os.unlink(wav_path)
     except: pass
@@ -1028,6 +1663,9 @@ def process_video(video_path: str, output_dir: Path,
                 f"accepted: {sum(1 for e in raw_events if e.get('should_caption'))}")
 
     deduped = dedup_events(raw_events)
+    deduped = filter_labels_for_caption(deduped, min_combined_score=0.18)
+
+    bursts = group_into_bursts(deduped)
     logger.info(f"After dedup: {len(deduped)}")
 
     # Attach fresh scene context to each deduped event
@@ -1037,7 +1675,7 @@ def process_video(video_path: str, output_dir: Path,
         ev.setdefault("expressions", sc.get("expressions", []))
 
     # ---- Caption synthesis (rule-based + GPT-4o-mini) ----
-    timeline = build_timeline(deduped, scene_index, logger)
+    timeline = build_timeline(deduped, scene_index, logger, output_dir=output_dir)
     logger.info(f"Timeline: {len(timeline)} caption segments")
 
     # ---- Annotated frames ----
@@ -1075,71 +1713,27 @@ def process_video(video_path: str, output_dir: Path,
 
     logger.info(f"\nDone. {len(timeline)} segments → {output_dir}")
 
-# ====================== CALIBRATION ======================
-def run_calibration(video_path: str, output_dir: Path):
-    logger = setup_logger(Path(video_path).stem + "_cal", output_dir)
-    logger.info("Calibration — no thresholds, logging all raw PANNs scores")
-    panns_model = get_panns()
-    waveform, wav_path = extract_audio(video_path, logger)
-    try: os.unlink(wav_path)
-    except: pass
-    clean  = apply_noise_reduction(waveform)
-    ws, hs = int(WINDOW_SEC * SAMPLE_RATE), int(HOP_SEC * SAMPLE_RATE)
-    score_log = defaultdict(list)
-    start = 0
-    while start < len(clean):
-        chunk = clean[start:start + ws]
-        if len(chunk) < ws: chunk = np.pad(chunk, (0, ws - len(chunk)))
-        if chunk.ndim == 1: chunk = chunk.reshape(1, -1)
-        o = panns_model.inference(chunk)
-        sc = o[0] if isinstance(o, (list, tuple)) else o["clipwise_output"]
-        if hasattr(sc, "ndim") and sc.ndim > 1: sc = sc[0]
-        t = start / SAMPLE_RATE
-        for idx in np.argsort(sc)[::-1][:15]:
-            score_log[panns_model.labels[idx]].append(
-                {"t": round(t,2), "score": round(float(sc[idx]),4)})
-        start += hs
-    report = {}
-    for lbl, entries in score_log.items():
-        sc2 = [e["score"] for e in entries]
-        report[lbl] = {
-            "count": len(sc2), "max": round(max(sc2),4),
-            "mean": round(float(np.mean(sc2)),4),
-            "p50": round(float(np.percentile(sc2,50)),4),
-            "p75": round(float(np.percentile(sc2,75)),4),
-            "p90": round(float(np.percentile(sc2,90)),4),
-            "sample_ts": [e["t"] for e in entries[:5]],
-        }
-    rp = output_dir / "calibration_report.json"
-    with open(rp, "w") as f: json.dump(report, f, indent=2)
-    logger.info(f"Calibration report: {rp}")
-
 # ====================== MAIN ======================
 def main():
     parser = argparse.ArgumentParser(
-        description="Non-speech audio captioning pipeline v4 — pyannote + GPT-4o-mini")
+        description="Non-speech audio captioning pipeline + GPT-4o-mini")
     parser.add_argument("--video",          required=True)
     parser.add_argument("--florence-log",   default=None,
                         help="Path to JSONL vision log (Stage 1 output).")
     parser.add_argument("--extract-vision", action="store_true",
                         help="Stage 1: run Florence, write vision log, exit.")
-    parser.add_argument("--calibrate",      action="store_true",
-                        help="PANNs calibration pass, no thresholds.")
-    parser.add_argument("--pyannote-token", default=None,
-                        help="HuggingFace token for pyannote (overrides HF_TOKEN env).")
     parser.add_argument("--openai-key",     default=None,
                         help="OpenAI API key (overrides OPENAI_API_KEY env).")
     args = parser.parse_args()
 
     global HF_TOKEN, OPENAI_API_KEY
-    if args.pyannote_token: HF_TOKEN = args.pyannote_token
     if args.openai_key:     OPENAI_API_KEY  = args.openai_key
 
     video_path = Path(args.video)
     if not video_path.exists():
         print(f"Video not found: {video_path}"); return
 
-    out = Path("results_v3") / video_path.stem
+    out = Path("results_v14") / video_path.stem
     out.mkdir(parents=True, exist_ok=True)
 
     if args.extract_vision:
