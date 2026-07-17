@@ -20,3 +20,8 @@ env/
 *.task
 *.pth
 *.pt
+
+# Windows system files
+desktop.ini
+Desktop.ini
+Thumbs.db
