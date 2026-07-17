@@ -502,7 +502,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 from langsmith import traceable
 
-# ====================== LANGCHAIN + LANGSMITH SETUP ======================
+# ====================== OPENAI CAPTION REFINEMENT WITH LANGSMITH AND LANGCHAIN LOGGING======================
 llm = ChatOpenAI(
     model="gpt-4o",
     temperature=0.06,
@@ -1122,7 +1122,6 @@ def final_cleanup(caption: str, detected_labels, scene_text: str = None) -> str:
 
     return caption
 
-# ====================== OPENAI CAPTION REFINEMENT ======================
 def _gender_from_scene(scene_text: str) -> str:
     st = scene_text.lower()
     w  = bool(re.search(r"\b(woman|female|girl|lady|she|her)\b", st))
@@ -1130,92 +1129,6 @@ def _gender_from_scene(scene_text: str) -> str:
     if w and not m: return "female"
     if m and not w: return "male"
     return "unknown"
-
-def refine_caption_with_openai(raw_caption: str, scene_text: str,
-                               detected_labels: list,
-                               expressions: list, logger) -> str:
-    """
-    Generates natural, grammatically correct Hindi captions.
-    """
-    if not OPENAI_API_KEY:
-        return raw_caption
-
-    try:
-        import openai
-        client = openai.OpenAI(api_key=OPENAI_API_KEY)
-
-        gender = _gender_from_scene(scene_text) if '_gender_from_scene' in globals() else "unknown"
-        gender_note = f" व्यक्ति {gender} प्रतीत होता है।" if gender != "unknown" else ""
-
-        prompt = f"""You are a professional Hindi subtitle writer for Indian TV dramas and accessibility content.
-
-            Rewrite the following caption into **natural, correct and professional Hindi**.
-
-            Strict Rules:
-            - Use proper Hindi grammar with correct matras (मात्राएँ).
-            - NEVER repeat the word "पृष्ठभूमि" more than once in the sentence.
-            - Avoid robotic phrases like "पृष्ठभूमि में", "सुना जा सकता है", "आवाज़ आ रही है" repeatedly.
-            - Make it sound like natural spoken Hindi used in good subtitles.
-            - Maximum 12 words.
-            - Do not invent any sounds that are not in the detected labels.
-            - Vary the sentence structure. Make it feel human-written.
-
-            Detected non-speech sounds: {', '.join(detected_labels)}
-            Scene context: {scene_text[:200]}
-            {gender_note}
-            Original caption: {raw_caption}
-
-            Write ONLY the improved Hindi caption. Do not add any explanation."""
-
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=80,
-            temperature=0.3,
-        )
-
-        hindi_caption = response.choices[0].message.content.strip().strip('"').strip("'")
-
-        # Safety check: if still repetitive, fall back
-        if hindi_caption.count("पृष्ठभूमि") >= 2:
-            logger.warning("GPT still produced repetitive 'पृष्ठभूमि'. Using cleaned version.")
-            return _clean_hindi_caption(raw_caption)
-
-        return hindi_caption
-
-    except Exception as e:
-        logger.warning(f"OpenAI Hindi generation failed: {e}")
-        return raw_caption
-
-def _clean_hindi_caption(caption: str) -> str:
-    """Strong cleanup for repetitive, robotic, English-mixed, or vague Hindi.
-
-    पृष्ठभूमि ("background") is grammatically correct but tells the viewer
-    almost nothing — it could mean literally any ambient sound. Replace it
-    with phrasing that at least signals *what kind* of ambient texture it
-    is (natural vs. mechanical/crowd), picked from a varied pool so it
-    doesn't just become a new repeated filler word.
-    """
-    NATURE_ALTS = ["प्रकृति की हल्की आवाज़ें हैं",
-                   "हल्की प्राकृतिक ध्वनियाँ हैं",
-                   "दूर से हल्की सी आवाज़ आ रही है"]
-    caption = caption.replace("पृष्ठभूमि में हल्की आवाज़ें हैं", random.choice(NATURE_ALTS))
-    caption = caption.replace("पृष्ठभूमि में ", "चारों ओर ")
-    caption = caption.replace("पृष्ठभूमि ", "हल्की ")
-    caption = caption.replace("सुना जा सकता है", "")
-    caption = caption.replace("आवाज़ आ रही है", "")
-    caption = caption.replace("buzzing", "भिनभिनाहट")
-    caption = caption.replace("music", "संगीत")
-    caption = caption.replace("Music", "संगीत")
-    caption = caption.replace("background", "हल्की")
-    caption = caption.replace("आस-पास", "")
-    caption = caption.replace("आसपास", "")
-    caption = caption.replace("हलचल", "आवाज़")
-    caption = caption.replace("  ", " ").strip()
-
-    if caption:
-        caption = caption[0].upper() + caption[1:]
-    return caption
 
 # ====================== RULE-BASED CAPTION (FALLBACK) ======================
 SOUND_FAMILIES = {
