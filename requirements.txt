@@ -1,0 +1,26 @@
+# Core ML & Deep Learning
+numpy==1.26.4
+packaging==24.1
+
+# PyTorch (CUDA 12.1)
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.4.1+cu121
+torchvision==0.19.1+cu121
+torchaudio==2.4.1+cu121
+
+# Hugging Face Stack (Stable versions for Florence-2)
+huggingface_hub==0.25.2
+transformers==4.46.3
+sentence-transformers==3.1.1
+jinja2
+
+# Audio Processing
+panns_inference
+soundfile
+
+# Computer Vision
+opencv-python
+Pillow
+
+# Utilities
+python-dotenv

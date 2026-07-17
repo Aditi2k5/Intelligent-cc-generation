@@ -1,0 +1,231 @@
+2026-06-25 17:37:10,072 | INFO | Vision extraction: 226 frames over 22.7 min (10 FPM)
+2026-06-25 17:37:19,436 | INFO | [0.0s] scene='The image is a black background with white text in Hindi. The text reads "Episod' | hints=[] | expr=[]
+2026-06-25 17:37:19,497 | INFO | [6.0s] skip unstable frame (diff=36.4)
+2026-06-25 17:37:19,546 | INFO | [12.1s] skip unstable frame (diff=25.0)
+2026-06-25 17:37:26,598 | INFO | [18.1s] scene='The trees have thick trunks and the ground is covered in greenery. In the center' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:37:26,686 | INFO | [24.2s] skip unstable frame (diff=28.7)
+2026-06-25 17:37:26,773 | INFO | [30.2s] skip unstable frame (diff=35.5)
+2026-06-25 17:37:26,853 | INFO | [36.3s] skip unstable frame (diff=31.6)
+2026-06-25 17:37:26,896 | INFO | [42.3s] skip unstable frame (diff=26.0)
+2026-06-25 17:37:35,002 | INFO | [48.4s] scene='The image is a still from a movie or TV show. It shows a person walking through ' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:37:35,117 | INFO | [54.4s] skip unstable frame (diff=36.6)
+2026-06-25 17:37:35,178 | INFO | [60.5s] skip unstable frame (diff=35.9)
+2026-06-25 17:37:41,595 | INFO | [66.5s] scene='The image shows two women standing in a field of tall grass and bushes. They are' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:37:48,102 | INFO | [72.6s] scene='The image shows a man and a woman standing in a field of tall grass. They are ho' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:37:53,822 | INFO | [78.6s] scene='The image shows two people, a man and a woman, standing in a field of tall grass' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:37:53,877 | INFO | [84.7s] skip unstable frame (diff=47.4)
+2026-06-25 17:37:53,923 | INFO | [90.7s] skip unstable frame (diff=33.9)
+2026-06-25 17:37:54,013 | INFO | [96.8s] skip unstable frame (diff=35.3)
+2026-06-25 17:37:54,060 | INFO | [102.8s] skip unstable frame (diff=38.1)
+2026-06-25 17:38:02,630 | INFO | [108.8s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:38:09,984 | INFO | [114.9s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:38:16,558 | INFO | [121.0s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:38:16,594 | INFO | [127.0s] skip unstable frame (diff=43.9)
+2026-06-25 17:38:16,635 | INFO | [133.0s] skip unstable frame (diff=48.0)
+2026-06-25 17:38:16,673 | INFO | [139.1s] skip unstable frame (diff=44.8)
+2026-06-25 17:38:22,776 | INFO | [145.2s] scene='The image is a still from a movie or TV show. It shows a close-up of a man's fac' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:38:22,837 | INFO | [151.2s] skip unstable frame (diff=39.6)
+2026-06-25 17:38:28,112 | INFO | [157.2s] scene='The image is a still from a movie or TV show. It shows a man wearing a white hoo' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:38:33,367 | INFO | [163.3s] scene='The image is a still from a movie or TV show. She is standing in a wooded area w' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:38:38,742 | INFO | [169.4s] scene='The image is a still from a movie or TV show. He is standing in a wooded area wi' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:38:38,787 | INFO | [175.4s] skip unstable frame (diff=40.3)
+2026-06-25 17:38:44,452 | INFO | [181.4s] scene='The image is a still from a movie or TV show. He has a tattoo on his left should' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:38:44,504 | INFO | [187.5s] skip unstable frame (diff=43.3)
+2026-06-25 17:38:44,562 | INFO | [193.5s] skip unstable frame (diff=36.1)
+2026-06-25 17:38:44,604 | INFO | [199.6s] skip unstable frame (diff=53.4)
+2026-06-25 17:38:44,651 | INFO | [205.6s] skip unstable frame (diff=35.6)
+2026-06-25 17:38:44,696 | INFO | [211.7s] skip unstable frame (diff=36.0)
+2026-06-25 17:38:44,742 | INFO | [217.7s] skip unstable frame (diff=53.9)
+2026-06-25 17:38:44,807 | INFO | [223.8s] skip unstable frame (diff=43.2)
+2026-06-25 17:38:44,855 | INFO | [229.8s] skip unstable frame (diff=35.5)
+2026-06-25 17:38:44,903 | INFO | [235.9s] skip unstable frame (diff=36.8)
+2026-06-25 17:38:44,962 | INFO | [241.9s] skip unstable frame (diff=38.6)
+2026-06-25 17:38:45,018 | INFO | [248.0s] skip unstable frame (diff=41.2)
+2026-06-25 17:38:45,062 | INFO | [254.0s] skip unstable frame (diff=44.3)
+2026-06-25 17:38:45,108 | INFO | [260.1s] skip unstable frame (diff=40.0)
+2026-06-25 17:38:45,169 | INFO | [266.1s] skip unstable frame (diff=35.4)
+2026-06-25 17:38:45,217 | INFO | [272.2s] skip unstable frame (diff=39.0)
+2026-06-25 17:38:45,312 | INFO | [278.2s] skip unstable frame (diff=47.5)
+2026-06-25 17:38:45,397 | INFO | [284.3s] skip unstable frame (diff=38.8)
+2026-06-25 17:38:45,472 | INFO | [290.3s] skip unstable frame (diff=35.5)
+2026-06-25 17:38:45,545 | INFO | [296.4s] skip unstable frame (diff=44.0)
+2026-06-25 17:38:45,627 | INFO | [302.4s] skip unstable frame (diff=51.3)
+2026-06-25 17:38:45,713 | INFO | [308.5s] skip unstable frame (diff=52.6)
+2026-06-25 17:38:45,771 | INFO | [314.5s] skip unstable frame (diff=40.6)
+2026-06-25 17:38:45,858 | INFO | [320.6s] skip unstable frame (diff=37.9)
+2026-06-25 17:38:51,287 | INFO | [326.6s] scene='The image shows a man and a woman embracing each other in a loving hug. They are' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=['smiling']
+2026-06-25 17:38:57,816 | INFO | [332.6s] scene='The image shows a man and a woman in a romantic embrace. The man is on the right' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:38:57,866 | INFO | [338.7s] skip unstable frame (diff=48.9)
+2026-06-25 17:38:57,920 | INFO | [344.8s] skip unstable frame (diff=52.6)
+2026-06-25 17:38:57,982 | INFO | [350.8s] skip unstable frame (diff=40.8)
+2026-06-25 17:38:58,037 | INFO | [356.8s] skip unstable frame (diff=58.4)
+2026-06-25 17:38:58,088 | INFO | [362.9s] skip unstable frame (diff=30.1)
+2026-06-25 17:39:05,588 | INFO | [369.0s] scene='The image shows three people sitting on a woven mat under a tree. The man in the' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:39:12,046 | INFO | [375.0s] scene='The image shows three people sitting on a woven mat in a forest. He is sitting o' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:39:18,506 | INFO | [381.0s] scene='The image shows three people sitting on a woven mat under a tree. The man in the' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:39:25,091 | INFO | [387.1s] scene='The image shows three people sitting on a woven mat in a forest. He is sitting o' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:39:25,159 | INFO | [393.2s] skip unstable frame (diff=44.3)
+2026-06-25 17:39:31,647 | INFO | [399.2s] scene='The image shows two people walking on a dirt path in a forested area. They appea' | hints=['wind rustling leaves', 'crowd shouting', 'branch creak'] | expr=[]
+2026-06-25 17:39:31,704 | INFO | [405.2s] skip unstable frame (diff=29.9)
+2026-06-25 17:39:31,750 | INFO | [411.3s] skip unstable frame (diff=33.8)
+2026-06-25 17:39:39,762 | INFO | [417.4s] scene='The image shows three people standing in a field with tall grass and trees in th' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:39:39,833 | INFO | [423.4s] skip unstable frame (diff=38.3)
+2026-06-25 17:39:45,682 | INFO | [429.4s] scene='The image shows two men standing in a field with tall grass and trees in the bac' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:39:51,102 | INFO | [435.5s] scene='The image shows two people standing in a field with tall grass and trees in the ' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:39:57,982 | INFO | [441.5s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:05,044 | INFO | [447.6s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:10,742 | INFO | [453.6s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:16,597 | INFO | [459.7s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:22,225 | INFO | [465.7s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:28,809 | INFO | [471.8s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:37,186 | INFO | [477.8s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['wind rustling leaves', 'crowd shouting', 'branch creak'] | expr=[]
+2026-06-25 17:40:44,092 | INFO | [483.9s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:51,542 | INFO | [489.9s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:57,710 | INFO | [496.0s] scene='The image shows a group of four people standing in a field with tall grass and t' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:40:57,765 | INFO | [502.0s] skip unstable frame (diff=27.5)
+2026-06-25 17:40:57,805 | INFO | [508.1s] skip unstable frame (diff=54.4)
+2026-06-25 17:41:03,968 | INFO | [514.1s] scene='The image shows three people, two men and a woman, standing in a field with tree' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:41:10,272 | INFO | [520.2s] scene='The image shows three people standing in a field with trees in the background. A' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:41:17,095 | INFO | [526.2s] scene='The image shows a group of three people standing in a field. They are all lookin' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:41:23,203 | INFO | [532.3s] scene='The image shows three people standing in a field with trees in the background. H' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:41:30,807 | INFO | [538.3s] scene='The image shows three men standing in a field with trees in the background. He i' | hints=['wind rustling leaves', 'branch creak', 'frogs croaking'] | expr=[]
+2026-06-25 17:41:39,907 | INFO | [544.4s] scene='The image shows three men standing in a field with trees in the background. He a' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:41:48,493 | INFO | [550.4s] scene='The image shows three people, two men and a woman, standing in a field with tree' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:41:55,133 | INFO | [556.5s] scene='The image shows a group of three people, two men and a woman, standing in a fiel' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:41:55,191 | INFO | [562.5s] skip unstable frame (diff=49.8)
+2026-06-25 17:41:55,248 | INFO | [568.6s] skip unstable frame (diff=61.9)
+2026-06-25 17:42:03,797 | INFO | [574.6s] scene='The image is a still from a movie or TV show. It shows two characters, a man and' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:42:11,178 | INFO | [580.6s] scene='The image is a still from a movie or TV show. It shows two characters, a man and' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:42:11,237 | INFO | [586.7s] skip unstable frame (diff=58.6)
+2026-06-25 17:42:11,291 | INFO | [592.8s] skip unstable frame (diff=50.2)
+2026-06-25 17:42:20,082 | INFO | [598.8s] scene='The image shows a person walking through a field of tall grass. The person is we' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:42:20,142 | INFO | [604.8s] skip unstable frame (diff=31.9)
+2026-06-25 17:42:31,962 | INFO | [610.9s] scene='The image shows a group of three people standing in a field of tall grass. They ' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:42:44,067 | INFO | [617.0s] scene='The image shows three women standing in a field of tall grass. They appear to be' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:42:44,120 | INFO | [623.0s] skip unstable frame (diff=73.8)
+2026-06-25 17:42:57,860 | INFO | [629.0s] scene='The image shows two men standing on a rocky shore near a body of water. The man ' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:42:57,915 | INFO | [635.1s] skip unstable frame (diff=30.6)
+2026-06-25 17:43:12,157 | INFO | [641.2s] scene='The image shows two women standing next to each other near a body of water. She ' | hints=['water splashing', 'wind over water', 'water flowing'] | expr=[]
+2026-06-25 17:43:32,472 | INFO | [647.2s] scene='The image shows a man and a woman standing next to each other near a body of wat' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:44:04,526 | INFO | [653.2s] scene='The image shows two Indian women standing next to each other near a body of wate' | hints=['water splashing', 'wind over water', 'water flowing'] | expr=[]
+2026-06-25 17:44:31,206 | INFO | [659.3s] scene='The image shows a woman in a white saree standing by a body of water. She appear' | hints=['water splashing', 'wind over water', 'running'] | expr=[]
+2026-06-25 17:44:31,272 | INFO | [665.3s] skip unstable frame (diff=54.8)
+2026-06-25 17:44:31,367 | INFO | [671.4s] skip unstable frame (diff=40.8)
+2026-06-25 17:44:31,421 | INFO | [677.4s] skip unstable frame (diff=47.2)
+2026-06-25 17:44:31,474 | INFO | [683.5s] skip unstable frame (diff=27.4)
+2026-06-25 17:45:04,700 | INFO | [689.5s] scene='The image shows three people sitting on the ground in a wooded area. He is sitti' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:45:04,770 | INFO | [695.6s] skip unstable frame (diff=51.1)
+2026-06-25 17:45:04,828 | INFO | [701.6s] skip unstable frame (diff=30.6)
+2026-06-25 17:45:04,907 | INFO | [707.7s] skip unstable frame (diff=51.6)
+2026-06-25 17:45:04,951 | INFO | [713.7s] skip unstable frame (diff=50.2)
+2026-06-25 17:45:05,001 | INFO | [719.8s] skip unstable frame (diff=46.7)
+2026-06-25 17:45:05,059 | INFO | [725.8s] skip unstable frame (diff=47.1)
+2026-06-25 17:45:05,118 | INFO | [731.9s] skip unstable frame (diff=44.5)
+2026-06-25 17:45:05,171 | INFO | [737.9s] skip unstable frame (diff=32.2)
+2026-06-25 17:45:05,226 | INFO | [744.0s] skip unstable frame (diff=34.9)
+2026-06-25 17:45:05,283 | INFO | [750.0s] skip unstable frame (diff=31.3)
+2026-06-25 17:45:05,348 | INFO | [756.1s] skip unstable frame (diff=36.9)
+2026-06-25 17:45:05,456 | INFO | [762.1s] skip unstable frame (diff=30.9)
+2026-06-25 17:45:05,532 | INFO | [768.2s] skip unstable frame (diff=29.4)
+2026-06-25 17:45:05,623 | INFO | [774.2s] skip unstable frame (diff=39.2)
+2026-06-25 17:45:41,747 | INFO | [780.3s] scene='The image shows a group of four people sitting on the ground in a forested area.' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:46:14,150 | INFO | [786.3s] scene='The image shows a man and a woman sitting on the ground in a forested area. He i' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:46:14,226 | INFO | [792.4s] skip unstable frame (diff=45.5)
+2026-06-25 17:46:14,267 | INFO | [798.4s] skip unstable frame (diff=43.2)
+2026-06-25 17:46:14,320 | INFO | [804.4s] skip unstable frame (diff=28.7)
+2026-06-25 17:46:14,370 | INFO | [810.5s] skip unstable frame (diff=26.3)
+2026-06-25 17:46:42,346 | INFO | [816.6s] scene='The image is a still from a movie or TV show. It shows a group of people gathere' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:47:11,656 | INFO | [822.6s] scene='The image shows a group of people in a rural area, with trees and bushes in the ' | hints=['cattle lowing', 'birds chirping', 'wind rustling leaves'] | expr=[]
+2026-06-25 17:47:11,730 | INFO | [828.6s] skip unstable frame (diff=30.6)
+2026-06-25 17:47:11,793 | INFO | [834.7s] skip unstable frame (diff=36.2)
+2026-06-25 17:47:43,196 | INFO | [840.8s] scene='The image is a still from a Bollywood movie. It shows a man and a woman in a rom' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=['smiling']
+2026-06-25 17:48:16,767 | INFO | [846.8s] scene='The image is a still from a Bollywood movie. The man is on the left side of the ' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:48:43,638 | INFO | [852.8s] scene='The image is a still from a Bollywood movie. It shows a man and a woman sitting ' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:49:12,861 | INFO | [858.9s] scene='The image shows a man and a woman in a romantic embrace. He is looking down at t' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:49:42,067 | INFO | [865.0s] scene='The image shows a man and a woman in a romantic embrace. He is looking down at t' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:50:10,824 | INFO | [871.0s] scene='The image shows a man and a woman in a romantic embrace. He is smiling and appea' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=['smiling']
+2026-06-25 17:50:10,898 | INFO | [877.0s] skip unstable frame (diff=71.1)
+2026-06-25 17:50:40,429 | INFO | [883.1s] scene='The sky is a beautiful shade of pink and orange, with the sun partially visible ' | hints=['wind rustling leaves', 'crowd shouting', 'branch creak'] | expr=[]
+2026-06-25 17:50:40,487 | INFO | [889.2s] skip unstable frame (diff=35.3)
+2026-06-25 17:51:05,480 | INFO | [895.2s] scene='The image shows a group of people walking through a field of tall grass and palm' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:51:29,147 | INFO | [901.2s] scene='The image shows a group of people walking through a field of tall grass. The sky' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:51:29,267 | INFO | [907.3s] skip unstable frame (diff=26.0)
+2026-06-25 17:51:29,343 | INFO | [913.3s] skip unstable frame (diff=26.9)
+2026-06-25 17:51:29,403 | INFO | [919.4s] skip unstable frame (diff=26.3)
+2026-06-25 17:51:29,466 | INFO | [925.4s] skip unstable frame (diff=27.6)
+2026-06-25 17:51:29,536 | INFO | [931.5s] skip unstable frame (diff=29.9)
+2026-06-25 17:51:29,603 | INFO | [937.5s] skip unstable frame (diff=27.1)
+2026-06-25 17:51:29,677 | INFO | [943.6s] skip unstable frame (diff=31.9)
+2026-06-25 17:51:29,743 | INFO | [949.6s] skip unstable frame (diff=35.5)
+2026-06-25 17:51:29,820 | INFO | [955.7s] skip unstable frame (diff=33.5)
+2026-06-25 17:51:29,895 | INFO | [961.7s] skip unstable frame (diff=27.8)
+2026-06-25 17:51:29,970 | INFO | [967.8s] skip unstable frame (diff=32.3)
+2026-06-25 17:51:59,100 | INFO | [973.8s] scene='The image is a still from a video titled "WAVES OTT FOR SLC". It shows two peopl' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=['concerned']
+2026-06-25 17:51:59,145 | INFO | [979.9s] skip unstable frame (diff=44.0)
+2026-06-25 17:52:28,775 | INFO | [985.9s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:53:01,077 | INFO | [992.0s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:53:34,205 | INFO | [998.0s] scene='The image shows two men standing in a field with a hill in the background. Both ' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:54:27,734 | INFO | [1004.1s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=['concerned']
+2026-06-25 17:54:56,830 | INFO | [1010.1s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:55:28,251 | INFO | [1016.2s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:56:05,759 | INFO | [1022.2s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:56:47,242 | INFO | [1028.3s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:57:19,209 | INFO | [1034.3s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:57:37,590 | INFO | [1040.4s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:57:51,554 | INFO | [1046.4s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:58:02,947 | INFO | [1052.4s] scene='The image shows two men standing in a field with tall grass and bushes in the ba' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:58:03,181 | INFO | [1058.5s] skip unstable frame (diff=28.7)
+2026-06-25 17:58:03,373 | INFO | [1064.6s] skip unstable frame (diff=80.0)
+2026-06-25 17:58:03,438 | INFO | [1070.6s] skip unstable frame (diff=76.7)
+2026-06-25 17:58:03,502 | INFO | [1076.6s] skip unstable frame (diff=53.4)
+2026-06-25 17:58:03,639 | INFO | [1082.7s] skip unstable frame (diff=36.7)
+2026-06-25 17:58:03,793 | INFO | [1088.8s] skip unstable frame (diff=31.1)
+2026-06-25 17:58:12,955 | INFO | [1094.8s] scene='The image shows a group of people sitting on the ground in a forested area. In t' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:58:22,177 | INFO | [1100.8s] scene='The image shows a group of people sitting on the ground in a forested area. They' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:58:32,118 | INFO | [1106.9s] scene='The image shows a group of people sitting on the ground in a forested area. Ther' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:58:40,872 | INFO | [1113.0s] scene='The image shows a group of people sitting on the ground under a wooden structure' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:58:50,836 | INFO | [1119.0s] scene='The image shows a group of people sitting on the ground in a forested area. He i' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 17:59:01,547 | INFO | [1125.0s] scene='The image shows a group of people sitting on the ground under a wooden structure' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:59:10,472 | INFO | [1131.1s] scene='The image shows a group of people sitting under a wooden structure in a forested' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 17:59:10,714 | INFO | [1137.1s] skip unstable frame (diff=47.4)
+2026-06-25 17:59:18,647 | INFO | [1143.2s] scene='The image shows two women, one wearing a white headscarf and the other wearing a' | hints=['wind rustling leaves', 'branch creak', 'frogs croaking'] | expr=['concerned']
+2026-06-25 17:59:19,048 | INFO | [1149.2s] skip unstable frame (diff=42.4)
+2026-06-25 17:59:19,114 | INFO | [1155.3s] skip unstable frame (diff=32.0)
+2026-06-25 17:59:19,475 | INFO | [1161.3s] skip unstable frame (diff=48.1)
+2026-06-25 17:59:30,080 | INFO | [1167.4s] scene='The image is a still from a movie or TV show. It shows two women, one wearing a ' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 17:59:30,305 | INFO | [1173.4s] skip unstable frame (diff=52.7)
+2026-06-25 17:59:36,512 | INFO | [1179.5s] scene='The image is a still from a movie or TV show. It shows a woman wearing a white h' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 17:59:47,305 | INFO | [1185.5s] scene='The image is a still from a movie or TV show. She appears to be in her late 40s ' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 18:00:14,593 | INFO | [1191.6s] scene='The image is a still from a movie or TV show. She appears to be in her late 40s ' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 18:00:15,251 | INFO | [1197.6s] skip unstable frame (diff=52.1)
+2026-06-25 18:00:51,161 | INFO | [1203.7s] scene='The image is a still from a movie or TV show. He has a tattoo on his chest that ' | hints=['birds chirping', 'wind rustling leaves', 'footsteps on dirt'] | expr=[]
+2026-06-25 18:00:51,236 | INFO | [1209.7s] skip unstable frame (diff=53.2)
+2026-06-25 18:01:20,682 | INFO | [1215.8s] scene='The image is a still from a movie or TV show. She appears to be in her late 40s ' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 18:01:37,641 | INFO | [1221.8s] scene='The image is a still from a movie or TV show. It shows a young woman wearing a w' | hints=['wind rustling leaves', 'crickets chirping', 'branch creak'] | expr=[]
+2026-06-25 18:01:53,034 | INFO | [1227.9s] scene='The image is a still from a movie or TV show. She appears to be in a rural area,' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 18:02:13,930 | INFO | [1233.9s] scene='The image is a still from a movie or TV show. She is standing in front of a brow' | hints=['water splashing', 'wind over water', 'birds chirping'] | expr=[]
+2026-06-25 18:02:13,985 | INFO | [1240.0s] skip unstable frame (diff=58.8)
+2026-06-25 18:02:24,646 | INFO | [1246.0s] scene='The image shows a group of four people sitting on the ground in a rural area. In' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 18:02:38,046 | INFO | [1252.1s] scene='The image shows a group of four women sitting on the ground in a rural area. In ' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 18:03:10,508 | INFO | [1258.1s] scene='The image shows a group of four women sitting on the ground in a rural area. In ' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 18:03:22,952 | INFO | [1264.2s] scene='The image shows a group of four women sitting on the ground in a rural area. In ' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 18:03:36,892 | INFO | [1270.2s] scene='The image shows a group of four women sitting on the ground in a rural area. In ' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 18:03:55,284 | INFO | [1276.2s] scene='The image shows a group of four women sitting on the ground in a rural area. The' | hints=['cattle lowing', 'wind rustling leaves', 'branch creak'] | expr=[]
+2026-06-25 18:03:55,367 | INFO | [1282.3s] skip unstable frame (diff=38.8)
+2026-06-25 18:03:55,425 | INFO | [1288.4s] skip unstable frame (diff=42.5)
+2026-06-25 18:03:55,472 | INFO | [1294.4s] skip unstable frame (diff=48.1)
+2026-06-25 18:03:55,522 | INFO | [1300.4s] skip unstable frame (diff=41.1)
+2026-06-25 18:03:55,591 | INFO | [1306.5s] skip unstable frame (diff=30.9)
+2026-06-25 18:03:55,673 | INFO | [1312.6s] skip unstable frame (diff=39.9)
+2026-06-25 18:03:55,759 | INFO | [1318.6s] skip unstable frame (diff=53.5)
+2026-06-25 18:04:03,743 | INFO | [1324.6s] scene='The image is a still from a video. On the left side of the path, there is a smal' | hints=['cattle lowing', 'wind rustling leaves', 'crowd shouting'] | expr=[]
+2026-06-25 18:04:03,824 | INFO | [1330.7s] skip unstable frame (diff=39.5)
+2026-06-25 18:04:03,894 | INFO | [1336.8s] skip unstable frame (diff=37.8)
+2026-06-25 18:04:03,973 | INFO | [1342.8s] skip unstable frame (diff=29.0)
+2026-06-25 18:04:04,092 | INFO | [1348.8s] skip unstable frame (diff=51.6)
+2026-06-25 18:04:04,480 | INFO | [1354.9s] skip unstable frame (diff=40.3)
+2026-06-25 18:04:04,544 | INFO | [1361.0s] skip unstable frame (diff=25.2)
+2026-06-25 18:04:04,783 | INFO | Vision log: 103 frames → results_v3\Bharat_Ek_Khoj_Ep_016_full\florence_log.jsonl
+2026-06-25 18:04:04,796 | INFO | 
+Stage 1 done. Stage 2:
+  python panns_pipeline.py --video data\Bharat_Ek_Khoj_Ep_016_full.mp4 --florence-log results_v3\Bharat_Ek_Khoj_Ep_016_full\florence_log.jsonl

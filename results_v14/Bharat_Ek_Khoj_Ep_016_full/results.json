@@ -1,0 +1,912 @@
+{
+  "caption_segments": 90,
+  "timeline": [
+    {
+      "start_sec": 0.0,
+      "end_sec": 2.0,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": "The image is a black background with white text in Hindi. The text reads \"Episode 16: The Sangam Per"
+    },
+    {
+      "start_sec": 2.6,
+      "end_sec": 6.4,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": "The image is a black background with white text in Hindi. The text reads \"Episode 16: The Sangam Per"
+    },
+    {
+      "start_sec": 35.0,
+      "end_sec": 40.0,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird",
+        "environmental noise"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 41.0,
+      "end_sec": 44.8,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird",
+        "animal",
+        "environmental noise"
+      ],
+      "scene_text": "The image is a still from a movie or TV show. It shows a person walking through a forest with trees "
+    },
+    {
+      "start_sec": 45.2,
+      "end_sec": 47.2,
+      "caption": "[कीड़ों की आवाज़ सुनाई दे रही है]",
+      "families": [
+        "environmental noise",
+        "insect"
+      ],
+      "scene_text": "The image is a still from a movie or TV show. It shows a person walking through a forest with trees "
+    },
+    {
+      "start_sec": 49.8,
+      "end_sec": 51.6,
+      "caption": "[पत्तों की सरसराहट सुनाई दे रही है]",
+      "families": [
+        "environmental noise"
+      ],
+      "scene_text": "The image is a still from a movie or TV show. It shows a person walking through a forest with trees "
+    },
+    {
+      "start_sec": 52.0,
+      "end_sec": 56.2,
+      "caption": "[हवा से पेड़ों की टहनियाँ हिल रही हैं]",
+      "families": [
+        "rodents, rats, mice",
+        "environmental noise",
+        "turkey"
+      ],
+      "scene_text": "The image is a still from a movie or TV show. It shows a person walking through a forest with trees "
+    },
+    {
+      "start_sec": 77.0,
+      "end_sec": 84.0,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird",
+        "animal",
+        "environmental noise"
+      ],
+      "scene_text": "The image shows two people, a man and a woman, standing in a field of tall grass and bushes. They ar"
+    },
+    {
+      "start_sec": 94.8,
+      "end_sec": 98.2,
+      "caption": "[कौआ काँव-काँव कर रहा है और पक्षियों की चहचहाहट है]",
+      "families": [
+        "crow",
+        "animal",
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 99.0,
+      "end_sec": 102.4,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "bird",
+        "mechanisms"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 198.4,
+      "end_sec": 211.0,
+      "caption": "[तबला और सितार के साथ संगीत बज रहा है]",
+      "families": [
+        "music",
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 211.4,
+      "end_sec": 215.0,
+      "caption": "[तबला और सितार के साथ संगीत बज रहा है]",
+      "families": [
+        "music",
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 223.4,
+      "end_sec": 225.8,
+      "caption": "[तबला और सितार के साथ संगीत बज रहा है]",
+      "families": [
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 226.2,
+      "end_sec": 228.0,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 229.0,
+      "end_sec": 237.2,
+      "caption": "[तबला और सितार के साथ संगीत बज रहा है]",
+      "families": [
+        "music",
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 237.6,
+      "end_sec": 246.8,
+      "caption": "[तबला और सितार के साथ संगीत बज रहा है]",
+      "families": [
+        "music",
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 250.0,
+      "end_sec": 252.4,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 252.8,
+      "end_sec": 255.2,
+      "caption": "[पेड़-पौधों के बीच हल्की आवाज़ है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 256.8,
+      "end_sec": 263.2,
+      "caption": "[कौआ काँव-काँव कर रहा है और पक्षियों की चहचहाहट है]",
+      "families": [
+        "crow",
+        "animal",
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 264.4,
+      "end_sec": 266.2,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 266.8,
+      "end_sec": 273.0,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 274.4,
+      "end_sec": 278.0,
+      "caption": "[हल्की हँसी सुनाई दे रही है]",
+      "families": [
+        "laugh_soft",
+        "animal",
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 287.2,
+      "end_sec": 289.2,
+      "caption": "[उल्लू की आवाज़ सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "owl"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 293.2,
+      "end_sec": 295.0,
+      "caption": "[पेड़-पौधों के बीच हल्की आवाज़ है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 355.2,
+      "end_sec": 359.0,
+      "caption": "[बाहर से हल्की प्राकृतिक आवाज़ आ रही है]",
+      "families": [
+        "howl",
+        "animal"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 380.0,
+      "end_sec": 381.8,
+      "caption": "[कीड़ों की आवाज़ सुनाई दे रही है]",
+      "families": [
+        "insect"
+      ],
+      "scene_text": "The image shows three people sitting on a woven mat under a tree. The man in the middle is sitting o"
+    },
+    {
+      "start_sec": 386.2,
+      "end_sec": 388.4,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "wind",
+        "music",
+        "insect"
+      ],
+      "scene_text": "The image shows three people sitting on a woven mat in a forest. He is sitting on the ground with hi"
+    },
+    {
+      "start_sec": 391.6,
+      "end_sec": 395.6,
+      "caption": "[संगीत के साथ सितार बज रहा है]",
+      "families": [
+        "music",
+        "sitar",
+        "bird"
+      ],
+      "scene_text": "The image shows two people walking on a dirt path in a forested area. They appear to be walking towa"
+    },
+    {
+      "start_sec": 399.6,
+      "end_sec": 401.6,
+      "caption": "[संगीत के साथ सितार बज रहा है]",
+      "families": [
+        "music",
+        "sitar"
+      ],
+      "scene_text": "The image shows two people walking on a dirt path in a forested area. They appear to be walking towa"
+    },
+    {
+      "start_sec": 402.0,
+      "end_sec": 408.0,
+      "caption": "[सितार और तबला के साथ संगीत बज रहा है]",
+      "families": [
+        "music",
+        "sitar",
+        "tabla"
+      ],
+      "scene_text": "The image shows two people walking on a dirt path in a forested area. They appear to be walking towa"
+    },
+    {
+      "start_sec": 593.4,
+      "end_sec": 596.8,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a person walking through a field of tall grass. The person is wearing a white dress "
+    },
+    {
+      "start_sec": 597.2,
+      "end_sec": 599.0,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a person walking through a field of tall grass. The person is wearing a white dress "
+    },
+    {
+      "start_sec": 599.6,
+      "end_sec": 601.8,
+      "caption": "[संगीत के साथ सितार बज रहा है]",
+      "families": [
+        "music",
+        "sitar"
+      ],
+      "scene_text": "The image shows a person walking through a field of tall grass. The person is wearing a white dress "
+    },
+    {
+      "start_sec": 603.6,
+      "end_sec": 607.4,
+      "caption": "[सितार और तबला के साथ संगीत बज रहा है]",
+      "families": [
+        "music",
+        "sitar",
+        "tabla"
+      ],
+      "scene_text": "The image shows a person walking through a field of tall grass. The person is wearing a white dress "
+    },
+    {
+      "start_sec": 608.0,
+      "end_sec": 611.6,
+      "caption": "[सितार और तबला के साथ संगीत बज रहा है]",
+      "families": [
+        "music",
+        "sitar",
+        "tabla"
+      ],
+      "scene_text": "The image shows a group of three people standing in a field of tall grass. They appear to be engaged"
+    },
+    {
+      "start_sec": 616.4,
+      "end_sec": 626.0,
+      "caption": "[संगीत के साथ सितार बज रहा है]",
+      "families": [
+        "music",
+        "sitar",
+        "animal"
+      ],
+      "scene_text": "The image shows three women standing in a field of tall grass. They appear to be in a peaceful and s"
+    },
+    {
+      "start_sec": 627.4,
+      "end_sec": 629.2,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": "The image shows two men standing on a rocky shore near a body of water. The man in the saree is hold"
+    },
+    {
+      "start_sec": 651.4,
+      "end_sec": 653.2,
+      "caption": "[बाहर से हल्की प्राकृतिक आवाज़ आ रही है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows two Indian women standing next to each other near a body of water. The woman on the "
+    },
+    {
+      "start_sec": 656.0,
+      "end_sec": 657.8,
+      "caption": "[पेड़-पौधों के बीच हल्की आवाज़ है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows two Indian women standing next to each other near a body of water. The woman on the "
+    },
+    {
+      "start_sec": 660.8,
+      "end_sec": 662.6,
+      "caption": "[प्रकृति की धीमी आवाज़ सुनाई दे रही है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows a woman in a white saree standing by a body of water. She appears to be in distress,"
+    },
+    {
+      "start_sec": 664.0,
+      "end_sec": 673.2,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "bird",
+        "squawk"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 691.0,
+      "end_sec": 693.4,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird",
+        "environmental noise"
+      ],
+      "scene_text": "The image shows three people sitting on the ground in a wooded area. He is sitting with his legs cro"
+    },
+    {
+      "start_sec": 755.4,
+      "end_sec": 770.6,
+      "caption": "[संगीत के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 771.0,
+      "end_sec": 776.4,
+      "caption": "[संगीत के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a group of four people sitting on the ground in a forested area. The man on the left"
+    },
+    {
+      "start_sec": 793.6,
+      "end_sec": 796.2,
+      "caption": "[संगीत के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 797.0,
+      "end_sec": 812.8,
+      "caption": "[संगीत के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 813.4,
+      "end_sec": 817.0,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image is a still from a movie or TV show. It shows a group of people gathered in a wooded area, "
+    },
+    {
+      "start_sec": 818.8,
+      "end_sec": 822.2,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image is a still from a movie or TV show. It shows a group of people gathered in a wooded area, "
+    },
+    {
+      "start_sec": 823.8,
+      "end_sec": 829.8,
+      "caption": "[संगीत के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a group of people in a rural area, with trees and bushes in the background. In the c"
+    },
+    {
+      "start_sec": 831.0,
+      "end_sec": 834.6,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 835.0,
+      "end_sec": 836.8,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image is a still from a Bollywood movie. It shows a man and a woman in a romantic embrace. He is"
+    },
+    {
+      "start_sec": 841.8,
+      "end_sec": 843.8,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": "The image is a still from a Bollywood movie. It shows a man and a woman in a romantic embrace. He is"
+    },
+    {
+      "start_sec": 872.6,
+      "end_sec": 876.4,
+      "caption": "[पक्षियों की चहचहाहट और झींगुरों की आवाज़ है]",
+      "families": [
+        "insect",
+        "cricket",
+        "bird"
+      ],
+      "scene_text": "The image shows a man and a woman in a romantic embrace. He is smiling and appears to be in a good m"
+    },
+    {
+      "start_sec": 876.8,
+      "end_sec": 886.2,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music",
+        "animal",
+        "bird"
+      ],
+      "scene_text": "The sky is a beautiful shade of pink and orange, with the sun partially visible in the top right cor"
+    },
+    {
+      "start_sec": 886.6,
+      "end_sec": 888.4,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The sky is a beautiful shade of pink and orange, with the sun partially visible in the top right cor"
+    },
+    {
+      "start_sec": 889.2,
+      "end_sec": 895.2,
+      "caption": "[मंत्रोच्चारण के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "mantra",
+        "tabla"
+      ],
+      "scene_text": "The image shows a group of people walking through a field of tall grass and palm trees. The sky is o"
+    },
+    {
+      "start_sec": 896.8,
+      "end_sec": 903.8,
+      "caption": "[मंत्रोच्चारण के साथ सितार बज रहा है]",
+      "families": [
+        "music",
+        "mantra",
+        "sitar"
+      ],
+      "scene_text": "The image shows a group of people walking through a field of tall grass. The sky is overcast and the"
+    },
+    {
+      "start_sec": 904.4,
+      "end_sec": 909.4,
+      "caption": "[मंत्रों का उच्चारण सुनाई दे रहा है]",
+      "families": [
+        "music",
+        "mantra",
+        "chant"
+      ],
+      "scene_text": "The image shows a group of people walking through a field of tall grass. The sky is overcast and the"
+    },
+    {
+      "start_sec": 910.8,
+      "end_sec": 914.6,
+      "caption": "[संगीत के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 917.0,
+      "end_sec": 922.2,
+      "caption": "[मंत्रों का उच्चारण सुनाई दे रहा है]",
+      "families": [
+        "music",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 923.6,
+      "end_sec": 929.0,
+      "caption": "[संगीत के साथ तबला बज रहा है]",
+      "families": [
+        "music",
+        "gargling",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 930.0,
+      "end_sec": 931.8,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 932.4,
+      "end_sec": 934.8,
+      "caption": "[मंत्रों का उच्चारण सुनाई दे रहा है]",
+      "families": [
+        "music",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 936.8,
+      "end_sec": 946.8,
+      "caption": "[मंत्रोच्चारण के साथ सितार बज रहा है]",
+      "families": [
+        "music",
+        "chant",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 948.8,
+      "end_sec": 952.6,
+      "caption": "[मंत्रों का उच्चारण सुनाई दे रहा है]",
+      "families": [
+        "music",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 953.0,
+      "end_sec": 956.8,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 958.8,
+      "end_sec": 966.4,
+      "caption": "[मंत्रोच्चारण के साथ सितार बज रहा है]",
+      "families": [
+        "music",
+        "mantra",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 970.0,
+      "end_sec": 976.6,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird",
+        "animal",
+        "insect"
+      ],
+      "scene_text": "The image is a still from a video titled \"WAVES OTT FOR SLC\". It shows two people, a man and a woman"
+    },
+    {
+      "start_sec": 1059.8,
+      "end_sec": 1061.6,
+      "caption": "[सूखी पत्तियों के चरमराने की आवाज़ है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows two men standing in a field with tall grass and bushes in the background. The man on"
+    },
+    {
+      "start_sec": 1062.0,
+      "end_sec": 1065.8,
+      "caption": "[हल्की थपथपाहट जैसी आवाज़ सुनाई दे रही है]",
+      "families": [
+        "squish",
+        "animal",
+        "patter"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1068.4,
+      "end_sec": 1071.8,
+      "caption": "[उल्लू की आवाज़ सुनाई दे रही है]",
+      "families": [
+        "hoot",
+        "animal"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1073.2,
+      "end_sec": 1076.4,
+      "caption": "[गाय की मूँ मूँ सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "moo",
+        "clip-clop"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1078.6,
+      "end_sec": 1083.6,
+      "caption": "[गाय की मूँ मूँ सुनाई दे रही है]",
+      "families": [
+        "moo",
+        "animal",
+        "whale vocalization"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1091.8,
+      "end_sec": 1093.6,
+      "caption": "[सूखी पत्तियों के चरमराने की आवाज़ है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows a group of people sitting on the ground in a forested area. In the center of the gro"
+    },
+    {
+      "start_sec": 1095.2,
+      "end_sec": 1097.0,
+      "caption": "[घास में हल्की सी आवाज़ है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows a group of people sitting on the ground in a forested area. In the center of the gro"
+    },
+    {
+      "start_sec": 1102.0,
+      "end_sec": 1105.8,
+      "caption": "[हल्की थपथपाहट जैसी आवाज़ सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "rodents, rats, mice",
+        "patter"
+      ],
+      "scene_text": "The image shows a group of people sitting on the ground in a forested area. They are sitting in a ci"
+    },
+    {
+      "start_sec": 1108.8,
+      "end_sec": 1110.6,
+      "caption": "[हवा से पेड़ों की टहनियाँ हिल रही हैं]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows a group of people sitting on the ground in a forested area. There are nine people in"
+    },
+    {
+      "start_sec": 1116.2,
+      "end_sec": 1118.0,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": "The image shows a group of people sitting on the ground in a forested area. He is sitting on a rock "
+    },
+    {
+      "start_sec": 1118.8,
+      "end_sec": 1121.0,
+      "caption": "[घास में हल्की सी आवाज़ है]",
+      "families": [
+        "animal",
+        "water"
+      ],
+      "scene_text": "The image shows a group of people sitting on the ground in a forested area. He is sitting on a rock "
+    },
+    {
+      "start_sec": 1146.0,
+      "end_sec": 1147.8,
+      "caption": "[पक्षियों की चहचहाहट सुनाई दे रही है]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": "The image shows two women, one wearing a white headscarf and the other wearing a red saree, standing"
+    },
+    {
+      "start_sec": 1278.4,
+      "end_sec": 1281.8,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of four women sitting on the ground in a rural area. The cow in the backgrou"
+    },
+    {
+      "start_sec": 1283.2,
+      "end_sec": 1294.6,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music",
+        "wind"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1301.4,
+      "end_sec": 1304.0,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1306.4,
+      "end_sec": 1310.4,
+      "caption": "[पेड़-पौधों के बीच हल्की आवाज़ है]",
+      "families": [
+        "theremin",
+        "animal",
+        "howl"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1313.4,
+      "end_sec": 1321.0,
+      "caption": "[संगीत बज रहा है]",
+      "families": [
+        "music",
+        "animal",
+        "theremin"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1321.6,
+      "end_sec": 1330.4,
+      "caption": "[गाय की मूँ मूँ सुनाई दे रही है]",
+      "families": [
+        "animal",
+        "moo",
+        "roar"
+      ],
+      "scene_text": "The image is a still from a video. On the left side of the path, there is a small hut with a thatche"
+    },
+    {
+      "start_sec": 1332.0,
+      "end_sec": 1333.8,
+      "caption": "[हल्की थपथपाहट जैसी आवाज़ सुनाई दे रही है]",
+      "families": [
+        "patter"
+      ],
+      "scene_text": "The image is a still from a video. On the left side of the path, there is a small hut with a thatche"
+    },
+    {
+      "start_sec": 1346.2,
+      "end_sec": 1350.4,
+      "caption": "[पास में कोई हल्की गतिविधि हो रही है]",
+      "families": [
+        "rodents, rats, mice",
+        "whistling",
+        "roar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1351.4,
+      "end_sec": 1353.2,
+      "caption": "[बाहर से हल्की प्राकृतिक आवाज़ आ रही है]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1353.6,
+      "end_sec": 1358.2,
+      "caption": "[संगीत के साथ सितार बज रहा है]",
+      "families": [
+        "sitar",
+        "music"
+      ],
+      "scene_text": ""
+    }
+  ],
+  "raw_events": 2600,
+  "deduped_events": 355,
+  "speech_segments": 156
+}
