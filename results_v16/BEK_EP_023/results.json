@@ -1,0 +1,546 @@
+{
+  "caption_segments": 56,
+  "timeline": [
+    {
+      "start_sec": 50.2,
+      "end_sec": 52.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 52.4,
+      "end_sec": 64.6,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a red rose with the words \"Executive Producer Raj Pius\" written on it, set against a"
+    },
+    {
+      "start_sec": 67.2,
+      "end_sec": 74.2,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The rose is a vibrant red color, with its petals and leaves standing out against the dark background"
+    },
+    {
+      "start_sec": 76.6,
+      "end_sec": 80.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 81.2,
+      "end_sec": 83.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 84.0,
+      "end_sec": 87.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 88.0,
+      "end_sec": 98.0,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"vanr"
+    },
+    {
+      "start_sec": 98.6,
+      "end_sec": 102.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a single red rose with its stem and leaves against a black background, with the word"
+    },
+    {
+      "start_sec": 104.6,
+      "end_sec": 106.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with the words \"Salim Arif\" written on it, set against a dark background."
+    },
+    {
+      "start_sec": 107.4,
+      "end_sec": 109.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Piyu"
+    },
+    {
+      "start_sec": 109.8,
+      "end_sec": 111.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Piyu"
+    },
+    {
+      "start_sec": 112.4,
+      "end_sec": 114.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"V K "
+    },
+    {
+      "start_sec": 119.4,
+      "end_sec": 123.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Wave"
+    },
+    {
+      "start_sec": 125.0,
+      "end_sec": 126.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a black background with the text \"Episode 23: The Chola Empire Part-II\" written in w"
+    },
+    {
+      "start_sec": 127.8,
+      "end_sec": 129.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a black background with the text \"Episode 23: The Chola Empire Part-II\" written in w"
+    },
+    {
+      "start_sec": 130.6,
+      "end_sec": 132.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a black background with the text \"Episode 23: The Chola Empire Part-II\" written in w"
+    },
+    {
+      "start_sec": 305.4,
+      "end_sec": 306.75,
+      "caption": "[गिटार-सितार के साथ संगीत]",
+      "families": [
+        "music",
+        "guitar",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 336.0,
+      "end_sec": 337.18,
+      "caption": "[संगीत के साथ सितार]",
+      "families": [
+        "music",
+        "sitar"
+      ],
+      "scene_text": "The image shows a man with a beard and a crown on his head sitting on a throne, wearing ornaments an"
+    },
+    {
+      "start_sec": 353.4,
+      "end_sec": 355.0,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man sitting on a throne with a crown on his head, adorned with ornaments, in front"
+    },
+    {
+      "start_sec": 367.8,
+      "end_sec": 369.8,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man sitting on a throne with a crown on his head, adorned with ornaments, in front"
+    },
+    {
+      "start_sec": 560.6,
+      "end_sec": 565.4,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium",
+        "synthesizer"
+      ],
+      "scene_text": "The image shows a woman in a white sari standing next to a man in a blue sari, both of them looking "
+    },
+    {
+      "start_sec": 605.0,
+      "end_sec": 607.71,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows two men standing next to each other in front of a statue, with a wall in the backgro"
+    },
+    {
+      "start_sec": 609.4,
+      "end_sec": 610.65,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man with a beard and a mustache standing next to another man in front of a wall ad"
+    },
+    {
+      "start_sec": 744.6,
+      "end_sec": 746.17,
+      "caption": "[पानी की आवाज़]",
+      "families": [
+        "water"
+      ],
+      "scene_text": "The image shows two men standing next to each other in front of a statue, with a wall in the backgro"
+    },
+    {
+      "start_sec": 789.8,
+      "end_sec": 796.8,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "clip-clop",
+        "animal",
+        "footstep"
+      ],
+      "scene_text": "The image shows a man with a beard and a mustache standing next to another man in front of a statue"
+    },
+    {
+      "start_sec": 797.2,
+      "end_sec": 800.2,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "clip-clop",
+        "animal"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 815.0,
+      "end_sec": 817.95,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "environmental noise",
+        "bird",
+        "turkey"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 820.2,
+      "end_sec": 830.27,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 948.4,
+      "end_sec": 949.4,
+      "caption": "[हल्की आवाज़]",
+      "families": [
+        "environmental noise"
+      ],
+      "scene_text": "The image shows two men standing next to each other in a field, with one of them holding a stick"
+    },
+    {
+      "start_sec": 952.0,
+      "end_sec": 953.53,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 955.4,
+      "end_sec": 960.31,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "bagpipes",
+        "music",
+        "animal"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 974.2,
+      "end_sec": 980.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music",
+        "bagpipes"
+      ],
+      "scene_text": "The image shows two men standing next to each other in front of a backdrop of trees and a clear blue"
+    },
+    {
+      "start_sec": 981.8,
+      "end_sec": 983.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 984.0,
+      "end_sec": 985.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 986.4,
+      "end_sec": 987.39,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 989.6,
+      "end_sec": 992.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 999.2,
+      "end_sec": 1001.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man walking down a dirt path in the middle of a lush green field, surrounded by tr"
+    },
+    {
+      "start_sec": 1002.0,
+      "end_sec": 1006.4,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a man walking down a dirt path in the middle of a lush green field, surrounded by tr"
+    },
+    {
+      "start_sec": 1008.4,
+      "end_sec": 1012.4,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows two women walking down a path in the woods, both wearing white dresses"
+    },
+    {
+      "start_sec": 1013.6,
+      "end_sec": 1018.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man and woman walking down a dirt road surrounded by trees and plants"
+    },
+    {
+      "start_sec": 1020.0,
+      "end_sec": 1021.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows two women in white dresses walking down a dirt road surrounded by trees and plants"
+    },
+    {
+      "start_sec": 1023.0,
+      "end_sec": 1024.8,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows two women in white dresses walking down a dirt road surrounded by trees and plants"
+    },
+    {
+      "start_sec": 1025.2,
+      "end_sec": 1028.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows two women in white dresses walking down a dirt road surrounded by trees and plants"
+    },
+    {
+      "start_sec": 1029.4,
+      "end_sec": 1041.6,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows two women walking down a dirt road with their arms outstretched, surrounded by plant"
+    },
+    {
+      "start_sec": 1042.0,
+      "end_sec": 1043.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows two women walking down a dirt road with their arms outstretched, surrounded by plant"
+    },
+    {
+      "start_sec": 1046.2,
+      "end_sec": 1048.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of three people walking down a dirt road surrounded by trees"
+    },
+    {
+      "start_sec": 1048.4,
+      "end_sec": 1051.0,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a group of three people walking down a dirt road surrounded by trees"
+    },
+    {
+      "start_sec": 1052.0,
+      "end_sec": 1053.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of three people walking down a dirt road surrounded by trees"
+    },
+    {
+      "start_sec": 1054.8,
+      "end_sec": 1057.0,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1058.0,
+      "end_sec": 1059.35,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1069.4,
+      "end_sec": 1071.61,
+      "caption": "[तीर की आवाज़]",
+      "families": [
+        "environmental noise",
+        "arrow"
+      ],
+      "scene_text": "The image shows two men standing next to each other in a field, with one of them holding a sword"
+    },
+    {
+      "start_sec": 1091.8,
+      "end_sec": 1094.3,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "animal",
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": "The image shows a man in a red sari standing next to a woman in a black dress, both of them surround"
+    },
+    {
+      "start_sec": 1165.2,
+      "end_sec": 1169.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music",
+        "environmental noise"
+      ],
+      "scene_text": "The image shows two men standing next to each other in front of a backdrop of trees and a clear blue"
+    },
+    {
+      "start_sec": 1172.6,
+      "end_sec": 1178.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a wooden gate in the middle of a forest, with a few people sitting on a bench in the"
+    },
+    {
+      "start_sec": 1179.8,
+      "end_sec": 1181.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a wooden gate in the middle of a forest, with a few trees in the background. Through"
+    },
+    {
+      "start_sec": 1182.4,
+      "end_sec": 1187.4,
+      "caption": "[गिटार-वायलिन के साथ संगीत]",
+      "families": [
+        "music",
+        "guitar",
+        "violin"
+      ],
+      "scene_text": "The image shows a man and woman standing in front of a wooden gate, surrounded by trees in the backg"
+    }
+  ],
+  "raw_events": 1523,
+  "deduped_events": 163,
+  "speech_segments": 165
+}

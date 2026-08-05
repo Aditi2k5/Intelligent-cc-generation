@@ -1,0 +1,591 @@
+{
+  "caption_segments": 60,
+  "timeline": [
+    {
+      "start_sec": 54.2,
+      "end_sec": 57.02,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a single red rose with its stem and leaves, set against a black background. The rose"
+    },
+    {
+      "start_sec": 58.8,
+      "end_sec": 66.4,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a red rose with the words \"Shama Zaidi Sunil Shanbag Sandeep Pendse\" written in Hind"
+    },
+    {
+      "start_sec": 68.4,
+      "end_sec": 72.8,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves, accompanied by the words \"Vasant Dev Ashok Mish"
+    },
+    {
+      "start_sec": 74.0,
+      "end_sec": 88.4,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Vasa"
+    },
+    {
+      "start_sec": 89.4,
+      "end_sec": 93.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 96.2,
+      "end_sec": 99.8,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Ashw"
+    },
+    {
+      "start_sec": 100.4,
+      "end_sec": 102.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"art "
+    },
+    {
+      "start_sec": 121.2,
+      "end_sec": 124.6,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Shya"
+    },
+    {
+      "start_sec": 126.6,
+      "end_sec": 131.4,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a black background with the words \"Episode 21 Bhakti\" written in white font. The fon"
+    },
+    {
+      "start_sec": 132.6,
+      "end_sec": 138.07,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "bell",
+        "mantra"
+      ],
+      "scene_text": "The image shows a black background with the words \"Episode 21 Bhakti\" written in white font. The fon"
+    },
+    {
+      "start_sec": 141.0,
+      "end_sec": 143.9,
+      "caption": "[संगीत]",
+      "families": [
+        "music",
+        "ringtone"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 148.2,
+      "end_sec": 149.72,
+      "caption": "[फ़ोन बजने की आवाज़]",
+      "families": [
+        "ringtone"
+      ],
+      "scene_text": "The image shows a bronze statue of a woman with a sword in her hand, set against a dark background w"
+    },
+    {
+      "start_sec": 161.4,
+      "end_sec": 162.46,
+      "caption": "[डिंग की आवाज]",
+      "families": [
+        "ding"
+      ],
+      "scene_text": "The image shows a bronze statue of a woman holding a baby in her arms, with the words \"Waves Ott for"
+    },
+    {
+      "start_sec": 165.2,
+      "end_sec": 167.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a bronze statue of a woman holding a baby in her arms, with the words \"Waves Ott for"
+    },
+    {
+      "start_sec": 173.2,
+      "end_sec": 175.45,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "bell",
+        "mantra"
+      ],
+      "scene_text": "The image shows a statue of a Hindu deity with the words \"waves ott for\" inscribed on it, set agains"
+    },
+    {
+      "start_sec": 182.0,
+      "end_sec": 188.0,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra"
+      ],
+      "scene_text": "The image shows a bronze statue of a woman with a snake in her hand, set against a dark background w"
+    },
+    {
+      "start_sec": 189.0,
+      "end_sec": 190.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a bronze statue of a woman with a snake in her hand, set against a dark background w"
+    },
+    {
+      "start_sec": 192.8,
+      "end_sec": 197.0,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra"
+      ],
+      "scene_text": "The image shows a bronze statue of a woman with a crown on her head, set against a dark background w"
+    },
+    {
+      "start_sec": 197.6,
+      "end_sec": 204.4,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra"
+      ],
+      "scene_text": "The image shows a statue of the Hindu deity Shiva in the center of a dark background with the words "
+    },
+    {
+      "start_sec": 296.0,
+      "end_sec": 303.8,
+      "caption": "[तबला-सितार के साथ संगीत]",
+      "families": [
+        "music",
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 304.2,
+      "end_sec": 306.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 306.6,
+      "end_sec": 308.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 308.8,
+      "end_sec": 316.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 318.4,
+      "end_sec": 323.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of men sitting on the ground in front of a tree, surrounded by various objec"
+    },
+    {
+      "start_sec": 325.4,
+      "end_sec": 329.4,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a group of men sitting on the ground in front of a tree, surrounded by various objec"
+    },
+    {
+      "start_sec": 330.2,
+      "end_sec": 332.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of men sitting on the ground in front of a tree, surrounded by various objec"
+    },
+    {
+      "start_sec": 332.6,
+      "end_sec": 334.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of men sitting on the ground in front of a tree, surrounded by various objec"
+    },
+    {
+      "start_sec": 335.6,
+      "end_sec": 337.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 340.0,
+      "end_sec": 346.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of people sitting around a table in front of a tree, with a watermark in the"
+    },
+    {
+      "start_sec": 347.6,
+      "end_sec": 350.2,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a group of people sitting around a table in front of a tree, with a watermark in the"
+    },
+    {
+      "start_sec": 352.4,
+      "end_sec": 359.8,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 360.8,
+      "end_sec": 367.4,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 367.8,
+      "end_sec": 368.86,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 419.8,
+      "end_sec": 421.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 422.0,
+      "end_sec": 425.5,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 457.2,
+      "end_sec": 459.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 502.0,
+      "end_sec": 503.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 504.6,
+      "end_sec": 505.82,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 513.4,
+      "end_sec": 515.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 516.2,
+      "end_sec": 522.4,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 523.6,
+      "end_sec": 531.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 531.6,
+      "end_sec": 536.76,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 556.8,
+      "end_sec": 558.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 559.6,
+      "end_sec": 565.6,
+      "caption": "[संगीत के साथ सितार]",
+      "families": [
+        "music",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 566.6,
+      "end_sec": 568.67,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 574.0,
+      "end_sec": 579.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 580.2,
+      "end_sec": 594.6,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a man in a white robe standing in a field, holding a microphone in his hand"
+    },
+    {
+      "start_sec": 597.2,
+      "end_sec": 601.2,
+      "caption": "[सितार-तबला के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "tabla"
+      ],
+      "scene_text": "The image shows a man in a white robe standing in a field with his arms outstretched, holding someth"
+    },
+    {
+      "start_sec": 601.6,
+      "end_sec": 602.81,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a white robe standing in the center, holding a black object in his hand, su"
+    },
+    {
+      "start_sec": 609.4,
+      "end_sec": 617.4,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a man in a white sari standing in a field, holding something in his hand"
+    },
+    {
+      "start_sec": 617.8,
+      "end_sec": 628.6,
+      "caption": "[संगीत के साथ सितार]",
+      "families": [
+        "music",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 629.6,
+      "end_sec": 631.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 632.2,
+      "end_sec": 636.4,
+      "caption": "[सितार-तबला के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 672.0,
+      "end_sec": 685.79,
+      "caption": "[सितार-तबला के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "tabla"
+      ],
+      "scene_text": "The image shows a man sitting on top of a zebra print couch next to a woman. He is wearing a white d"
+    },
+    {
+      "start_sec": 760.6,
+      "end_sec": 764.2,
+      "caption": "[संगीत के साथ तबला]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 765.2,
+      "end_sec": 769.4,
+      "caption": "[हल्की थपथपाहट जैसी आवाज़ है]",
+      "families": [
+        "bird",
+        "rodents, rats, mice",
+        "patter"
+      ],
+      "scene_text": "The image shows a man and a little girl sitting on the ground in front of a basket, surrounded by va"
+    },
+    {
+      "start_sec": 772.0,
+      "end_sec": 773.8,
+      "caption": "[लकड़ी की आवाज़]",
+      "families": [
+        "wood"
+      ],
+      "scene_text": "The image shows a man and a little girl sitting on the ground in front of a basket, surrounded by va"
+    },
+    {
+      "start_sec": 903.6,
+      "end_sec": 906.01,
+      "caption": "[हवा चलने की आवाज़]",
+      "families": [
+        "wind",
+        "tick-tock"
+      ],
+      "scene_text": "The image shows a man and woman standing next to each other in front of a hut"
+    },
+    {
+      "start_sec": 1032.8,
+      "end_sec": 1035.58,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1159.8,
+      "end_sec": 1161.27,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The image shows a man and woman sitting next to each other in front of a window, with a frame attach"
+    }
+  ],
+  "raw_events": 2042,
+  "deduped_events": 235,
+  "speech_segments": 106
+}

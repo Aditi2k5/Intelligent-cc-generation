@@ -1,0 +1,491 @@
+{
+  "caption_segments": 51,
+  "timeline": [
+    {
+      "start_sec": 49.8,
+      "end_sec": 51.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Narn"
+    },
+    {
+      "start_sec": 52.0,
+      "end_sec": 53.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 54.6,
+      "end_sec": 58.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 58.6,
+      "end_sec": 64.2,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a red rose with the words \"Executive Producer Raj Pius\" written on it, set against a"
+    },
+    {
+      "start_sec": 66.8,
+      "end_sec": 80.0,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with a quote written"
+    },
+    {
+      "start_sec": 80.4,
+      "end_sec": 82.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with a quote written"
+    },
+    {
+      "start_sec": 84.6,
+      "end_sec": 86.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves, edited with the words \"Sutanu Gupta Deepak Sega"
+    },
+    {
+      "start_sec": 87.2,
+      "end_sec": 96.8,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves, edited with the words \"Sutanu Gupta Deepak Sega"
+    },
+    {
+      "start_sec": 98.2,
+      "end_sec": 100.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Ashw"
+    },
+    {
+      "start_sec": 100.4,
+      "end_sec": 103.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"sali"
+    },
+    {
+      "start_sec": 104.2,
+      "end_sec": 106.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"sali"
+    },
+    {
+      "start_sec": 107.0,
+      "end_sec": 108.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with water droplets on it against a black background, with the words \"V K"
+    },
+    {
+      "start_sec": 109.4,
+      "end_sec": 111.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with water droplets on it against a black background, with the words \"V K"
+    },
+    {
+      "start_sec": 113.2,
+      "end_sec": 119.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Shya"
+    },
+    {
+      "start_sec": 119.6,
+      "end_sec": 122.4,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Wave"
+    },
+    {
+      "start_sec": 125.2,
+      "end_sec": 129.2,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a black background with the text \"Harshavardhana SLC Episode 20\" written in white fo"
+    },
+    {
+      "start_sec": 222.2,
+      "end_sec": 225.6,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "bird",
+        "tick-tock"
+      ],
+      "scene_text": "The image shows a man in an orange sari standing in front of a hut, with a tree trunk to his left an"
+    },
+    {
+      "start_sec": 229.0,
+      "end_sec": 230.8,
+      "caption": "[पत्तों की सरसराहट]",
+      "families": [
+        "environmental noise"
+      ],
+      "scene_text": "The image shows a man in an orange sari standing in front of a hut, with a tree trunk to his left an"
+    },
+    {
+      "start_sec": 231.2,
+      "end_sec": 233.02,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "bird",
+        "environmental noise"
+      ],
+      "scene_text": "The image shows a man in an orange sari standing in front of a hut, with a tree trunk to his left an"
+    },
+    {
+      "start_sec": 405.2,
+      "end_sec": 409.6,
+      "caption": "[बांसुरी-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "flute",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man in an orange robe sitting in front of a wooden fence, with a wall in the backg"
+    },
+    {
+      "start_sec": 410.0,
+      "end_sec": 411.03,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in an orange robe sitting in front of a wooden fence, with a wall in the backg"
+    },
+    {
+      "start_sec": 460.2,
+      "end_sec": 469.0,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "zither",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man and woman standing in a room with a table in front of them"
+    },
+    {
+      "start_sec": 470.0,
+      "end_sec": 471.8,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man in a sari walking down a stage with a sword in his hand, flanked by two other "
+    },
+    {
+      "start_sec": 472.4,
+      "end_sec": 474.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a sari walking down a stage with a sword in his hand, flanked by two other "
+    },
+    {
+      "start_sec": 475.2,
+      "end_sec": 477.2,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man in a sari walking down a stage with a sword in his hand, flanked by two other "
+    },
+    {
+      "start_sec": 560.6,
+      "end_sec": 563.8,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "music",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a man in a white sari with a mustache and a moustache, adorned with ornaments, stand"
+    },
+    {
+      "start_sec": 566.0,
+      "end_sec": 567.8,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The image shows a man in a white robe standing in front of a window with the words \"Waves Ott for SL"
+    },
+    {
+      "start_sec": 568.8,
+      "end_sec": 571.0,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The image shows a man in a white robe standing in front of a window with the words \"Waves Ott for SL"
+    },
+    {
+      "start_sec": 571.4,
+      "end_sec": 573.6,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The image shows a woman in a pink sari adorned with ornaments, standing in front of a blurred backgr"
+    },
+    {
+      "start_sec": 574.6,
+      "end_sec": 578.6,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The image shows a man and a woman standing in front of a door, with the man holding a stick"
+    },
+    {
+      "start_sec": 617.4,
+      "end_sec": 620.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a woman in an orange sari standing next to a group of people, wearing a garland arou"
+    },
+    {
+      "start_sec": 621.8,
+      "end_sec": 622.84,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a woman in an orange sari standing next to a group of people, wearing a garland arou"
+    },
+    {
+      "start_sec": 679.0,
+      "end_sec": 680.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a woman in an orange sari walking down a dirt road, with two people standing to her "
+    },
+    {
+      "start_sec": 681.2,
+      "end_sec": 685.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a woman in an orange sari walking down a dirt road, with two people standing to her "
+    },
+    {
+      "start_sec": 685.8,
+      "end_sec": 687.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a woman in an orange sari walking down a dirt road, with two people standing to her "
+    },
+    {
+      "start_sec": 691.2,
+      "end_sec": 696.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music",
+        "vehicle"
+      ],
+      "scene_text": "The image shows a man standing in front of a large bonfire in the middle of a field, surrounded by t"
+    },
+    {
+      "start_sec": 698.2,
+      "end_sec": 701.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man standing in front of a large bonfire in the middle of a field, surrounded by t"
+    },
+    {
+      "start_sec": 702.2,
+      "end_sec": 709.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man standing in front of a bonfire in the middle of a field, surrounded by trees a"
+    },
+    {
+      "start_sec": 711.0,
+      "end_sec": 712.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of people standing around a bonfire in the middle of a field, surrounded by "
+    },
+    {
+      "start_sec": 713.8,
+      "end_sec": 715.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of people standing around a bonfire in the middle of a field, surrounded by "
+    },
+    {
+      "start_sec": 716.2,
+      "end_sec": 720.2,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man standing in front of a large bonfire in the middle of a field, surrounded by t"
+    },
+    {
+      "start_sec": 721.6,
+      "end_sec": 723.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man sitting in front of a bonfire in the middle of a field, surrounded by trees an"
+    },
+    {
+      "start_sec": 724.0,
+      "end_sec": 724.99,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man sitting in front of a bonfire in the middle of a field, surrounded by trees an"
+    },
+    {
+      "start_sec": 908.8,
+      "end_sec": 911.48,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a red sari standing in front of a wall with the words \"Waves Out for SLC\" w"
+    },
+    {
+      "start_sec": 926.4,
+      "end_sec": 928.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a sari standing next to a woman in a red sari, both of them looking at each"
+    },
+    {
+      "start_sec": 928.8,
+      "end_sec": 930.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a sari standing next to a woman in a red sari, both of them looking at each"
+    },
+    {
+      "start_sec": 935.0,
+      "end_sec": 936.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a sari standing next to another man on a stage, both of them looking at eac"
+    },
+    {
+      "start_sec": 937.2,
+      "end_sec": 938.33,
+      "caption": "[संगीत के साथ बांसुरी]",
+      "families": [
+        "music",
+        "flute"
+      ],
+      "scene_text": "The image shows a man in a sari standing next to another man on a stage, both of them looking at eac"
+    },
+    {
+      "start_sec": 941.8,
+      "end_sec": 943.51,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a sari and a woman in a red sari standing side by side"
+    },
+    {
+      "start_sec": 991.0,
+      "end_sec": 992.57,
+      "caption": "[थप की आवाज]",
+      "families": [
+        "thunk"
+      ],
+      "scene_text": "The image shows a man in a sari talking to another man, with a wall in the background and a watermar"
+    },
+    {
+      "start_sec": 1166.0,
+      "end_sec": 1167.8,
+      "caption": "[वाहन की आवाज़]",
+      "families": [
+        "vehicle"
+      ],
+      "scene_text": "The image shows a man in a yellow sari standing in front of a crowd, wearing ornaments and surrounde"
+    }
+  ],
+  "raw_events": 1296,
+  "deduped_events": 134,
+  "speech_segments": 175
+}
