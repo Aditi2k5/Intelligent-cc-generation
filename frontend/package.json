@@ -1,0 +1,11 @@
+{
+  "name": "planetread-caption-studio",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node verify-build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
