@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/AditiP/Desktop/initial-fork/backend/app.py", line 132, in run_pipeline
+    process_video(str(upload_path), output_dir)
+  File "/Users/AditiP/Desktop/initial-fork/panns_pipeline.py", line 1789, in process_video
+    extract_vision_log(video_path, str(fallback), logger)
+  File "/Users/AditiP/Desktop/initial-fork/panns_pipeline.py", line 983, in extract_vision_log
+    scene_cap  = run_florence("<DETAILED_CAPTION>")
+  File "/Users/AditiP/Desktop/initial-fork/panns_pipeline.py", line 971, in run_florence
+    inputs = {k: v.to(DEVICE, dtype=dtype) if hasattr(v, "to") else v
+  File "/Users/AditiP/Desktop/initial-fork/panns_pipeline.py", line 971, in <dictcomp>
+    inputs = {k: v.to(DEVICE, dtype=dtype) if hasattr(v, "to") else v
+NameError: name 'dtype' is not defined

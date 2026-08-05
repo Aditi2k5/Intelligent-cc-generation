@@ -1,0 +1,206 @@
+2026-07-30 08:18:18,816 | INFO | Vision extraction: 201 frames over 20.1 min (10 FPM)
+2026-07-30 08:18:22,480 | INFO | [0.0s] scene='The image shows a black background with the words "Waves Ott for SLC" written in' | hints=['distant music', 'wind', 'crickets chirping'] | expr=[]
+2026-07-30 08:18:23,899 | INFO | [6.0s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:25,407 | INFO | [12.0s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:26,961 | INFO | [18.1s] scene='The image shows a red rose with water droplets on it against a black background,' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:18:28,662 | INFO | [24.1s] scene='The image shows a red rose with green leaves and water droplets on it, set again' | hints=['footsteps on dirt', 'frogs croaking', 'birds chirping'] | expr=[]
+2026-07-30 08:18:30,381 | INFO | [30.2s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:32,081 | INFO | [36.2s] scene='The image shows a red rose with its stem and leaves, set against a dark backgrou' | hints=['footsteps on dirt', 'distant music', 'birds chirping'] | expr=[]
+2026-07-30 08:18:34,256 | INFO | [42.2s] scene='The rose is vibrant and full of life, with its petals and leaves standing out ag' | hints=['footsteps on dirt', 'distant music', 'birds chirping'] | expr=[]
+2026-07-30 08:18:35,891 | INFO | [48.2s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:38,025 | INFO | [54.3s] scene='The image shows a single red rose with its stem and leaves, set against a black ' | hints=['footsteps on dirt', 'distant music', 'birds chirping'] | expr=[]
+2026-07-30 08:18:39,491 | INFO | [60.3s] scene='The image shows a red rose with the words "Executive Producer Raj Pius" written ' | hints=['distant music', 'wind', 'crickets chirping'] | expr=[]
+2026-07-30 08:18:41,363 | INFO | [66.3s] scene='The image shows a red rose with the words "Shama Zaidi Sunil Shanbag Sandeep Pen' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:43,295 | INFO | [72.4s] scene='The image shows a red rose with its stem and leaves, accompanied by the words "V' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:45,113 | INFO | [78.4s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:46,741 | INFO | [84.4s] scene='The image shows a red rose with its stem and leaves against a dark background, w' | hints=['footsteps on dirt', 'distant music', 'birds chirping'] | expr=[]
+2026-07-30 08:18:49,024 | INFO | [90.5s] scene='The rose is vibrant and full of life, with its petals and leaves standing out ag' | hints=['footsteps on dirt', 'distant music', 'birds chirping'] | expr=[]
+2026-07-30 08:18:50,577 | INFO | [96.5s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:52,264 | INFO | [102.5s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:54,359 | INFO | [108.6s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:18:56,404 | INFO | [114.6s] scene='The image shows a red rose with water droplets on it against a black background,' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:18:58,336 | INFO | [120.6s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:19:01,038 | INFO | [126.7s] scene='The image shows a black background with the words "Episode 21 Bhakti" written in' | hints=['distant music', 'wind', 'crickets chirping'] | expr=[]
+2026-07-30 08:19:03,350 | INFO | [132.7s] scene='The image shows a black background with the words "Episode 21 Bhakti" written in' | hints=['distant music', 'wind', 'crickets chirping'] | expr=[]
+2026-07-30 08:19:03,382 | INFO | [138.7s] skip unstable frame (diff=47.6)
+2026-07-30 08:19:03,415 | INFO | [144.8s] skip unstable frame (diff=46.1)
+2026-07-30 08:19:05,141 | INFO | [150.8s] scene='The image shows a bronze statue of a woman with a sword in her hand, set against' | hints=['frogs croaking', 'distant music', 'drums'] | expr=[]
+2026-07-30 08:19:07,800 | INFO | [156.8s] scene='The image shows a close up of a statue of a Buddha in a dark room, with a waterm' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:19:10,111 | INFO | [162.9s] scene='The image shows a bronze statue of a woman holding a baby in her arms, with the ' | hints=['distant music', 'wind', 'crickets chirping'] | expr=[]
+2026-07-30 08:19:12,187 | INFO | [168.9s] scene='The image shows a statue of a Hindu deity with the words "waves ott for" inscrib' | hints=['distant music', 'wind', 'crickets chirping'] | expr=[]
+2026-07-30 08:19:12,222 | INFO | [174.9s] skip unstable frame (diff=42.2)
+2026-07-30 08:19:12,252 | INFO | [181.0s] skip unstable frame (diff=38.2)
+2026-07-30 08:19:13,879 | INFO | [187.0s] scene='The image shows a bronze statue of a woman with a snake in her hand, set against' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:19:15,690 | INFO | [193.0s] scene='The image shows a bronze statue of a woman with a crown on her head, set against' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:19:15,729 | INFO | [199.0s] skip unstable frame (diff=44.8)
+2026-07-30 08:19:17,569 | INFO | [205.1s] scene='The image shows a statue of the Hindu deity Shiva in the center of a dark backgr' | hints=['distant music', 'wind', 'crickets chirping'] | expr=[]
+2026-07-30 08:19:17,603 | INFO | [211.1s] skip unstable frame (diff=76.2)
+2026-07-30 08:19:20,027 | INFO | [217.2s] scene='The image shows a man standing in front of a stone sculpture of an elephant, sur' | hints=['footsteps on floor', 'bells ringing', 'crowd murmur'] | expr=[]
+2026-07-30 08:19:20,071 | INFO | [223.2s] skip unstable frame (diff=35.6)
+2026-07-30 08:19:20,103 | INFO | [229.2s] skip unstable frame (diff=48.5)
+2026-07-30 08:19:20,135 | INFO | [235.2s] skip unstable frame (diff=59.8)
+2026-07-30 08:19:20,161 | INFO | [241.3s] skip unstable frame (diff=60.8)
+2026-07-30 08:19:20,200 | INFO | [247.3s] skip unstable frame (diff=53.7)
+2026-07-30 08:19:22,157 | INFO | [253.4s] scene='The image shows a man in a white shirt and blue pants standing next to a stone w' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:19:24,680 | INFO | [259.4s] scene='The image shows a man in a white shirt and blue pants standing next to a stone w' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:19:24,758 | INFO | [265.4s] skip unstable frame (diff=80.8)
+2026-07-30 08:19:26,873 | INFO | [271.4s] scene='The image shows an aerial view of a Hindu temple in the middle of a city, surrou' | hints=['footsteps on dirt', 'wind', 'wind over water'] | expr=[]
+2026-07-30 08:19:26,914 | INFO | [277.5s] skip unstable frame (diff=48.5)
+2026-07-30 08:19:26,957 | INFO | [283.5s] skip unstable frame (diff=40.8)
+2026-07-30 08:19:26,992 | INFO | [289.6s] skip unstable frame (diff=53.7)
+2026-07-30 08:19:27,018 | INFO | [295.6s] skip unstable frame (diff=68.6)
+2026-07-30 08:19:27,048 | INFO | [301.6s] skip unstable frame (diff=62.2)
+2026-07-30 08:19:27,076 | INFO | [307.6s] skip unstable frame (diff=51.0)
+2026-07-30 08:19:27,106 | INFO | [313.7s] skip unstable frame (diff=57.7)
+2026-07-30 08:19:27,137 | INFO | [319.7s] skip unstable frame (diff=62.2)
+2026-07-30 08:19:29,231 | INFO | [325.8s] scene='The image shows a group of men sitting on the ground in front of a tree, surroun' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:19:29,272 | INFO | [331.8s] skip unstable frame (diff=52.2)
+2026-07-30 08:19:29,300 | INFO | [337.8s] skip unstable frame (diff=48.9)
+2026-07-30 08:19:31,997 | INFO | [343.8s] scene='The image shows a group of people sitting around a table in front of a tree, wit' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:19:32,033 | INFO | [349.9s] skip unstable frame (diff=49.8)
+2026-07-30 08:19:32,047 | INFO | [355.9s] skip unstable frame (diff=48.7)
+2026-07-30 08:19:32,068 | INFO | [361.9s] skip unstable frame (diff=46.1)
+2026-07-30 08:19:32,079 | INFO | [368.0s] skip unstable frame (diff=39.7)
+2026-07-30 08:19:32,097 | INFO | [374.0s] skip unstable frame (diff=36.6)
+2026-07-30 08:19:32,115 | INFO | [380.0s] skip unstable frame (diff=45.6)
+2026-07-30 08:19:32,134 | INFO | [386.1s] skip unstable frame (diff=58.9)
+2026-07-30 08:19:34,538 | INFO | [392.1s] scene='The image shows a group of people standing next to each other in front of a tree' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:19:36,987 | INFO | [398.1s] scene='The image shows a group of people standing next to each other in front of a tree' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:19:39,189 | INFO | [404.2s] scene='The image shows a group of people standing next to each other in front of a tree' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:19:41,664 | INFO | [410.2s] scene='The image shows a group of people standing next to each other in front of a tree' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:19:41,702 | INFO | [416.2s] skip unstable frame (diff=38.8)
+2026-07-30 08:19:41,720 | INFO | [422.3s] skip unstable frame (diff=56.6)
+2026-07-30 08:19:41,746 | INFO | [428.3s] skip unstable frame (diff=64.8)
+2026-07-30 08:19:41,766 | INFO | [434.3s] skip unstable frame (diff=70.8)
+2026-07-30 08:19:41,783 | INFO | [440.4s] skip unstable frame (diff=54.1)
+2026-07-30 08:19:41,798 | INFO | [446.4s] skip unstable frame (diff=62.4)
+2026-07-30 08:19:41,816 | INFO | [452.4s] skip unstable frame (diff=38.6)
+2026-07-30 08:19:41,832 | INFO | [458.4s] skip unstable frame (diff=63.4)
+2026-07-30 08:19:41,857 | INFO | [464.5s] skip unstable frame (diff=78.4)
+2026-07-30 08:19:41,884 | INFO | [470.5s] skip unstable frame (diff=37.8)
+2026-07-30 08:19:41,906 | INFO | [476.6s] skip unstable frame (diff=68.2)
+2026-07-30 08:19:41,928 | INFO | [482.6s] skip unstable frame (diff=48.9)
+2026-07-30 08:19:41,952 | INFO | [488.6s] skip unstable frame (diff=78.2)
+2026-07-30 08:19:41,971 | INFO | [494.6s] skip unstable frame (diff=49.4)
+2026-07-30 08:19:41,993 | INFO | [500.7s] skip unstable frame (diff=56.2)
+2026-07-30 08:19:42,016 | INFO | [506.7s] skip unstable frame (diff=43.7)
+2026-07-30 08:19:42,039 | INFO | [512.8s] skip unstable frame (diff=62.5)
+2026-07-30 08:19:42,054 | INFO | [518.8s] skip unstable frame (diff=35.8)
+2026-07-30 08:19:42,076 | INFO | [524.8s] skip unstable frame (diff=82.8)
+2026-07-30 08:19:42,095 | INFO | [530.8s] skip unstable frame (diff=79.7)
+2026-07-30 08:19:42,114 | INFO | [536.9s] skip unstable frame (diff=91.7)
+2026-07-30 08:19:42,140 | INFO | [542.9s] skip unstable frame (diff=57.7)
+2026-07-30 08:19:42,164 | INFO | [549.0s] skip unstable frame (diff=74.5)
+2026-07-30 08:19:42,189 | INFO | [555.0s] skip unstable frame (diff=38.0)
+2026-07-30 08:19:42,216 | INFO | [561.0s] skip unstable frame (diff=40.1)
+2026-07-30 08:19:42,235 | INFO | [567.0s] skip unstable frame (diff=40.5)
+2026-07-30 08:19:42,252 | INFO | [573.1s] skip unstable frame (diff=39.0)
+2026-07-30 08:19:42,267 | INFO | [579.1s] skip unstable frame (diff=38.9)
+2026-07-30 08:19:42,284 | INFO | [585.2s] skip unstable frame (diff=43.1)
+2026-07-30 08:19:44,050 | INFO | [591.2s] scene='The image shows a man in a white robe standing in a field, holding a microphone ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:19:46,329 | INFO | [597.2s] scene='The image shows a man in a white robe standing in a field with his arms outstret' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:19:48,026 | INFO | [603.2s] scene='The image shows a man in a white robe standing in the center, holding a black ob' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:19:50,118 | INFO | [609.3s] scene='The image shows a man in a white sari standing in a field, holding something in ' | hints=['footsteps on dirt', 'birds chirping', 'insects buzzing'] | expr=[]
+2026-07-30 08:19:50,145 | INFO | [615.3s] skip unstable frame (diff=38.0)
+2026-07-30 08:19:50,170 | INFO | [621.3s] skip unstable frame (diff=40.1)
+2026-07-30 08:19:50,188 | INFO | [627.4s] skip unstable frame (diff=38.4)
+2026-07-30 08:19:50,211 | INFO | [633.4s] skip unstable frame (diff=44.4)
+2026-07-30 08:19:50,233 | INFO | [639.4s] skip unstable frame (diff=61.5)
+2026-07-30 08:19:52,744 | INFO | [645.5s] scene='The image shows a man sitting on top of a couch next to a woman in a white sari,' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:19:55,055 | INFO | [651.5s] scene='The image shows a man sitting on top of a couch next to a woman in a white sari.' | hints=[] | expr=[]
+2026-07-30 08:19:55,095 | INFO | [657.5s] skip unstable frame (diff=35.2)
+2026-07-30 08:19:57,068 | INFO | [663.6s] scene='The image shows a man sitting on top of a zebra print couch next to a woman. He ' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:19:59,184 | INFO | [669.6s] scene='The image shows a man sitting on top of a zebra print couch next to a woman. He ' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:19:59,223 | INFO | [675.6s] skip unstable frame (diff=60.6)
+2026-07-30 08:20:01,504 | INFO | [681.7s] scene='The image shows a man in a red and blue sari standing next to a woman in a white' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:20:03,692 | INFO | [687.7s] scene='The image shows a man in a red turban standing next to a woman in a sari, both o' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:20:05,772 | INFO | [693.7s] scene='The image shows a man in a red robe standing on a stage with his arms outstretch' | hints=['frogs croaking', 'drums', 'wind'] | expr=[]
+2026-07-30 08:20:09,387 | INFO | [699.8s] scene='The image shows a man in a red robe holding a flag in front of a group of people' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:20:13,996 | INFO | [705.8s] scene='The image shows a group of people standing on top of a stage, with a man and a w' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:20:18,781 | INFO | [711.8s] scene='The image shows a group of people standing on top of a stage, with a man and a w' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:20:19,108 | INFO | [717.8s] skip unstable frame (diff=47.6)
+2026-07-30 08:20:29,453 | INFO | [723.9s] scene='The image shows a man and a woman standing next to each other in front of a curt' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:20:40,520 | INFO | [729.9s] scene='The image shows a man and a woman standing next to each other in front of a curt' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:20:40,810 | INFO | [736.0s] skip unstable frame (diff=52.8)
+2026-07-30 08:20:40,938 | INFO | [742.0s] skip unstable frame (diff=53.3)
+2026-07-30 08:20:49,982 | INFO | [748.0s] scene='The image shows a man and a woman standing next to each other in front of a curt' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:20:50,103 | INFO | [754.0s] skip unstable frame (diff=37.9)
+2026-07-30 08:20:50,757 | INFO | [760.1s] skip unstable frame (diff=53.8)
+2026-07-30 08:20:51,135 | INFO | [766.1s] skip unstable frame (diff=60.0)
+2026-07-30 08:20:58,443 | INFO | [772.2s] scene='The image shows a man and a little girl sitting on the ground in front of a bask' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:21:06,587 | INFO | [778.2s] scene='The image shows a man and woman sitting on the ground in front of a basket, with' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:21:14,618 | INFO | [784.2s] scene='The image shows two women sitting on the ground in front of a basket, surrounded' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:21:23,316 | INFO | [790.2s] scene='The image shows a man and a woman sitting on the ground in front of a basket, su' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:21:31,921 | INFO | [796.3s] scene='The image shows a woman in a white dress sitting on the ground next to a man in ' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:21:41,232 | INFO | [802.3s] scene='The image shows a woman in a white dress sitting on the ground next to a man in ' | hints=['frogs croaking', 'rain falling', 'wind over water'] | expr=[]
+2026-07-30 08:21:48,791 | INFO | [808.4s] scene='The image shows a woman in a white dress standing next to a man in a black suit,' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:21:58,685 | INFO | [814.4s] scene='The image shows a woman in a white dress standing next to a man in a black suit,' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:22:08,207 | INFO | [820.4s] scene='The image shows a woman in a white dress standing next to a man in a black suit,' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:22:18,951 | INFO | [826.4s] scene='The image shows a woman in a white dress standing next to a man in a black suit,' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:22:31,358 | INFO | [832.5s] scene='The image shows a woman in a white dress and a man in a black suit standing next' | hints=['frogs croaking', 'distant music', 'wind'] | expr=[]
+2026-07-30 08:22:42,206 | INFO | [838.5s] scene='The image shows a man and woman standing next to each other in a dark room, illu' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:22:52,390 | INFO | [844.6s] scene='The image shows a man and a woman in white robes standing next to each other in ' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:22:52,666 | INFO | [850.6s] skip unstable frame (diff=52.4)
+2026-07-30 08:22:52,815 | INFO | [856.6s] skip unstable frame (diff=44.2)
+2026-07-30 08:23:01,434 | INFO | [862.6s] scene='The image shows a man and a woman standing next to each other in front of a tree' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:23:09,436 | INFO | [868.7s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:23:19,578 | INFO | [874.7s] scene='The image shows a man and a woman standing next to each other in front of a buil' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:23:28,782 | INFO | [880.7s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:23:41,414 | INFO | [886.8s] scene='The image shows a man and a woman standing next to each other in front of a buil' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:23:41,498 | INFO | [892.8s] skip unstable frame (diff=46.4)
+2026-07-30 08:23:41,844 | INFO | [898.8s] skip unstable frame (diff=37.8)
+2026-07-30 08:23:52,484 | INFO | [904.9s] scene='The image shows a man and woman standing next to each other in front of a hut' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:24:02,845 | INFO | [910.9s] scene='The image shows a man and woman standing next to each other in front of a hut, w' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:24:03,190 | INFO | [916.9s] skip unstable frame (diff=46.1)
+2026-07-30 08:24:12,652 | INFO | [923.0s] scene='The image shows a man and woman standing next to each other in front of a hut' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:24:22,064 | INFO | [929.0s] scene='The image shows a man and woman standing next to each other in front of a hut' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:24:33,617 | INFO | [935.0s] scene='The image shows a man and woman standing next to each other in front of a hut' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:24:44,466 | INFO | [941.1s] scene='The image shows a man and woman standing next to each other in front of a hut. I' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:24:53,120 | INFO | [947.1s] scene='The image shows a man and woman standing next to each other in front of a hut' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:25:02,758 | INFO | [953.1s] scene='The image shows a man and woman standing next to each other in front of a hut, w' | hints=['footsteps on floor', 'clock ticking', 'cattle lowing'] | expr=[]
+2026-07-30 08:25:03,122 | INFO | [959.2s] skip unstable frame (diff=37.3)
+2026-07-30 08:25:03,196 | INFO | [965.2s] skip unstable frame (diff=36.6)
+2026-07-30 08:25:03,567 | INFO | [971.2s] skip unstable frame (diff=51.9)
+2026-07-30 08:25:03,615 | INFO | [977.3s] skip unstable frame (diff=40.3)
+2026-07-30 08:25:03,943 | INFO | [983.3s] skip unstable frame (diff=48.7)
+2026-07-30 08:25:04,068 | INFO | [989.3s] skip unstable frame (diff=45.7)
+2026-07-30 08:25:14,825 | INFO | [995.4s] scene='The image shows a man and a woman embracing in front of a wall, with a watermark' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:25:24,848 | INFO | [1001.4s] scene='The image shows a man with long hair and a beard standing next to a woman in fro' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:25:35,720 | INFO | [1007.4s] scene='The image shows a man and a woman standing next to each other in front of a wall' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:25:46,463 | INFO | [1013.4s] scene='The image shows a man and a woman standing next to each other in front of a wall' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:25:46,780 | INFO | [1019.5s] skip unstable frame (diff=45.7)
+2026-07-30 08:25:46,890 | INFO | [1025.5s] skip unstable frame (diff=47.3)
+2026-07-30 08:25:46,938 | INFO | [1031.6s] skip unstable frame (diff=36.9)
+2026-07-30 08:25:47,324 | INFO | [1037.6s] skip unstable frame (diff=36.2)
+2026-07-30 08:25:56,559 | INFO | [1043.6s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:26:06,942 | INFO | [1049.6s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:14,633 | INFO | [1055.7s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:17,174 | INFO | [1061.7s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:26:19,666 | INFO | [1067.8s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:26:22,176 | INFO | [1073.8s] scene='The image shows a man and woman standing next to each other in front of a buildi' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:24,430 | INFO | [1079.8s] scene='The image shows a man and woman sitting on the ground in front of a building wit' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:26:24,465 | INFO | [1085.8s] skip unstable frame (diff=43.9)
+2026-07-30 08:26:27,205 | INFO | [1091.9s] scene='The image shows a man and woman sitting on the steps of a building, with a wall ' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:26:29,929 | INFO | [1097.9s] scene='The image shows a man and woman sitting on the steps of a building, with the man' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:26:32,644 | INFO | [1104.0s] scene='The image shows a man and woman sitting on the steps of a building, with the man' | hints=[] | expr=[]
+2026-07-30 08:26:35,524 | INFO | [1110.0s] scene='The image shows a man and woman sitting on the steps of a building, with a wall ' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:26:38,250 | INFO | [1116.0s] scene='The image shows a man and woman sitting on the steps of a building, with the man' | hints=[] | expr=[]
+2026-07-30 08:26:40,654 | INFO | [1122.0s] scene='The image shows a man and woman sitting on the steps of a building, with a water' | hints=['footsteps on floor', 'bells ringing', 'crowd murmur'] | expr=[]
+2026-07-30 08:26:43,280 | INFO | [1128.1s] scene='The image shows a man and woman sitting on the steps of a building, with the man' | hints=[] | expr=[]
+2026-07-30 08:26:43,317 | INFO | [1134.1s] skip unstable frame (diff=54.1)
+2026-07-30 08:26:45,870 | INFO | [1140.2s] scene='The image shows a man and woman sitting next to each other in front of a window,' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:48,337 | INFO | [1146.2s] scene='The image shows a man and woman sitting next to each other in front of a window,' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:50,751 | INFO | [1152.2s] scene='The image shows a man and woman sitting next to each other in front of a window,' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:53,174 | INFO | [1158.2s] scene='The image shows a man and woman sitting next to each other in front of a window,' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:55,962 | INFO | [1164.3s] scene='The image shows a man and woman sitting next to each other in front of a window,' | hints=['footsteps on dirt', 'footsteps on floor', 'clock ticking'] | expr=[]
+2026-07-30 08:26:55,999 | INFO | [1170.3s] skip unstable frame (diff=41.5)
+2026-07-30 08:26:58,456 | INFO | [1176.3s] scene='The image shows a man with long hair and a beard in a black shirt with his hands' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:27:00,955 | INFO | [1182.4s] scene='The image shows a man with long hair and a beard holding a knife in front of a w' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:27:03,394 | INFO | [1188.4s] scene='The image shows a man with long hair and a beard wearing a black shirt, standing' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:27:05,631 | INFO | [1194.4s] scene='The image shows a man with long hair and a beard standing in front of a wall wit' | hints=['footsteps on floor', 'clock ticking', 'fan humming'] | expr=[]
+2026-07-30 08:27:08,215 | INFO | [1200.5s] scene='The image shows a woman and a man holding hands in front of a TV screen with the' | hints=['bells ringing', 'crowd murmur', 'music'] | expr=[]
+2026-07-30 08:27:08,268 | INFO | [1206.5s] skip unstable frame (diff=39.1)
+2026-07-30 08:27:08,268 | INFO | Vision log: 111 frames → results_v16\BEK_EP_021\florence_log.jsonl
+2026-07-30 08:27:08,281 | INFO | 
+Stage 1 done. Stage 2:
+  python panns_pipeline.py --video data\BEK_EP_021.mp4 --florence-log results_v16\BEK_EP_021\florence_log.jsonl

@@ -1,0 +1,5 @@
+2026-08-05 12:51:18,598 | INFO | ======================================================================
+2026-08-05 12:51:18,598 | INFO | PROCESSING: BEK_EP_022 (PANNs + GPT-4o-mini)
+2026-08-05 12:51:18,598 | INFO | ======================================================================
+2026-08-05 12:51:20,534 | INFO | No vision log — extracting live to /Users/AditiP/Desktop/initial-fork/backend_data/jobs/f48dc7b7ee054bba93ea0790905544a8/output/florence_log.jsonl
+2026-08-05 12:55:09,932 | INFO | Vision extraction: 204 frames over 20.5 min (10 FPM)

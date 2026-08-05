@@ -1,0 +1,205 @@
+2026-07-30 07:33:14,649 | INFO | Vision extraction: 200 frames over 20.1 min (10 FPM)
+2026-07-30 07:33:19,288 | INFO | [0.0s] scene='The image shows a black background with the words "Waves Ott for SLC" written in' | hints=['owl hooting', 'crackling fire', 'wind'] | expr=[]
+2026-07-30 07:33:20,902 | INFO | [6.0s] scene='The image shows a red rose with water droplets on it against a black background,' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:33:22,685 | INFO | [12.1s] scene='The image shows a red rose with green leaves and water droplets on it, set again' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:33:24,443 | INFO | [18.1s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:33:26,659 | INFO | [24.2s] scene='The image shows a red rose with its stem and leaves, set against a dark backgrou' | hints=['crow cawing', 'owl hooting', 'night insects'] | expr=[]
+2026-07-30 07:33:28,898 | INFO | [30.2s] scene='The rose is vibrant and full of life, with its petals and leaves standing out ag' | hints=['crow cawing', 'owl hooting', 'night insects'] | expr=[]
+2026-07-30 07:33:30,791 | INFO | [36.3s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:33:33,885 | INFO | [42.3s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:33:36,992 | INFO | [48.4s] scene='The rose is vibrant and full of life, with its petals and leaves standing out ag' | hints=['crow cawing', 'owl hooting', 'night insects'] | expr=[]
+2026-07-30 07:33:38,706 | INFO | [54.4s] scene='The image shows a red rose with the words "Executive Producer Raj Pius" written ' | hints=['owl hooting', 'crackling fire', 'wind'] | expr=[]
+2026-07-30 07:33:41,126 | INFO | [60.5s] scene='The image shows a red rose with its stem and leaves, accompanied by the words "V' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:33:43,165 | INFO | [66.5s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:33:45,870 | INFO | [72.6s] scene='The rose is a vibrant red color, with its petals and leaves standing out against' | hints=['crow cawing', 'owl hooting', 'night insects'] | expr=[]
+2026-07-30 07:33:48,528 | INFO | [78.6s] scene='The rose is vibrant and full of life, with its petals and leaves standing out ag' | hints=['crow cawing', 'owl hooting', 'night insects'] | expr=[]
+2026-07-30 07:33:51,421 | INFO | [84.7s] scene='The rose is vibrant and full of life, with its petals and leaves standing out ag' | hints=['crow cawing', 'owl hooting', 'night insects'] | expr=[]
+2026-07-30 07:33:53,418 | INFO | [90.7s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:33:55,367 | INFO | [96.8s] scene='The image shows a single red rose with its stem and leaves against a black backg' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:33:57,461 | INFO | [102.8s] scene='The image shows a red rose with the words "Salim Arif" written on it, set agains' | hints=['crow cawing', 'owl hooting', 'night insects'] | expr=[]
+2026-07-30 07:33:59,780 | INFO | [108.9s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:34:01,473 | INFO | [114.9s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:34:03,341 | INFO | [121.0s] scene='The image shows a red rose with its stem and leaves against a black background, ' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:34:05,482 | INFO | [127.0s] scene='The image shows a black background with the text "Episode 23: The Chola Empire P' | hints=[] | expr=[]
+2026-07-30 07:34:05,515 | INFO | [133.1s] skip unstable frame (diff=75.1)
+2026-07-30 07:34:05,550 | INFO | [139.1s] skip unstable frame (diff=39.2)
+2026-07-30 07:34:05,591 | INFO | [145.2s] skip unstable frame (diff=37.1)
+2026-07-30 07:34:07,688 | INFO | [151.2s] scene='The image shows a group of four men standing next to each other in front of a bu' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:34:10,138 | INFO | [157.3s] scene='The image shows a group of four men standing next to each other in front of a bu' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:12,566 | INFO | [163.3s] scene='The image shows a group of four men standing next to each other in front of a bu' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:14,993 | INFO | [169.4s] scene='The image shows a group of four men standing next to each other in front of a bu' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:17,547 | INFO | [175.4s] scene='The image shows a man in a purple sari standing next to a woman in a white sari,' | hints=['crow cawing', 'rustling grass', 'clock ticking'] | expr=[]
+2026-07-30 07:34:20,013 | INFO | [181.5s] scene='The image shows a group of men standing next to each other in front of a buildin' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:22,374 | INFO | [187.5s] scene='The image shows a group of men standing next to each other in front of a buildin' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:25,107 | INFO | [193.6s] scene='The image shows a group of men standing next to each other in front of a tree, w' | hints=['horses', 'drums', 'clock ticking'] | expr=[]
+2026-07-30 07:34:27,400 | INFO | [199.6s] scene='The image shows a group of men standing next to each other in front of a tree, w' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:34:29,981 | INFO | [205.7s] scene='The image shows a group of men standing next to each other in front of a tree, w' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:34:32,341 | INFO | [211.7s] scene='The image shows a group of four men standing next to each other in front of a bu' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:34,735 | INFO | [217.8s] scene='The image shows a group of four men standing next to each other in front of a bu' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:37,490 | INFO | [223.8s] scene='The image shows a group of men standing next to each other in front of a tree, w' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:34:39,967 | INFO | [229.9s] scene='The image shows a group of four men standing next to each other in front of a tr' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:42,323 | INFO | [235.9s] scene='The image shows a group of men standing next to each other in front of a buildin' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:44,851 | INFO | [242.0s] scene='The image shows a group of men standing next to each other in front of a buildin' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:47,153 | INFO | [248.0s] scene='The image shows a group of men standing next to each other in front of a buildin' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:49,644 | INFO | [254.1s] scene='The image shows a group of men standing next to each other in front of a tree, w' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:49,678 | INFO | [260.2s] skip unstable frame (diff=36.6)
+2026-07-30 07:34:52,383 | INFO | [266.2s] scene='The image shows a man in a purple robe talking to another man wearing a crown, w' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:34:54,603 | INFO | [272.2s] scene='The image shows a man in a white robe talking to another man wearing a crown, su' | hints=['crow cawing', 'rustling grass', 'clock ticking'] | expr=[]
+2026-07-30 07:34:57,140 | INFO | [278.3s] scene='The image shows a group of three men standing next to each other in front of a b' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:34:59,666 | INFO | [284.4s] scene='The image shows a group of three men standing next to each other in front of a b' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:35:02,192 | INFO | [290.4s] scene='The image shows a man in a white robe talking to two other men, one of whom is w' | hints=['crow cawing', 'rustling grass', 'clock ticking'] | expr=[]
+2026-07-30 07:35:04,680 | INFO | [296.4s] scene='The image shows a man in a white robe talking to another man wearing a crown, su' | hints=['crow cawing', 'rustling grass', 'clock ticking'] | expr=[]
+2026-07-30 07:35:04,716 | INFO | [302.5s] skip unstable frame (diff=51.9)
+2026-07-30 07:35:04,744 | INFO | [308.6s] skip unstable frame (diff=39.1)
+2026-07-30 07:35:07,274 | INFO | [314.6s] scene='The image shows a man in a red sari sitting on a throne next to a woman in a blu' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:09,375 | INFO | [320.6s] scene='The image shows a woman in a red dress standing on a stage, holding a microphone' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:35:11,863 | INFO | [326.7s] scene='The image shows a group of people standing around a man in a blue sari, who is s' | hints=['clock ticking', 'fan humming', 'footsteps on floor'] | expr=[]
+2026-07-30 07:35:14,374 | INFO | [332.8s] scene='The image shows a man with a mustache and a crown on his head sitting on a thron' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:16,892 | INFO | [338.8s] scene='The image shows a man with a beard and a crown on his head sitting on a throne, ' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:18,901 | INFO | [344.8s] scene='The image shows a man with a mustache and a crown on his head sitting on a thron' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:21,351 | INFO | [350.9s] scene='The image shows a man sitting on a throne with a crown on his head, adorned with' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:23,247 | INFO | [357.0s] scene='The image shows a man sitting on a throne with a crown on his head, adorned with' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:25,920 | INFO | [363.0s] scene='The image shows two men standing next to each other in front of a crowd, with a ' | hints=['crowd chatter', 'clock ticking', 'rain falling'] | expr=[]
+2026-07-30 07:35:28,067 | INFO | [369.0s] scene='The image shows a man sitting on a throne with a crown on his head, adorned with' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:30,546 | INFO | [375.1s] scene='The image shows a man in a white robe standing next to a woman in a pink sari, w' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:35:33,088 | INFO | [381.2s] scene='The image shows a group of people standing next to each other in a room, with a ' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:35,666 | INFO | [387.2s] scene='The image shows a man in a blue sari with his hands clasped in prayer, adorned w' | hints=['clock ticking', 'rain falling', 'bells ringing'] | expr=[]
+2026-07-30 07:35:38,498 | INFO | [393.2s] scene='The image shows a man in a blue sari with his hands clasped in prayer, wearing o' | hints=['clock ticking', 'rain falling', 'bells ringing'] | expr=[]
+2026-07-30 07:35:41,409 | INFO | [399.3s] scene='The image shows three men standing in front of a table filled with fruits and ot' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:44,265 | INFO | [405.4s] scene='The image shows a group of three men standing next to each other in front of a t' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:47,198 | INFO | [411.4s] scene='The image shows a man in a blue sari standing next to a woman in a red dress, wi' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:35:49,284 | INFO | [417.4s] scene='The image shows a woman in a pink sari adorned with ornaments and a crown on her' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:35:52,154 | INFO | [423.5s] scene='The image shows a group of three men standing next to each other in front of a s' | hints=['owl hooting', 'night insects', 'rain falling'] | expr=[]
+2026-07-30 07:35:54,797 | INFO | [429.6s] scene='The image shows a man in a blue sari with his hands clasped in prayer, adorned w' | hints=['clock ticking', 'rain falling', 'bells ringing'] | expr=[]
+2026-07-30 07:35:57,291 | INFO | [435.6s] scene='The image shows a group of three men standing next to each other in front of a s' | hints=['owl hooting', 'night insects', 'rain falling'] | expr=[]
+2026-07-30 07:35:59,671 | INFO | [441.6s] scene='The image shows a group of three men standing next to each other in front of a s' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:02,474 | INFO | [447.7s] scene='The image shows a group of men standing next to each other in front of a crowd, ' | hints=['crowd chatter', 'rain falling', 'music playing'] | expr=[]
+2026-07-30 07:36:04,905 | INFO | [453.8s] scene='The image shows a group of men standing next to each other in front of a crowd, ' | hints=['crowd chatter', 'rain falling', 'music playing'] | expr=[]
+2026-07-30 07:36:07,487 | INFO | [459.8s] scene='The image shows a group of people standing around each other in front of a statu' | hints=['horses', 'drums', 'rain falling'] | expr=['scared', 'concerned']
+2026-07-30 07:36:09,841 | INFO | [465.8s] scene='The image shows a woman in a blue dress standing in front of a statue, with a ma' | hints=['owl hooting', 'night insects', 'rain falling'] | expr=[]
+2026-07-30 07:36:09,876 | INFO | [471.9s] skip unstable frame (diff=37.5)
+2026-07-30 07:36:12,381 | INFO | [478.0s] scene='The image shows a man in a bikini standing next to a woman in a red dress, with ' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:12,420 | INFO | [484.0s] skip unstable frame (diff=39.6)
+2026-07-30 07:36:14,942 | INFO | [490.0s] scene='The image shows a woman in a white sari talking to a man in a temple, with a wat' | hints=['rain falling', 'bells ringing', 'frogs croaking'] | expr=[]
+2026-07-30 07:36:17,377 | INFO | [496.1s] scene='The image shows a man in a white robe and a woman in a gold dress standing next ' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:36:19,791 | INFO | [502.2s] scene='The image shows a man and a woman standing next to each other in front of a stat' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:22,364 | INFO | [508.2s] scene='The image shows a man and woman standing next to each other in front of a statue' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:24,880 | INFO | [514.2s] scene='The image shows a man and woman standing next to each other in front of a statue' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:27,295 | INFO | [520.3s] scene='The image shows a man and a woman standing next to each other in front of a stat' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:29,870 | INFO | [526.4s] scene='The image shows a man and a woman standing next to each other in front of a stat' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:32,408 | INFO | [532.4s] scene='The image shows a man and woman standing next to each other in front of a statue' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:34,860 | INFO | [538.4s] scene='The image shows a man and woman standing next to each other in front of a statue' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:37,410 | INFO | [544.5s] scene='The image shows a man and woman standing next to each other in front of a statue' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:39,971 | INFO | [550.6s] scene='The image shows a woman in a white sari standing next to a man in a blue sari, b' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:42,165 | INFO | [556.6s] scene='The image shows a woman in a white sari standing next to a man in a blue sari, b' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:36:42,188 | INFO | [562.6s] skip unstable frame (diff=41.2)
+2026-07-30 07:36:44,506 | INFO | [568.7s] scene='The image shows a man with long hair and a beard standing next to another man in' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:36:46,813 | INFO | [574.8s] scene='The image shows two men standing next to each other in front of a wall adorned w' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:36:49,066 | INFO | [580.8s] scene='The image shows two men standing next to each other in front of a wall adorned w' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:36:51,528 | INFO | [586.8s] scene='The image shows two men standing next to each other in front of a wall adorned w' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:36:54,332 | INFO | [592.9s] scene='The image shows a man with a beard and a woman in a red dress standing next to e' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:36:56,612 | INFO | [599.0s] scene='The image shows two men standing next to each other in front of a statue, with a' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:36:59,108 | INFO | [605.0s] scene='The image shows two men standing next to each other in front of a statue, with a' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:01,490 | INFO | [611.0s] scene='The image shows a man with a beard and a mustache standing next to another man i' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:04,102 | INFO | [617.1s] scene='The image shows a man with a beard and a crown on his head standing next to anot' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:37:06,755 | INFO | [623.2s] scene='The image shows two men, one with a beard and the other with a crown on his head' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:09,463 | INFO | [629.2s] scene='The image shows a man in a black robe and a woman in a red dress standing next t' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:12,251 | INFO | [635.2s] scene='The image shows a man in a black robe and a woman in a red dress standing next t' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:15,225 | INFO | [641.3s] scene='The image shows two men, one with a beard and the other with a crown on his head' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:17,783 | INFO | [647.4s] scene='The image shows a man in a black robe and a woman in a red dress standing next t' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:20,178 | INFO | [653.4s] scene='The image shows two men, one with a beard and the other with a crown on his head' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:22,643 | INFO | [659.4s] scene='The image shows a man in a black robe and a woman in a red dress standing next t' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:25,184 | INFO | [665.5s] scene='The image shows a man in a black robe and a woman in a red sari standing in fron' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:27,668 | INFO | [671.6s] scene='The image shows a man in a black robe and a woman in a red sari standing next to' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:29,993 | INFO | [677.6s] scene='The image shows two men, one with a mustache and the other with a beard, standin' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:32,549 | INFO | [683.6s] scene='The image shows a man with a mustache and a beard standing next to a woman in a ' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:37:35,081 | INFO | [689.7s] scene='The image shows a man in a black and gold outfit with a crown on his head and a ' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:37:37,616 | INFO | [695.8s] scene='The image shows a man with a beard and a crown on his head standing next to anot' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:37,642 | INFO | [701.8s] skip unstable frame (diff=35.2)
+2026-07-30 07:37:40,156 | INFO | [707.8s] scene='The image shows two men standing next to each other in front of a statue, with a' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:42,688 | INFO | [713.9s] scene='The image shows two men standing next to each other in front of a statue, with a' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:45,201 | INFO | [720.0s] scene='The image shows two men standing next to each other in front of a statue, with a' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:47,716 | INFO | [726.0s] scene='The image shows a man in a red robe talking to another man in front of a statue,' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:50,155 | INFO | [732.1s] scene='The image shows a man in a black robe talking to another man in front of a statu' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:52,562 | INFO | [738.1s] scene='The image shows two men standing next to each other in front of a statue, with a' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:54,952 | INFO | [744.2s] scene='The image shows two men standing next to each other in front of a statue, with a' | hints=['clock ticking', 'rain falling', 'fan humming'] | expr=[]
+2026-07-30 07:37:54,978 | INFO | [750.2s] skip unstable frame (diff=38.3)
+2026-07-30 07:37:57,600 | INFO | [756.3s] scene='The image shows a man with a beard and a mustache standing next to another man i' | hints=['rain falling', 'bells ringing', 'frogs croaking'] | expr=[]
+2026-07-30 07:38:00,057 | INFO | [762.3s] scene='The image shows a man with a beard and a mustache standing next to another man i' | hints=['owl hooting', 'night insects', 'rain falling'] | expr=[]
+2026-07-30 07:38:02,699 | INFO | [768.4s] scene='The image shows a man with a beard and a mustache standing next to another man i' | hints=['rain falling', 'bells ringing', 'frogs croaking'] | expr=[]
+2026-07-30 07:38:05,328 | INFO | [774.4s] scene='The image shows two men standing next to each other in front of a statue' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:38:08,105 | INFO | [780.5s] scene='The image shows two men, one with a beard and the other with a mustache, standin' | hints=['rain falling', 'frogs croaking', 'water flowing'] | expr=[]
+2026-07-30 07:38:10,515 | INFO | [786.5s] scene='The image shows a man with a beard and a mustache standing next to another man i' | hints=['owl hooting', 'night insects', 'rain falling'] | expr=[]
+2026-07-30 07:38:10,564 | INFO | [792.6s] skip unstable frame (diff=67.4)
+2026-07-30 07:38:10,606 | INFO | [798.6s] skip unstable frame (diff=69.6)
+2026-07-30 07:38:10,622 | INFO | [804.7s] skip unstable frame (diff=81.0)
+2026-07-30 07:38:10,645 | INFO | [810.7s] skip unstable frame (diff=57.1)
+2026-07-30 07:38:10,665 | INFO | [816.8s] skip unstable frame (diff=75.0)
+2026-07-30 07:38:10,690 | INFO | [822.8s] skip unstable frame (diff=78.0)
+2026-07-30 07:38:10,714 | INFO | [828.9s] skip unstable frame (diff=60.6)
+2026-07-30 07:38:12,912 | INFO | [834.9s] scene='The image shows a man sitting at a table with a statue of a man in front of him,' | hints=['crow cawing', 'rustling grass', 'clock ticking'] | expr=[]
+2026-07-30 07:38:15,547 | INFO | [841.0s] scene='The image shows a man sitting at a table with a model of a temple in front of hi' | hints=['crow cawing', 'clock ticking', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:18,085 | INFO | [847.0s] scene='The image shows a man sitting at a table with a model of a temple in front of hi' | hints=['crow cawing', 'clock ticking', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:20,646 | INFO | [853.1s] scene='The image shows a man sitting at a table with a model of a temple in front of hi' | hints=['crow cawing', 'clock ticking', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:23,392 | INFO | [859.1s] scene='The image shows a man sitting at a table with a model of a temple in front of hi' | hints=['crow cawing', 'clock ticking', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:25,934 | INFO | [865.2s] scene='The image shows a man sitting at a table with a model of a temple in front of hi' | hints=['crow cawing', 'clock ticking', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:25,973 | INFO | [871.2s] skip unstable frame (diff=40.8)
+2026-07-30 07:38:28,457 | INFO | [877.3s] scene='The image shows a man sitting at a table with a model of a temple in front of hi' | hints=['crow cawing', 'clock ticking', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:28,490 | INFO | [883.3s] skip unstable frame (diff=57.8)
+2026-07-30 07:38:30,764 | INFO | [889.4s] scene='The image shows a man sitting on a bench next to a model of a temple, surrounded' | hints=['crow cawing', 'clock ticking', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:30,794 | INFO | [895.4s] skip unstable frame (diff=57.6)
+2026-07-30 07:38:32,671 | INFO | [901.5s] scene='The image shows a man sitting atop a green temple, holding something in his hand' | hints=['bells ringing', 'crowd murmur', 'wind'] | expr=[]
+2026-07-30 07:38:34,683 | INFO | [907.5s] scene='The image shows a man with long hair and a beard standing in front of a green te' | hints=['bells ringing', 'crowd murmur', 'wind'] | expr=[]
+2026-07-30 07:38:36,508 | INFO | [913.6s] scene='The image shows a man standing next to a green temple, holding something in his ' | hints=['bells ringing', 'crowd murmur', 'wind'] | expr=[]
+2026-07-30 07:38:36,541 | INFO | [919.6s] skip unstable frame (diff=55.3)
+2026-07-30 07:38:36,566 | INFO | [925.7s] skip unstable frame (diff=73.7)
+2026-07-30 07:38:36,606 | INFO | [931.7s] skip unstable frame (diff=59.7)
+2026-07-30 07:38:36,643 | INFO | [937.8s] skip unstable frame (diff=59.5)
+2026-07-30 07:38:39,087 | INFO | [943.8s] scene='The image shows two men standing next to each other in a field, with one of them' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:38:39,111 | INFO | [949.9s] skip unstable frame (diff=43.5)
+2026-07-30 07:38:39,137 | INFO | [955.9s] skip unstable frame (diff=55.1)
+2026-07-30 07:38:39,156 | INFO | [962.0s] skip unstable frame (diff=57.3)
+2026-07-30 07:38:41,667 | INFO | [968.0s] scene='The image shows two men standing next to each other in front of a backdrop of tr' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:38:41,699 | INFO | [974.1s] skip unstable frame (diff=58.4)
+2026-07-30 07:38:41,733 | INFO | [980.1s] skip unstable frame (diff=35.4)
+2026-07-30 07:38:41,754 | INFO | [986.2s] skip unstable frame (diff=61.0)
+2026-07-30 07:38:41,777 | INFO | [992.2s] skip unstable frame (diff=46.7)
+2026-07-30 07:38:41,805 | INFO | [998.3s] skip unstable frame (diff=54.8)
+2026-07-30 07:38:44,011 | INFO | [1004.3s] scene='The image shows a man walking down a dirt path in the middle of a lush green fie' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:46,054 | INFO | [1010.4s] scene='The image shows two women walking down a path in the woods, both wearing white d' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:47,959 | INFO | [1016.4s] scene='The image shows a man and woman walking down a dirt road surrounded by trees and' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:49,775 | INFO | [1022.5s] scene='The image shows two women in white dresses walking down a dirt road surrounded b' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:49,809 | INFO | [1028.5s] skip unstable frame (diff=35.2)
+2026-07-30 07:38:51,778 | INFO | [1034.6s] scene='The image shows a group of three women walking down a dirt road surrounded by tr' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:53,686 | INFO | [1040.6s] scene='The image shows two women walking down a dirt road with their arms outstretched,' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:56,013 | INFO | [1046.7s] scene='The image shows a group of three people walking down a dirt road surrounded by t' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:56,064 | INFO | [1052.7s] skip unstable frame (diff=43.5)
+2026-07-30 07:38:56,099 | INFO | [1058.8s] skip unstable frame (diff=54.1)
+2026-07-30 07:38:56,142 | INFO | [1064.8s] skip unstable frame (diff=90.1)
+2026-07-30 07:38:59,164 | INFO | [1070.9s] scene='The image shows two men standing next to each other in a field, with one of them' | hints=['crow cawing', 'drums', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:38:59,210 | INFO | [1076.9s] skip unstable frame (diff=50.4)
+2026-07-30 07:39:01,940 | INFO | [1083.0s] scene='The image shows three men standing next to each other in a field, with one of th' | hints=['crow cawing', 'horses', 'rustling grass'] | expr=[]
+2026-07-30 07:39:04,418 | INFO | [1089.0s] scene='The image shows a man in a red sari standing next to a woman in a black dress, b' | hints=[] | expr=[]
+2026-07-30 07:39:04,445 | INFO | [1095.1s] skip unstable frame (diff=70.5)
+2026-07-30 07:39:06,812 | INFO | [1101.1s] scene='The image shows two men dressed in traditional Indian clothing standing next to ' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:09,711 | INFO | [1107.2s] scene='The image shows two men, one with a beard and the other with long hair, standing' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:12,425 | INFO | [1113.2s] scene='The image shows two men, one with a long beard and the other with a crown on his' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:14,901 | INFO | [1119.3s] scene='The image shows a man with long hair and a beard standing next to another man in' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:17,253 | INFO | [1125.3s] scene='The image shows a man with long hair and a beard standing next to another man in' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:19,808 | INFO | [1131.4s] scene='The image shows two men, one with a beard and the other with a long beard, stand' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:22,439 | INFO | [1137.4s] scene='The image shows two men standing next to each other in front of a backdrop of tr' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:24,783 | INFO | [1143.5s] scene='The image shows a man with long hair and a beard standing next to another man in' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:27,142 | INFO | [1149.5s] scene='The image shows two men, one with long hair and a beard, talking to each other i' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:29,392 | INFO | [1155.6s] scene='The image shows a man with long hair and a beard standing next to another man in' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:31,981 | INFO | [1161.6s] scene='The image shows two men standing next to each other in front of a backdrop of tr' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:32,000 | INFO | [1167.7s] skip unstable frame (diff=48.7)
+2026-07-30 07:39:34,264 | INFO | [1173.7s] scene='The image shows a wooden gate in the middle of a forest, with a few people sitti' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:39:36,421 | INFO | [1179.8s] scene='The image shows a wooden gate in the middle of a forest, with a few trees in the' | hints=['crow cawing', 'rustling grass', 'water splashing'] | expr=[]
+2026-07-30 07:39:38,374 | INFO | [1185.8s] scene='The image shows a man and woman standing in front of a wooden gate, surrounded b' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:39:38,418 | INFO | [1191.9s] skip unstable frame (diff=43.7)
+2026-07-30 07:39:38,454 | INFO | [1197.9s] skip unstable frame (diff=65.0)
+2026-07-30 07:39:39,990 | INFO | [1204.0s] scene='The image shows a group of four women standing under a wooden shed surrounded by' | hints=['crow cawing', 'rustling grass', 'wind rustling leaves'] | expr=[]
+2026-07-30 07:39:40,003 | INFO | Vision log: 158 frames → results_v16\BEK_EP_023\florence_log.jsonl
+2026-07-30 07:39:40,006 | INFO | 
+Stage 1 done. Stage 2:
+  python panns_pipeline.py --video data\BEK_EP_023.mp4 --florence-log results_v16\BEK_EP_023\florence_log.jsonl

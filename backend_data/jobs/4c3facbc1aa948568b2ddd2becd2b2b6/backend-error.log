@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/AditiP/Desktop/initial-fork/backend/app.py", line 132, in run_pipeline
+    process_video(str(upload_path), output_dir)
+  File "/Users/AditiP/Desktop/initial-fork/panns_pipeline.py", line 1789, in process_video
+    extract_vision_log(video_path, str(fallback), logger)
+  File "/Users/AditiP/Desktop/initial-fork/panns_pipeline.py", line 939, in extract_vision_log
+    fp, fm = get_florence()
+  File "/Users/AditiP/Desktop/initial-fork/panns_pipeline.py", line 362, in get_florence
+    _florence_model = AutoModelForCausalLM.from_pretrained(
+  File "/Users/AditiP/Desktop/initial-fork/.venv/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 553, in from_pretrained
+    model_class = get_class_from_dynamic_module(
+  File "/Users/AditiP/Desktop/initial-fork/.venv/lib/python3.9/site-packages/transformers/dynamic_module_utils.py", line 540, in get_class_from_dynamic_module
+    final_module = get_cached_module_file(
+  File "/Users/AditiP/Desktop/initial-fork/.venv/lib/python3.9/site-packages/transformers/dynamic_module_utils.py", line 365, in get_cached_module_file
+    modules_needed = check_imports(resolved_module_file)
+  File "/Users/AditiP/Desktop/initial-fork/.venv/lib/python3.9/site-packages/transformers/dynamic_module_utils.py", line 197, in check_imports
+    raise ImportError(
+ImportError: This modeling file requires the following packages that were not found in your environment: einops, timm. Run `pip install einops timm`
