@@ -1,0 +1,27 @@
+# Generated results (do not commit)
+panns_visual_results/
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Large model files (optional but recommended)
+*.task
+*.pth
+*.pt
+
+# Windows system files
+desktop.ini
+Desktop.ini
+Thumbs.db
