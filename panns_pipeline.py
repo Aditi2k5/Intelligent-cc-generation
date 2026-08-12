@@ -21,7 +21,7 @@ HF_TOKEN = os.environ.get("HF_TOKEN", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 # ====================== GPU ======================
-# ====================== DEVICE (Mac / CUDA / CPU) ======================
+# Device selection for Mac MPS, CUDA, or CPU.
 if torch.backends.mps.is_available():
     DEVICE = "mps"          # Apple Silicon GPU
     print("\nUsing Apple Silicon GPU (MPS)\n")
@@ -32,9 +32,7 @@ else:
     DEVICE = "cpu"
     print("\nNo GPU found — running on CPU (will be slow)\n")
 
-# Shared Florence precision. This must be module-scoped because both model
-# loading and vision inference use it. Keep token tensors as integers; only
-# floating-point inputs (such as pixel values) are converted to this dtype.
+# Shared Florence precision keeps model and vision inference consistent.
 MODEL_DTYPE = torch.float16 if DEVICE in ("mps", "cuda") else torch.float32
 
 # ====================== CONFIG ======================
@@ -42,7 +40,8 @@ SAMPLE_RATE          = 32000
 WINDOW_SEC           = 0.96
 HOP_SEC              = 0.20
 FRAMES_PER_MINUTE    = 10
-SCENE_WINDOW_SEC     = 8.0
+SCENE_WINDOW_SEC     = 30.0
+# Florence scene gaps are wider than expected, so the pipeline uses a more tolerant window.
 DEDUP_GAP_SEC        = 1.5
 BURST_GAP_SEC        = 2.0       # events closer than this merge into one caption
 PALETTE_SIZE         = 20
@@ -57,10 +56,10 @@ GENERATE_FINAL_VIDEO = True
 
 # ---- Per-class thresholds ----
 CLASS_THRESHOLD_KEYWORDS = [
-    (["caw"],                               0.022),
-    (["crow"],                              0.028),
-    (["bird vocalization", "bird call"],    0.028),
-    (["bird"],                              0.032),
+    (["caw"],                               0.28),
+    (["crow"],                              0.32),
+    (["bird vocalization", "bird call"],    0.35),
+    (["bird"],                              0.40),
     (["rustl"],                             0.028),
     (["creak", "creaking"],                 0.028),
     (["cricket"],                           0.10),
@@ -78,6 +77,11 @@ CLASS_THRESHOLD_KEYWORDS = [
     (["tabla", "sitar", "dhol", "shehnai"], 0.030),
     (["drum"],                              0.048),
     (["owl", "hoot"],                       0.45),
+    (["applause", "clapping"],              0.045),
+    (["wheeze", "groan", "grunt", "pant", "gasp", "sigh",
+      "battle cry", "whimper", "scream", "shout", "yell", "sob"], 0.05),
+    (["whistle", "wolf-whistle", "whistling"], 0.05),
+    (["vehicle", "car", "engine", "motor", "traffic"], 0.16),
     (["plucked string"],                    0.048),
     (["singing"],                           0.075),
     (["crowd", "cheering", "chatter"],      0.055),
@@ -85,7 +89,9 @@ CLASS_THRESHOLD_KEYWORDS = [
     (["fire", "crackling"],                 0.032),
     (["cattle", "sheep", "cow"],            0.025),
     (["water", "stream", "splash", "rain", "waterfall"], 0.035),
-    (["wood", "creak", "knock", "chop"],                 0.030),
+    (["white noise", "static"],             0.30),
+    (["mantra", "chant"],                   0.28),
+    (["wood", "knock", "chop"],              0.10),
     (["metal", "clank", "clang", "clash"],               0.032),
     (["glass", "clink", "shatter"],                      0.030),
     (["mridangam", "pakhawaj"],               0.030),
@@ -103,10 +109,7 @@ CLASS_THRESHOLD_KEYWORDS = [
     (["drum kit", "bass drum", "snare"],     0.040),
     (["manjira", "percussion", "cymbal"],    0.040),
     (["bell", "chime", "wind chime"],        0.035),
-    (["telephone", "ringtone", "phone"],     0.045),
-    # Generic / rare animal classes are AudioSet's worst false-positive
-    # offenders — they fire on incidental noise, reverb, cloth rustle, etc.
-    # Give them a much higher bar than specific classes like cattle/moo.
+    (["telephone", "ringtone", "phone"],     0.020),
     (["duck", "quack", "goose", "honk"],    0.09),
     (["wild animal", "domestic animal"],    0.09),
     (["animal", "dog", "cat"],              0.09),
@@ -114,6 +117,62 @@ CLASS_THRESHOLD_KEYWORDS = [
 ]
 DEFAULT_THRESHOLD = 0.052
 _threshold_cache: dict = {}
+
+# ====================== MULTI SCENE PALETTE ======================
+SCENE_PALETTES = {
+    "nature": {
+        "keywords": ["forest", "tree", "trees", "jungle", "woods", "bushes",
+                     "leaves", "branch", "nest", "sky", "outdoor", "nature",
+                     "feather", "wing", "farm", "field", "village"],
+        "implausible": {"applause", "whistle", "mantra", "chant", "vehicle",
+                         "human_reaction", "ringtone"},
+    },
+    "circus_performance": {
+        "keywords": ["circus", "stage", "tent", "arena", "performer",
+                     "acrobat", "trapeze", "net", "ring", "clown",
+                     "rope", "big top", "high wire", "ringmaster",
+                     "tightrope", "juggling", "pole", "aerial"],
+        "implausible": {"crow", "bird", "cricket", "insect", "mantra",
+                         "chant", "wind", "water", "vehicle", "wood"},
+    },
+    "crowd_audience": {
+        "keywords": ["crowd", "audience", "spectator", "spectators",
+                      "cheering", "watching", "bleachers", "seated",
+                      "rows of people", "clapping"],
+        "implausible": {"crow", "bird", "cricket", "insect", "mantra",
+                         "chant", "wind", "vehicle", "wood"},
+    },
+    "ritual_temple": {
+        "keywords": ["temple", "shrine", "idol", "priest", "ritual",
+                     "prayer", "puja"],
+        "implausible": {"vehicle", "applause", "whistle", "ringtone"},
+    },
+    "indoor_generic": {
+        "keywords": ["indoor", "room", "hall", "auditorium", "studio",
+                     "inside"],
+        "implausible": {"crow", "bird", "cricket", "insect", "wind",
+                         "water", "vehicle"},
+    },
+    "phone_present": {
+        "keywords": ["phone", "mobile", "smartphone", "cell phone",
+                     "telephone"],
+        "implausible": {"crow", "bird", "cricket", "insect", "mantra",
+                         "chant"},
+    },
+}
+
+def _scene_palette(scene_text: str):
+    """Return (category_name, implausible_family_set) for the given scene
+    text. Falls back to ('unknown', empty set) when nothing matches or
+    scene_text is empty — a scene we can't classify applies NO vetoes,
+    which is the safe default."""
+    if not scene_text:
+        return "unknown", set()
+    st = scene_text.lower()
+    for category, cfg in SCENE_PALETTES.items():
+        if any(k in st for k in cfg["keywords"]):
+            return category, cfg["implausible"]
+    return "unknown", set()
 
 SCENE_CATEGORY_KEYWORDS = {
     "forest": ["forest", "tree", "trees", "jungle", "woods", "bushes",
@@ -141,17 +200,8 @@ SCENE_PHRASE_BANKS = {
 }
 
 # ====================== EXTENDED SOUND PALETTE ======================
-# These are *candidate* labels that PANNs can fire. We do NOT hardcode
-# final captions from them — they only expand what the detector is
-# allowed to consider and how aggressively each class is accepted.
-
-# Single source of truth for instrument naming, keyed by FAMILY name (i.e.
-# the output of _family(), which already groups every raw-label spelling
-# for the same real instrument together - e.g. "Organ"/"Electronic organ"/
-# "Hammond organ" all resolve to the "harmonium" family above). Every
-# other place in the pipeline that needs to know "is this an instrument"
-# or "what's its Hindi name" reads from this same dict/set, instead of
-# each place keeping its own separate, inevitably-inconsistent list.
+# These are candidate PANNs labels only; they expand the search space without forcing captions.
+# Instrument names are centralized so families and Hindi labels stay consistent.
 INSTRUMENT_HINDI = {
     "tabla":     "तबला",
     "dhol":      "ढोल",
@@ -169,9 +219,7 @@ INSTRUMENT_HINDI = {
     "piano":     "पियानो",
 }
 INSTRUMENT_FAMILIES = set(INSTRUMENT_HINDI.keys())
-# "drum" is handled separately (LARGE_DRUM_FAMILIES below) since PANNs
-# can't distinguish generic drum kit/bass drum from a specific Indian
-# drum the way it can name Tabla or Dhol directly.
+# Generic drum labels are handled separately from specific Indian drum families.
 
 def classify_scene_category(scene_text: str) -> str:
     """Match the Florence-derived visual scene description to a rough
@@ -197,11 +245,7 @@ AMBIENT_FALLBACK_GENERIC = [
 ]
 NATURE_FAMILIES = {"animal", "bird", "insect", "cricket", "wind", "rustling",
                     "creak", "thunder", "crow"}
-# NOTE: there is no INDOOR_FAMILIES bucket anymore. Guessing "कमरे में"
-# (in a room) from labels like "rodents, rats, mice" or "footstep" alone
-# was an unreliable, non-generalizing assumption — those sounds can occur
-# outdoors just as easily (rats in a field, footsteps on a village path),
-# and the guess was being made even with zero scene_text to support it.
+# Indoor inference is intentionally avoided for generic sound labels without visual support.
 
 def ambient_fallback_hint(families: list = None, scene_text: str = None) -> str:
     """Plain-text (no brackets) best-guess hint for a generic/unclear
@@ -420,14 +464,22 @@ def get_speech_segments(wav_path: str, logger) -> list:
         waveform = torch.mean(waveform, dim=0, keepdim=True)
 
     # Get speech timestamps
+    # threshold lowered 0.5 -> 0.35 and min_speech_duration_ms lowered
+    # 250 -> 150: atypical vocalizations (quiet mumbling, a distorted
+    # scream, slurred speech) can genuinely score below Silero's default
+    # confidence bar and never get recorded as a speech segment at all —
+    # and no amount of downstream overlap-ratio tuning in is_speech_window
+    # can compensate for a segment that was never detected in the first
+    # place. Erring toward over-detecting speech is the safer failure
+    # mode here, same reasoning as the overlap-ratio tightening below.
     speech_timestamps = get_speech_timestamps(
         waveform,
         model,
         sampling_rate=sample_rate,
-        threshold=0.5,
-        min_speech_duration_ms=250,
+        threshold=0.35,
+        min_speech_duration_ms=150,
         min_silence_duration_ms=300,
-        speech_pad_ms=400,
+        speech_pad_ms=500,
     )
 
     segments = []
@@ -607,7 +659,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from langsmith import traceable
 
-# ====================== OPENAI CAPTION REFINEMENT WITH LANGSMITH AND LANGCHAIN LOGGING======================
+# LLM-based Hindi caption refinement with tracing.
 llm = ChatOpenAI(
     model="gpt-4o",
     temperature=0.06,
@@ -1197,18 +1249,8 @@ def detect_audio_events(waveform: np.ndarray, scene_index: list,
         if best:
             events.append(best)
 
-        # Named instruments (see INSTRUMENT_FAMILIES) are almost always
-        # beaten by the generic "Music" label at the single-frame level,
-        # even when playing clearly and continuously. Record any passing
-        # instrument-family candidate as its own event too, even when it
-        # wasn't the frame's top pick. IMPORTANT: this checks by FAMILY,
-        # not by raw label string — a raw label of "Organ" or "Electronic
-        # organ" resolves to the same "harmonium" family as a raw label of
-        # literally "Harmonium", so both get this protection. Checking
-        # only the exact string "harmonium" (as an earlier version did)
-        # meant only one spelling of a detection was ever protected,
-        # while every other spelling for the exact same instrument was
-        # silently dropped whenever "Music" narrowly outscored it.
+        # Keep strong instrument-family hits even when "Music" wins the frame.
+        # This protects all spellings of the same instrument family.
         for c in candidates:
             if not c["pass"]:
                 continue
@@ -1267,15 +1309,18 @@ def filter_labels_for_caption(events: list, min_combined_score: float = 0.18) ->
         fam   = _family(label)
 
         if fam == "animal" and label.lower() not in SPECIFIC_ANIMAL_LABELS:
-            # Higher bar for generic/rare animal classes (Animal, Duck,
-            # Wild animals, Domestic animals, etc.) — these are AudioSet's
-            # noisiest classes and need strong, unambiguous evidence.
-            # Raised further after observing this class's median confidence
-            # across a full episode was only ~0.22 — far too weak to
-            # trust — while genuine, sustained animal sounds (e.g. the
-            # cattle passage) scored 0.4-0.6+, comfortably above this bar.
+            # Generic animal labels are noisy, so they need stronger evidence.
             if score < 0.35:
                 continue
+
+        # Phone/ringtone cues can be brief and still meaningful, so they get a lower bar.
+        if fam == "ringtone" and score >= 0.06:
+            filtered.append(ev)
+            continue
+
+        # Birds/crows are high false-positive sources — require stronger evidence
+        if fam in ("bird", "crow") and score < 0.40:
+            continue
 
         if score >= min_combined_score:
             filtered.append(ev)
@@ -1291,12 +1336,7 @@ def final_cleanup(caption: str, detected_labels, scene_text: str = None) -> str:
     label_values = list(detected_labels.values()) if isinstance(detected_labels, dict) else detected_labels
     labels_str = " ".join(label_values).lower()
     
-    # जानवर (animal) / पक्षियों (birds) are now the intended, correct
-    # generic output regardless of which specific species triggered them —
-    # they should NOT be downgraded further. Only catch cases where GPT
-    # still produced an exact species name (गाय/कुत्ता/बिल्ली/घोड़ा/कौआ/
-    # उल्लू/बत्तख/हंस) despite being told not to, and normalize those to
-    # the generic form instead.
+    # Keep generic animal/bird captions, but normalize exact species names back to the generic form.
     SPECIES_TO_GENERIC = {
         "गाय": "जानवर", "कुत्ते": "जानवर", "कुत्ता": "जानवर",
         "बिल्ली": "जानवर", "घोड़े": "जानवर", "घोड़ा": "जानवर",
@@ -1322,7 +1362,12 @@ def _gender_from_scene(scene_text: str) -> str:
 SOUND_FAMILIES = {
     "crow":       ["crow", "caw"],
     "bird":       ["bird vocalization", "bird call", "bird song", "bird",
-                   "fowl", "rooster", "chicken"],
+                   "fowl", "rooster", "chicken", "owl", "hoot", "turkey"],
+    # Human reaction sounds were missing before, so they are included here.
+    "human_reaction": ["wheeze", "groan", "grunt", "pant", "gasp", "sigh",
+                        "battle cry", "whimper", "scream", "shout", "yell",
+                        "sob", "sniff", "cough"],
+    "whistle":    ["whistle", "wolf-whistle", "whistling"],
     "laugh_soft": ["chuckle", "chortle", "giggle"],
     "laugh_full": ["laughter", "belly laugh"],
     "cricket":    ["cricket"],
@@ -1335,25 +1380,17 @@ SOUND_FAMILIES = {
     "music":      ["music", "musical instrument", "plucked string",
                    "bowed string", "wind instrument", "singing"],
     "crowd":      ["crowd", "cheering", "chatter"],
+    "applause":   ["applause", "clapping"],
+    "vehicle":    ["vehicle", "car", "engine", "motor", "motorcycle",
+                   "truck", "traffic"],
     "animal":     ["cattle", "cow", "bull", "dog", "bark", "cat", "horse",
                    "neigh", "frog", "animal", "duck", "quack", "goose",
                    "honk", "wild animal", "domestic animal"],
-    # Bell/chime vs. telephone ringing are kept as SEPARATE families —
-    # conflating them (as one "bell"+"ring" family previously did) meant
-    # a genuine phone-ringing detection in other content could get
-    # miscaptioned as a temple/church bell, or vice versa, and it also
-    # meant this family's caption text had to stay too vague to commit to
-    # either interpretation, which is part of why GPT was free to guess
-    # "ringtone"/"ding" for what was actually a temple bell or manjira.
+    # Ringing sounds are split so phone and bell cases stay distinct.
     "bell":       ["bell", "chime", "wind chime"],
     "ringtone":   ["telephone", "ringtone", "phone"],
     "siren":      ["siren", "alarm", "civil defense"],
-    # Instrument families — each of these needs its own entry so that
-    # _family() groups every raw-label spelling PANNs might produce for
-    # the same real instrument (e.g. "Organ"/"Electronic organ"/"Hammond
-    # organ" all being the same harmonium-like sound) under one family
-    # name, which is what both the secondary-candidate protection and the
-    # caption-naming lookup key off of.
+    # Each instrument family needs its own entry to normalize varied raw labels.
     "tabla":      ["tabla"],
     "dhol":       ["dhol", "dholak"],
     "mridangam":  ["mridangam", "pakhawaj"],
@@ -1403,42 +1440,44 @@ FAMILY_CAPTION_MAP = {
 }
 
 def _rule_caption(families: list, best_labels: dict,
-                   scene_text: str, expressions: list) -> str:
-    fset   = set(families)
+                   scene_text: str, expressions: list, fam_scores: dict = None) -> str:
+    """Generate a deterministic rule-based caption.
+
+    fam_scores: optional mapping of family -> combined_score to allow
+    gating low-confidence high-risk families (e.g. mantra, bird) so we
+    don't repeatedly caption them on very weak evidence.
+    """
+    fset = set(families)
+    fam_scores = fam_scores or {}
+    # Minimum combined_score required to treat certain high-risk families as deterministic
+    MANTRA_MIN_SCORE = 0.40
+    BIRD_MIN_SCORE = 0.40
+
+    # If a family was detected but its score is below the safety threshold,
+    # ignore it for deterministic rule decisions (avoids repeated false "mantra"/bird captions).
+    if "mantra" in fset and fam_scores.get("mantra", 0.0) < MANTRA_MIN_SCORE:
+        fset.remove("mantra")
+    if "chant" in fset and fam_scores.get("chant", 0.0) < MANTRA_MIN_SCORE:
+        fset.remove("chant")
+    if "crow" in fset and fam_scores.get("crow", 0.0) < BIRD_MIN_SCORE:
+        fset.remove("crow")
+    if "bird" in fset and fam_scores.get("bird", 0.0) < BIRD_MIN_SCORE:
+        fset.remove("bird")
+
     outdoor = any(x in scene_text.lower()
                   for x in ["forest","outdoor","trees","jungle","nature","path"])
     gender  = _gender_from_scene(scene_text)
 
-    # NOTE: best_labels is {family_name: raw_label}. We need the actual
-    # raw label strings here (e.g. "Tabla", "Sitar", "Moo"), not the dict
-    # keys — using keys silently broke matching for any family whose name
-    # differs from its label, and meant multi-instrument bursts always
-    # fell through to whichever check appeared first in the code below.
+    # Use raw label strings, not family names, for exact species checks.
     bl = [v.lower() for v in best_labels.values()]
 
-    # IMPORTANT: check for a SPECIFIC species first. "Cattle, bovinae"
-    # folds into the generic "animal" family (via the keyword list), same
-    # as plain "Animal"/"Wild animals" do — so if the blanket "only animal
-    # family present -> ambient fallback" check below ran first, a real,
-    # confidently-detected cow would get swallowed into a generic ambient
-    # sentence before we ever looked at what it actually was. Specific
-    # species must always win over the generic fallback.
-    # Any specific animal species detected (cow/moo, dog/bark, cat/meow,
-    # horse/neigh) — use one generic "जानवर" (animal) caption rather than
-    # naming the exact species. Naming exact species made captions too
-    # scene-specific and didn't generalize well across different footage.
+    # Specific animal sounds win before the generic fallback.
     ANIMAL_SOUND_LABELS = {"moo", "cattle, bovinae", "cow",
                            "dog", "bark", "bow-wow", "canidae, dogs, wolves",
                            "cat", "meow", "purr",
                            "horse", "neigh, whinny", "clip-clop"}
     if any(b in ANIMAL_SOUND_LABELS for b in bl):
         return "[जानवर की आवाज़ सुनाई दे रही है]"
-
-    # Any bird-related sound (crow cawing, owl hooting, generic bird) —
-    # use one generic "पक्षियों" (birds) caption rather than naming the
-    # exact species, for the same reason.
-    if "owl" in bl or "hoot" in bl:
-        return "[पक्षियों की चहचहाहट सुनाई दे रही है]"
 
     # "Patter" was being freely interpreted by GPT as rain ("बारिश की हल्की
     # आवाज़") with no basis.
@@ -1468,30 +1507,39 @@ def _rule_caption(families: list, best_labels: dict,
     detected_instruments = [INSTRUMENT_HINDI[fam.lower()] for fam in families
                             if fam.lower() in INSTRUMENT_HINDI]
 
-    # Mantra/chant: always the same fixed phrase regardless of which
-    # instrument (if any) happens to register in a given burst. A single
-    # continuous chanting scene was producing different captions
-    # burst-to-burst purely because e.g. sitar's detection confidence
-    # fluctuated in and out — visually/narratively it's one continuous
-    # event, so the caption must not flicker between variants.
-    has_mantra = any(f.lower() in ("mantra", "chant") for f in families)
-    if has_mantra:
-        return "[मंत्रों का उच्चारण सुनाई दे रहा है]"
+    # Keep drum cues when a named instrument is also present.
+    # This prevents real percussion from being lost during grouping.
+    LARGE_DRUM_FAMILIES = {"drum", "bass drum", "drum kit", "percussion"}
+    has_drum = any(fam.lower() in LARGE_DRUM_FAMILIES for fam in families)
+    if has_drum and len(detected_instruments) == 1 and "ढोल" not in detected_instruments:
+        detected_instruments.append("ढोल")
 
+    # Resolve mantra, instruments, and drum cues in a confidence-aware order.
+    has_mantra = any(f.lower() in ("mantra", "chant") for f in families)
+
+    if has_mantra:
+        # Require a higher confidence for mantra to be considered definitive
+        if fam_scores and fam_scores.get("mantra", 0.0) < MANTRA_MIN_SCORE and fam_scores.get("chant", 0.0) < MANTRA_MIN_SCORE:
+            has_mantra = False
+        else:
+            return "[मंत्रों का उच्चारण सुनाई दे रहा है]"
     if detected_instruments:
         if len(detected_instruments) == 1:
             return f"[संगीत के साथ {detected_instruments[0]} बज रहा है]"
         joined = "-".join(detected_instruments[:2])
         return f"[{joined} के साथ संगीत बज रहा है]"
-
-    LARGE_DRUM_FAMILIES = {"drum", "bass drum", "drum kit", "percussion"}
-    if any(fam.lower() in LARGE_DRUM_FAMILIES for fam in families):
+    if has_drum:
         return "[ढोल-नगाड़े जैसी थाप सुनाई दे रही है]"
 
-    if "music" in fset:
-        return "[संगीत बज रहा है]"
+    # White noise is not a meaningful caption on its own, so use a generic ambient hint.
+    if fset <= {"white noise", "static"}:
+        return ambient_fallback_hint(families, scene_text)
 
-    # Walking through undergrowth — audio+vision synthesis
+    # Audience reaction pairs are a narrow, readable exception to the normal single-sound rule.
+    if "applause" in fset and "whistle" in fset:
+        return "[तालियों और सीटियों की आवाज़]"
+
+    # Outdoor walking scenes can use rustling or footsteps as a stronger visual match.
     walking = any(x in scene_text.lower()
                   for x in ["walk","path","trail","moving","strolling","approaching"])
     if outdoor and walking and fset & {"rustling", "creak", "footstep"}:
@@ -1500,52 +1548,46 @@ def _rule_caption(families: list, best_labels: dict,
             return "[पक्षियों की चहचहाहट सुनाई दे रही है]"
         return "[पत्तों की सरसराहट सुनाई दे रही है]"
 
-    # From here on: NEVER combine two sounds into one caption, even when
-    # multiple families are present in the same burst — pick the single
-    # most salient one. Combined phrases ("X के साथ Y") kept losing their
-    # separating comma to the no-punctuation SDH rule and reading as a
-    # confusing run-on, and more fundamentally, cramming two things into
-    # one caption is harder to read than naming one thing clearly. This
-    # list is in priority order — first match wins.
-    SINGLE_SOUND_PRIORITY = [
-        ("crow",    "[पक्षियों की चहचहाहट]"),
-        ("bird",    "[पक्षियों की चहचहाहट]"),
-        ("animal",  "[जानवर की आवाज़]"),
-        # Bell and ringtone were previously one combined family with
-        # English-only caption text, meaning it always fell through to
-        # GPT as a loose hint — GPT would sometimes free-associate a
-        # temple/church bell as a phone "ringtone"/"ding" since it had no
-        # firm instruction otherwise. Both are now deterministic and kept
-        # separate so a genuine phone-ring detection elsewhere doesn't get
-        # mislabeled as a bell either.
-        ("bell",      "[घंटी की आवाज़]"),
-        ("ringtone",  "[फ़ोन बजने की आवाज़]"),
-        ("manjira",   "[मंजीरे की आवाज़]"),
-        ("santoor",   "[संतूर की धुन]"),
-        ("tanpura",   "[तानपुरे की आवाज़]"),
-        ("water",   "[पानी की आवाज़]"),
-        ("wood",    "[लकड़ी की आवाज़]"),
-        ("metal",   "[धातु की खनक]"),
-        ("glass",   "[काँच की आवाज़]"),
-        ("fire",    "[आग की चटचटाहट]"),
-        ("cricket", "[झींगुरों की आवाज़]"),
-        ("insect",  "[कीड़ों की आवाज़]"),
-        ("wind",    "[हवा चलने की आवाज़]"),
-        ("rustling","[पत्तों की सरसराहट]"),
-        ("creak",   "[टहनियों की चरमराहट]"),
-    ]
-    for fam_name, phrase in SINGLE_SOUND_PRIORITY:
-        if fam_name in fset:
-            return phrase
+    # After the early rules, score order decides the final phrase, with music as a normal candidate.
+    SOUND_PHRASE_MAP = {
+        "crow":      "[पक्षियों की चहचहाहट]",
+        "bird":      "[पक्षियों की चहचहाहट]",
+        "animal":    "[जानवर की आवाज़]",
+        "applause":  "[तालियों की आवाज़]",
+        "whistle":   "[सीटी की आवाज़]",
+        "human_reaction": "[व्यक्ति की आवाज़]",
+        "crowd":     "[भीड़ की आवाज़]",
+        "vehicle":   "[वाहन की आवाज़]",
+        "bell":      "[घंटी की आवाज़]",
+        "ringtone":  "[फ़ोन बजने की आवाज़]",
+        "manjira":   "[मंजीरे की आवाज़]",
+        "santoor":   "[संतूर की धुन]",
+        "tanpura":   "[तानपुरे की आवाज़]",
+        "water":     "[पानी की आवाज़]",
+        "wood":      "[लकड़ी की आवाज़]",
+        "metal":     "[धातु की खनक]",
+        "glass":     "[काँच की आवाज़]",
+        "fire":      "[आग की चटचटाहट]",
+        "cricket":   "[झींगुरों की आवाज़]",
+        "insect":    "[कीड़ों की आवाज़]",
+        "wind":      "[हवा चलने की आवाज़]",
+        "rustling":  "[पत्तों की सरसराहट]",
+        "creak":     "[टहनियों की चरमराहट]",
+        "music":     "[संगीत बज रहा है]",
+    }
 
-    # Single/unclear family with no confident, specific identification —
-    # this is NOT bracket-wrapped, so it does not get treated as a
-    # deterministic bypass. It's handed to GPT as a reference hint, and
-    # GPT sees the actual raw detected label(s) in "Detected sounds" and
-    # can describe genuinely novel sounds (traffic, a car horn, crowd
-    # chatter — anything outside forest/village content) adaptively,
-    # instead of it being silently forced into one of a few canned phrases
-    # regardless of what it actually is.
+    # Scene context can suppress implausible sounds but not real animal cases.
+    _scene_category, _implausible = _scene_palette(scene_text)
+    _implausible = _implausible - {"animal"}
+
+    for fam_name in families:  # already score-sorted for this burst
+        fl = fam_name.lower()
+        if fl in _implausible:
+            continue
+        if fl in SOUND_PHRASE_MAP:
+            return SOUND_PHRASE_MAP[fl]
+
+    # Ambiguous cases stay as a hint instead of a forced caption, so GPT can adapt to the real signal.
     return ambient_fallback_hint(families, scene_text)
 
 # ====================== BURST CONSOLIDATION ======================
@@ -1557,8 +1599,7 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
 
     accepted.sort(key=lambda e: e["timestamp_sec"])
 
-    # Require music-family detections to persist across at least 2
-    # consecutive accepted frames within a short window. 
+    # Music labels need a short persistence window before being kept.
     MUSIC_PERSISTENCE_SEC = 3.0
     music_fams = {"music"} | INSTRUMENT_FAMILIES
     filtered_accepted = []
@@ -1582,7 +1623,7 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
     if not accepted:
         return []
 
-    # Group into bursts
+    # Group nearby detections into bursts.
     bursts, cur = [], [accepted[0]]
     for ev in accepted[1:]:
         if ev["timestamp_sec"] - cur[-1]["timestamp_sec"] <= BURST_GAP_SEC:
@@ -1602,11 +1643,7 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
         start_sec = burst[0]["timestamp_sec"]
         end_sec   = burst[-1]["timestamp_sec"] + 1.8
 
-        # Clip end_sec so the caption never visibly persists into a
-        # region where speech actually resumes. Previously this was
-        # always a flat +1.8s regardless of what came right after, so a
-        # caption could bleed a second or more into dialogue if speech
-        # started shortly after the last non-speech frame in the burst.
+        # Avoid extending captions into real speech regions.
         if speech_segments:
             for seg_start, seg_end in speech_segments:
                 if seg_start > start_sec and seg_start < end_sec:
@@ -1628,17 +1665,18 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
             if fam not in fam_best:
                 fam_best[fam] = ev
 
-        # Sort by score, but ensure high-value families are never squeezed out of the top-3 by a higher-scoring but
-        # less important family
-        PRIORITY_FAMILIES = {"laugh_soft", "laugh_full"}
+        # Prioritize reaction sounds ahead of generic high-score noise.
+        PRIORITY_FAMILIES = {"laugh_soft", "laugh_full", "human_reaction"}
         ranked   = sorted(fam_best, key=lambda f: fam_best[f]["combined_score"], reverse=True)
         priority = [f for f in ranked if f in PRIORITY_FAMILIES]
         rest     = [f for f in ranked if f not in PRIORITY_FAMILIES]
         top_fams = (priority + rest)[:3]
         best_labels = {f: fam_best[f]["label"] for f in top_fams}
+        # Pass family-level combined scores so rule-based logic can gate
+        # low-confidence high-risk families (mantra, bird, etc.).
+        fam_scores = {f: fam_best[f].get("combined_score", 0.0) for f in top_fams}
 
-        # If a SPECIFIC species (moo, cattle, dog, cat, horse) is present
-        # in this burst, drop any co-occurring GENERIC animal.
+        # Specific animal sounds override generic animal fallback in the same burst.
         specific_present = any(
             lbl.lower() in SPECIFIC_ANIMAL_LABELS for lbl in best_labels.values()
         )
@@ -1656,19 +1694,28 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
             if _family(lbl) == "animal" and lbl.lower() not in SPECIFIC_ANIMAL_LABELS:
                 best_labels[f] = "Ambient/unclear sound (do not name species)"
 
-        # Use scene from highest-scoring event
+        # Use the strongest event as the scene anchor.
         best_ev     = max(burst, key=lambda e: e["combined_score"])
         scene_text  = best_ev.get("scene_text", "")
         expressions = best_ev.get("expressions", [])
 
-        # 1. Rule-based caption
-        raw_caption = _rule_caption(top_fams, best_labels, scene_text, expressions)
+        # Suppress instrument captions when speech overlaps the burst.
+        if speech_segments:
+            burst_dur = max(0.001, end_sec - start_sec)
+            overlap = 0.0
+            for seg_start, seg_end in speech_segments:
+                overlap += max(0.0, min(end_sec, seg_end) - max(start_sec, seg_start))
+            speech_fraction = overlap / burst_dur
+            if speech_fraction > 0.05:
+                # remove any music/instrument families from top_fams
+                top_fams = [f for f in top_fams if f not in music_fams]
+                if not top_fams:
+                    # if nothing left, fall back to keeping human_reaction if present
+                    top_fams = [f for f in list(fam_best.keys()) if f == 'human_reaction'] or top_fams
 
-        # If _rule_caption already gave us a confident, deterministic Hindi
-        # phrase (specific species, named instrument, owl/crow, laughter,
-        # or a scene-grounded ambient fallback), use it directly instead of
-        # sending it through GPT. GPT has repeatedly been shown to
-        # paraphrase these into inconsistent variants
+        # Rule-based caption comes first, then GPT only for ambiguous cases.
+        raw_caption = _rule_caption(top_fams, best_labels, scene_text, expressions, fam_scores)
+
         is_deterministic = (
             raw_caption.startswith("[") and
             any("\u0900" <= ch <= "\u097F" for ch in raw_caption)
@@ -1697,12 +1744,32 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
         hindi_caption = enforce_caption_format(hindi_caption)
         hindi_caption = final_cleanup(hindi_caption, best_labels, scene_text)
         hindi_caption = fix_hindi_issues(hindi_caption)
-        # (previously there was a follow-up call to _clean_hindi_caption()
-        # here for stray पृष्ठभूमि/English-word leaks, but that function was
-        # never defined anywhere in this file — a latent NameError risk.
-        # fix_hindi_issues() above already robustly handles this cleanup,
-        # so the dead call has been removed rather than left as a crash
-        # waiting to happen.)
+
+        # Final consistency pass catches mismatches between family signal and caption wording.
+        _fam_lower = set(f.lower() for f in top_fams)
+        _consistency_checks = [
+            ("पक्षियों", {"bird", "crow"} & _fam_lower,
+             "[जानवर की आवाज़]" if "animal" in _fam_lower else None),
+            ("मंत्रों का उच्चारण", {"mantra", "chant"} & _fam_lower, None),
+            ("वाहन", {"vehicle"} & _fam_lower, None),
+            ("तालियों", {"applause"} & _fam_lower, None),
+            ("लकड़ी", {"wood"} & _fam_lower, None),
+        ]
+        for _mention, _justified_by, _fallback_override in _consistency_checks:
+            if _mention in hindi_caption and not _justified_by:
+                logger.warning(
+                    f"CAPTION/FAMILY MISMATCH at {start_sec:.1f}s: caption "
+                    f"'{hindi_caption}' mentions '{_mention}' but families="
+                    f"{top_fams} does not justify it. Forcing correction."
+                )
+                if _fallback_override:
+                    hindi_caption = _fallback_override
+                elif top_fams:
+                    hindi_caption = _rule_caption(top_fams, best_labels, scene_text, expressions, fam_scores)
+                    if not (hindi_caption.startswith("[") and
+                            any("\u0900" <= ch <= "\u097F" for ch in hindi_caption)):
+                        hindi_caption = ambient_fallback_caption(top_fams, scene_text)
+                break
 
         timeline.append({
             "start_sec":   round(start_sec, 2),
@@ -1882,7 +1949,7 @@ def main():
     if not video_path.exists():
         print(f"Video not found: {video_path}"); return
 
-    out = Path("results_v16") / video_path.stem
+    out = Path("results_v17") / video_path.stem
     out.mkdir(parents=True, exist_ok=True)
 
     if args.extract_vision:
@@ -1897,4 +1964,4 @@ def main():
                       Path(args.florence_log) if args.florence_log else None)
 
 if __name__ == "__main__":
-    main()
+    main() 
