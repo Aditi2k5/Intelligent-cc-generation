@@ -1,11 +1,14 @@
 {
   "name": "planetread-caption-studio",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "build": "node verify-build.mjs"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "engines": {
-    "node": ">=20"
+  "devDependencies": {
+    "vite": "^7.0.0"
   }
 }

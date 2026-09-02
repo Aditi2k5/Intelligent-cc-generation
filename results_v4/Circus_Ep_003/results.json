@@ -1,0 +1,307 @@
+{
+  "caption_segments": 30,
+  "timeline": [
+    {
+      "start_sec": 1.2,
+      "end_sec": 7.0,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a young boy in a white shirt and gray pants playing with a baseball bat in front of "
+    },
+    {
+      "start_sec": 69.0,
+      "end_sec": 74.6,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows two men sitting on top of a couch next to each other, with a watermark in the middle"
+    },
+    {
+      "start_sec": 75.0,
+      "end_sec": 92.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar",
+        "violin"
+      ],
+      "scene_text": "The image shows a man laying on top of a bed in a tent, with a woman standing beside him"
+    },
+    {
+      "start_sec": 95.8,
+      "end_sec": 100.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar",
+        "violin"
+      ],
+      "scene_text": "The image shows two men standing in front of a tent, one of them holding a box in his hand"
+    },
+    {
+      "start_sec": 107.2,
+      "end_sec": 110.6,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "violin",
+        "vehicle"
+      ],
+      "scene_text": "The image shows two men standing in front of a tent, with one of them holding a box in his hand"
+    },
+    {
+      "start_sec": 136.4,
+      "end_sec": 139.51,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of people standing in front of a tent, with a watermark in the middle"
+    },
+    {
+      "start_sec": 142.0,
+      "end_sec": 143.54,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The image shows a group of people standing in front of a tent, with a watermark in the middle"
+    },
+    {
+      "start_sec": 147.8,
+      "end_sec": 150.6,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows four men standing next to each other in front of a colorful wall, with a watermark i"
+    },
+    {
+      "start_sec": 151.2,
+      "end_sec": 154.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of four men standing next to each other in front of a colorful wall, each of"
+    },
+    {
+      "start_sec": 155.2,
+      "end_sec": 157.4,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of four men standing next to each other in front of a colorful wall, each of"
+    },
+    {
+      "start_sec": 210.8,
+      "end_sec": 212.34,
+      "caption": "[शांत आवाज़]",
+      "families": [
+        "white noise"
+      ],
+      "scene_text": "The image shows a man sitting in a chair next to a woman, both of them holding something in their ha"
+    },
+    {
+      "start_sec": 233.8,
+      "end_sec": 243.8,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "animal",
+        "water",
+        "music"
+      ],
+      "scene_text": "The image shows a woman sitting on a bench next to a man, both of them holding something in their ha"
+    },
+    {
+      "start_sec": 274.2,
+      "end_sec": 275.83,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "piano"
+      ],
+      "scene_text": "The image shows a man and woman sitting on the ground next to each other, with the man wearing a whi"
+    },
+    {
+      "start_sec": 337.0,
+      "end_sec": 338.55,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of men standing next to each other in front of a tent, with a watermark in t"
+    },
+    {
+      "start_sec": 569.6,
+      "end_sec": 571.4,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "animal"
+      ],
+      "scene_text": "The image shows a group of three people sitting on top of a couch next to a horse, with a photo fram"
+    },
+    {
+      "start_sec": 620.6,
+      "end_sec": 622.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man standing in front of a fence with his arms outstretched, holding a stick in hi"
+    },
+    {
+      "start_sec": 624.6,
+      "end_sec": 627.57,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man standing in front of a fence with the words \"Waves Ott for SLC\" written on it."
+    },
+    {
+      "start_sec": 692.2,
+      "end_sec": 694.0,
+      "caption": "[शांत आवाज़]",
+      "families": [
+        "white noise"
+      ],
+      "scene_text": "The image shows a group of three people standing next to each other in a room, with a bicycle in the"
+    },
+    {
+      "start_sec": 919.8,
+      "end_sec": 925.6,
+      "caption": "[तालियों की आवाज़]",
+      "families": [
+        "wood",
+        "applause",
+        "vehicle"
+      ],
+      "scene_text": "The image shows a person on a bicycle with the words \"Waves QTT for SLC\" written on it, surrounded b"
+    },
+    {
+      "start_sec": 929.2,
+      "end_sec": 940.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "fire",
+        "vehicle"
+      ],
+      "scene_text": "The image shows a person in mid-air, with a wall in the background and the words \"waves ott for slc\""
+    },
+    {
+      "start_sec": 941.4,
+      "end_sec": 947.6,
+      "caption": "[तीव्र संगीत]",
+      "families": [
+        "music",
+        "manjira"
+      ],
+      "scene_text": "The image shows a group of people standing on top of a rope in front of a crowd, illuminated by a li"
+    },
+    {
+      "start_sec": 948.4,
+      "end_sec": 951.8,
+      "caption": "[तालियों की आवाज़]",
+      "families": [
+        "applause"
+      ],
+      "scene_text": "The image shows a group of people standing on top of a rope in front of a crowd, illuminated by a li"
+    },
+    {
+      "start_sec": 954.4,
+      "end_sec": 958.0,
+      "caption": "[तालियों की आवाज़]",
+      "families": [
+        "applause"
+      ],
+      "scene_text": "The image shows a group of people standing on top of a stage, illuminated by light poles and surroun"
+    },
+    {
+      "start_sec": 958.6,
+      "end_sec": 960.4,
+      "caption": "[शांत आवाज़]",
+      "families": [
+        "cutlery, silverware"
+      ],
+      "scene_text": "The image shows a woman standing on top of a stage next to a microphone, with a blurred background a"
+    },
+    {
+      "start_sec": 965.2,
+      "end_sec": 967.0,
+      "caption": "[तालियों की आवाज़]",
+      "families": [
+        "applause"
+      ],
+      "scene_text": "The image shows a person standing in front of a wall with the words \"Waves Ott for SLC\" written on i"
+    },
+    {
+      "start_sec": 1005.4,
+      "end_sec": 1009.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "drum",
+        "music",
+        "manjira"
+      ],
+      "scene_text": "The image shows Shah Rukh Khan and his wife sitting on a bench in front of a crowd, with a watermark"
+    },
+    {
+      "start_sec": 1015.0,
+      "end_sec": 1021.4,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "drum",
+        "music",
+        "manjira"
+      ],
+      "scene_text": "The image shows Shah Rukh Khan and his wife sitting on a bench in front of a crowd, with a watermark"
+    },
+    {
+      "start_sec": 1022.2,
+      "end_sec": 1033.2,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "animal",
+        "music",
+        "drum"
+      ],
+      "scene_text": "The image shows a man standing in front of a table with a cloth draped over it, a plate, a glass, a "
+    },
+    {
+      "start_sec": 1034.0,
+      "end_sec": 1036.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "applause",
+        "music",
+        "vehicle"
+      ],
+      "scene_text": "The image shows a man standing in front of a table with a cloth draped over it, a plate, a glass, a "
+    },
+    {
+      "start_sec": 1049.2,
+      "end_sec": 1051.0,
+      "caption": "[झींगुरों की आवाज़]",
+      "families": [
+        "cricket"
+      ],
+      "scene_text": "The image shows a man standing in front of a table with a book in his hands, surrounded by a photo f"
+    }
+  ],
+  "raw_events": 1207,
+  "deduped_events": 158,
+  "speech_segments": 83
+}

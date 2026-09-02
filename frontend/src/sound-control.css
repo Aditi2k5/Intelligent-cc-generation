@@ -1,0 +1,1 @@
+.sound-toggle{position:absolute;right:14px;top:14px;z-index:3;border:1px solid rgba(255,255,255,.35);border-radius:9px;background:rgba(8,25,40,.78);backdrop-filter:blur(8px);color:#fff;padding:9px 12px;font:600 10px Manrope;cursor:pointer}.sound-toggle:hover{background:rgba(8,124,219,.9)}.sound-toggle.is-muted{background:rgba(174,58,58,.86)}

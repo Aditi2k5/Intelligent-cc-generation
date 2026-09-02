@@ -1,0 +1,22 @@
+/* Tighter vertical rhythm for the single-page workflow. */
+.hero{padding-top:38px;padding-bottom:20px}
+.hero>p{margin-top:18px;margin-bottom:8px}
+.workspace{margin-top:12px;margin-bottom:72px}
+.how-it-works{margin-bottom:82px}
+.how-heading{margin-bottom:28px}
+.how-heading .eyebrow{margin-bottom:12px}
+.how-heading p{margin-top:12px}
+.how-card{min-height:225px;padding:24px}
+.how-icon{margin-bottom:18px}
+.moments-heading{margin-top:58px}
+.results{padding-bottom:55px}
+footer{height:76px}
+
+@media(max-width:780px){
+  .hero{padding-top:24px;padding-bottom:14px}
+  .workspace{margin-bottom:54px}
+  .how-it-works{margin-bottom:62px}
+  .how-heading{margin-bottom:22px}
+  .how-card{min-height:auto;padding:22px}
+  .moments-heading{margin-top:45px}
+}

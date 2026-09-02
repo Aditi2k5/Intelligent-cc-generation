@@ -1,0 +1,428 @@
+{
+  "caption_segments": 42,
+  "timeline": [
+    {
+      "start_sec": 49.0,
+      "end_sec": 52.4,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 53.2,
+      "end_sec": 65.6,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a red rose with the words \"Executive Producer Raj Pius\" written on it, set against a"
+    },
+    {
+      "start_sec": 66.8,
+      "end_sec": 68.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Vasa"
+    },
+    {
+      "start_sec": 69.4,
+      "end_sec": 71.8,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows a red rose with the words \"Dr. R.S. Sharma\" written in Marathi, along with a waterma"
+    },
+    {
+      "start_sec": 72.6,
+      "end_sec": 75.2,
+      "caption": "[संगीत के साथ हारमोनियम]",
+      "families": [
+        "vehicle",
+        "harmonium"
+      ],
+      "scene_text": "The image shows a red rose with the words \"Dr. R.S. Sharma\" written in Marathi, along with a waterma"
+    },
+    {
+      "start_sec": 76.8,
+      "end_sec": 78.6,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 79.4,
+      "end_sec": 81.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 81.6,
+      "end_sec": 83.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The rose is vibrant and full of life, with its petals and leaves standing out against the dark backg"
+    },
+    {
+      "start_sec": 88.4,
+      "end_sec": 93.37,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra",
+        "chant"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"vanr"
+    },
+    {
+      "start_sec": 95.2,
+      "end_sec": 98.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"art "
+    },
+    {
+      "start_sec": 99.2,
+      "end_sec": 101.0,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"art "
+    },
+    {
+      "start_sec": 120.2,
+      "end_sec": 123.8,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a red rose with its stem and leaves against a black background, with the words \"Shya"
+    },
+    {
+      "start_sec": 125.6,
+      "end_sec": 127.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a black background with the text \"Episode 22: The Chola Empire Part-I\" written in wh"
+    },
+    {
+      "start_sec": 128.4,
+      "end_sec": 130.2,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a black background with the text \"Episode 22: The Chola Empire Part-I\" written in wh"
+    },
+    {
+      "start_sec": 135.8,
+      "end_sec": 142.0,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 181.6,
+      "end_sec": 182.97,
+      "caption": "[आपातकालीन वाहन की आवाज़]",
+      "families": [
+        "emergency vehicle"
+      ],
+      "scene_text": "The image shows a man standing in front of a temple, wearing a white dress and a cap"
+    },
+    {
+      "start_sec": 201.2,
+      "end_sec": 203.0,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a close up of a brick wall with the words \"Waves Ott for SLC\" inscribed on it. The w"
+    },
+    {
+      "start_sec": 531.6,
+      "end_sec": 533.43,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a group of people standing around a bed in a room, with a person lying on the bed co"
+    },
+    {
+      "start_sec": 535.2,
+      "end_sec": 538.0,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of people standing around a bed in a room, with a woman lying on the bed in "
+    },
+    {
+      "start_sec": 539.8,
+      "end_sec": 541.8,
+      "caption": "[संगीत के साथ सितार]",
+      "families": [
+        "music",
+        "sitar"
+      ],
+      "scene_text": "The image shows a group of people standing around a bed in a room, with a woman lying on the bed in "
+    },
+    {
+      "start_sec": 543.0,
+      "end_sec": 547.0,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of people standing around a woman laying on top of a bed in a room, with a w"
+    },
+    {
+      "start_sec": 548.8,
+      "end_sec": 552.0,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man and woman sitting on top of a bed next to each other, with a watermark in the "
+    },
+    {
+      "start_sec": 552.8,
+      "end_sec": 560.0,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man and woman sitting on top of a bed next to each other, with a watermark in the "
+    },
+    {
+      "start_sec": 561.2,
+      "end_sec": 564.6,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man in a yellow bikini standing next to a woman in a black dress, with a watermark"
+    },
+    {
+      "start_sec": 565.0,
+      "end_sec": 574.6,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a man in a yellow bikini standing next to a woman in a black dress, with a watermark"
+    },
+    {
+      "start_sec": 575.4,
+      "end_sec": 591.0,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of people standing around each other in a room, with a wall in the backgroun"
+    },
+    {
+      "start_sec": 591.6,
+      "end_sec": 595.0,
+      "caption": "[गिटार-सितार के साथ संगीत]",
+      "families": [
+        "music",
+        "guitar",
+        "sitar"
+      ],
+      "scene_text": "The image shows a group of three women standing next to each other in a room, with a wall in the bac"
+    },
+    {
+      "start_sec": 595.8,
+      "end_sec": 623.32,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of three women standing next to each other in a room, with a wall in the bac"
+    },
+    {
+      "start_sec": 625.8,
+      "end_sec": 627.39,
+      "caption": "[सितार-गिटार के साथ संगीत]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of people standing in front of a crowd of people in a room, illuminated by a"
+    },
+    {
+      "start_sec": 629.6,
+      "end_sec": 631.23,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a woman in a red dress standing in front of a crowd of people, illuminated by a few "
+    },
+    {
+      "start_sec": 637.0,
+      "end_sec": 638.8,
+      "caption": "[कदमों की आवाज़]",
+      "families": [
+        "footstep"
+      ],
+      "scene_text": "The image shows a man in a yellow sari standing in front of a pile of colorful plates, with a waterm"
+    },
+    {
+      "start_sec": 746.6,
+      "end_sec": 749.8,
+      "caption": "[कदमों की आवाज़]",
+      "families": [
+        "inside, small room",
+        "footstep"
+      ],
+      "scene_text": "The image shows a group of men standing next to each other in a room, wearing ornaments and surround"
+    },
+    {
+      "start_sec": 778.4,
+      "end_sec": 782.2,
+      "caption": "[संगीत के साथ बांसुरी]",
+      "families": [
+        "music",
+        "flute"
+      ],
+      "scene_text": "The image shows a man in a costume with a crown on his head, standing in front of a wall adorned wit"
+    },
+    {
+      "start_sec": 814.0,
+      "end_sec": 817.05,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man in a red sari standing next to a woman in a white dress, both of them looking "
+    },
+    {
+      "start_sec": 859.2,
+      "end_sec": 861.59,
+      "caption": "[संगीत के साथ वायलिन]",
+      "families": [
+        "music",
+        "violin"
+      ],
+      "scene_text": "The image shows two men, one with a long beard and the other with a beard, standing next to each oth"
+    },
+    {
+      "start_sec": 892.0,
+      "end_sec": 903.2,
+      "caption": "[हारमोनियम-पियानो के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "piano"
+      ],
+      "scene_text": "The image shows two men standing next to each other in front of a crowd"
+    },
+    {
+      "start_sec": 913.4,
+      "end_sec": 923.6,
+      "caption": "[हारमोनियम-वायलिन के साथ संगीत]",
+      "families": [
+        "music",
+        "harmonium",
+        "violin"
+      ],
+      "scene_text": "The image shows two men, one with a beard and the other with a mustache, standing next to each other"
+    },
+    {
+      "start_sec": 949.6,
+      "end_sec": 951.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man with a long beard and a crown on his head standing next to another man, both o"
+    },
+    {
+      "start_sec": 952.0,
+      "end_sec": 955.19,
+      "caption": "[संगीत]",
+      "families": [
+        "music"
+      ],
+      "scene_text": "The image shows a man with a long beard and a crown on his head standing next to another man, both o"
+    },
+    {
+      "start_sec": 970.2,
+      "end_sec": 974.91,
+      "caption": "[संगीत के साथ गिटार]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": "The image shows a group of men standing next to each other in front of a building, with one of them "
+    },
+    {
+      "start_sec": 1057.4,
+      "end_sec": 1064.4,
+      "caption": "[संगीत]",
+      "families": [
+        "music",
+        "animal",
+        "environmental noise"
+      ],
+      "scene_text": "The image shows a group of men standing next to each other in front of a building, with a pole in th"
+    },
+    {
+      "start_sec": 1200.6,
+      "end_sec": 1202.4,
+      "caption": "[क्लिक की आवाज़]",
+      "families": [
+        "clicking"
+      ],
+      "scene_text": ""
+    }
+  ],
+  "raw_events": 1995,
+  "deduped_events": 196,
+  "speech_segments": 115
+}

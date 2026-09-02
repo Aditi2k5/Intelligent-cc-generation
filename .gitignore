@@ -25,3 +25,5 @@ env/
 desktop.ini
 Desktop.ini
 Thumbs.db
+
+*.env

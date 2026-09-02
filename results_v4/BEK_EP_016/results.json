@@ -1,0 +1,616 @@
+{
+  "caption_segments": 61,
+  "timeline": [
+    {
+      "start_sec": 0.0,
+      "end_sec": 1.8,
+      "caption": "[शांत आवाज]",
+      "families": [
+        "environmental noise"
+      ],
+      "scene_text": "The image shows a black background with the text \"The Sangam Period and Silappadikaram Part-II\" writ"
+    },
+    {
+      "start_sec": 3.8,
+      "end_sec": 8.8,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": "The image shows a person standing in the middle of a forest, surrounded by trees and plants"
+    },
+    {
+      "start_sec": 33.4,
+      "end_sec": 35.2,
+      "caption": "[शांत ध्वनि]",
+      "families": [
+        "environmental noise"
+      ],
+      "scene_text": "The image shows a person standing in a forest of trees with the words \"Waves Ott for SLC\" written ac"
+    },
+    {
+      "start_sec": 35.6,
+      "end_sec": 48.6,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "bird",
+        "environmental noise",
+        "insect"
+      ],
+      "scene_text": "The image shows two people standing in a lush, green landscape with trees and plants in the backgrou"
+    },
+    {
+      "start_sec": 49.8,
+      "end_sec": 51.6,
+      "caption": "[शांत ध्वनि]",
+      "families": [
+        "environmental noise"
+      ],
+      "scene_text": "The image shows a person standing in the middle of a forest, surrounded by trees and plants"
+    },
+    {
+      "start_sec": 52.0,
+      "end_sec": 55.57,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "rodents, rats, mice",
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": "The image shows a dark background with a few trees in the foreground and the words \"Waves Ott for SL"
+    },
+    {
+      "start_sec": 77.4,
+      "end_sec": 83.0,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "bird",
+        "environmental noise"
+      ],
+      "scene_text": "The image shows two people walking through tall grass in a field, surrounded by trees and plants"
+    },
+    {
+      "start_sec": 100.2,
+      "end_sec": 102.0,
+      "caption": "[शांत ध्वनि]",
+      "families": [
+        "mechanisms"
+      ],
+      "scene_text": "The image shows three people sitting on the ground in the woods, surrounded by trees and plants"
+    },
+    {
+      "start_sec": 199.0,
+      "end_sec": 214.52,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla",
+        "guitar"
+      ],
+      "scene_text": "The image shows a person standing in the middle of a field surrounded by trees and plants, with a wa"
+    },
+    {
+      "start_sec": 223.4,
+      "end_sec": 225.62,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": "The image shows a man and two women standing next to each other in a field, with the man holding a b"
+    },
+    {
+      "start_sec": 227.2,
+      "end_sec": 230.33,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla",
+        "sitar"
+      ],
+      "scene_text": "The image shows a lush green landscape with trees, plants, and grass, and a bright blue sky in the b"
+    },
+    {
+      "start_sec": 232.0,
+      "end_sec": 237.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": "The image shows a person in a white robe walking down a dirt road, holding a stick in their hand"
+    },
+    {
+      "start_sec": 237.6,
+      "end_sec": 245.94,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla",
+        "guitar"
+      ],
+      "scene_text": "The image shows two people walking down a dirt road surrounded by trees and plants, with a watermark"
+    },
+    {
+      "start_sec": 250.2,
+      "end_sec": 252.4,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": "The image shows a woman in a white dress walking through the woods, surrounded by trees and plants"
+    },
+    {
+      "start_sec": 256.2,
+      "end_sec": 265.8,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "crow",
+        "bird",
+        "environmental noise"
+      ],
+      "scene_text": "The image shows a man standing in the middle of a forest, surrounded by trees and with the words \"wa"
+    },
+    {
+      "start_sec": 266.8,
+      "end_sec": 272.02,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "environmental noise",
+        "bird"
+      ],
+      "scene_text": "The image shows a man and a woman sitting on the ground next to each other in the woods, with a stic"
+    },
+    {
+      "start_sec": 274.8,
+      "end_sec": 276.6,
+      "caption": "[हँसी]",
+      "families": [
+        "laugh_full",
+        "laugh_soft"
+      ],
+      "scene_text": "The image shows a man and a woman sitting on the ground in the woods, surrounded by trees and plants"
+    },
+    {
+      "start_sec": 293.2,
+      "end_sec": 294.49,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": "The image shows a man and a woman sitting on the ground in front of a backdrop of trees, with the te"
+    },
+    {
+      "start_sec": 355.2,
+      "end_sec": 359.0,
+      "caption": "[पक्षियों की चहचहाहट]",
+      "families": [
+        "bird"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 392.2,
+      "end_sec": 394.42,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "flute"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 403.8,
+      "end_sec": 408.0,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 589.6,
+      "end_sec": 591.4,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 593.4,
+      "end_sec": 596.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "guitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 597.2,
+      "end_sec": 600.89,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 605.6,
+      "end_sec": 610.84,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 616.2,
+      "end_sec": 625.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "sitar",
+        "guitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 758.8,
+      "end_sec": 770.6,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 771.0,
+      "end_sec": 775.73,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 794.4,
+      "end_sec": 798.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 801.0,
+      "end_sec": 812.44,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 818.8,
+      "end_sec": 822.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 823.8,
+      "end_sec": 829.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 831.2,
+      "end_sec": 834.6,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 835.0,
+      "end_sec": 836.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 878.2,
+      "end_sec": 880.0,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 881.0,
+      "end_sec": 882.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 884.0,
+      "end_sec": 886.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 886.6,
+      "end_sec": 888.25,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 890.8,
+      "end_sec": 893.65,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "mantra",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 895.8,
+      "end_sec": 903.03,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "mantra",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 916.0,
+      "end_sec": 922.2,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "chant",
+        "mantra"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 923.0,
+      "end_sec": 929.0,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "gargling",
+        "tabla"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 930.0,
+      "end_sec": 931.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 932.4,
+      "end_sec": 934.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 936.8,
+      "end_sec": 946.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "chant",
+        "sitar"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 947.2,
+      "end_sec": 965.75,
+      "caption": "[मंत्रों का उच्चारण]",
+      "families": [
+        "music",
+        "mantra",
+        "chant"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 972.0,
+      "end_sec": 973.8,
+      "caption": "[कीड़ों की आवाज़]",
+      "families": [
+        "insect"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1063.0,
+      "end_sec": 1065.8,
+      "caption": "[मृदु थपथपाहट की आवाज़]",
+      "families": [
+        "squish",
+        "patter"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1081.2,
+      "end_sec": 1083.4,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "moo"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1102.2,
+      "end_sec": 1106.6,
+      "caption": "[मृदु थपथपाहट की आवाज़]",
+      "families": [
+        "ringtone",
+        "rodents, rats, mice",
+        "patter"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1116.2,
+      "end_sec": 1118.0,
+      "caption": "[पंछियों की चहचहाहट]",
+      "families": [
+        "printer"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1118.8,
+      "end_sec": 1120.34,
+      "caption": "[नाव की आवाज]",
+      "families": [
+        "vehicle"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1149.0,
+      "end_sec": 1150.8,
+      "caption": "[आवाज़]",
+      "families": [
+        "ringtone"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1278.4,
+      "end_sec": 1281.8,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1283.2,
+      "end_sec": 1293.59,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "flute",
+        "wind"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1307.4,
+      "end_sec": 1309.2,
+      "caption": "[भावनात्मक पार्श्व संगीत]",
+      "families": [
+        "theremin"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1314.0,
+      "end_sec": 1317.0,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "music",
+        "theremin"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1326.2,
+      "end_sec": 1330.4,
+      "caption": "[जानवर की आवाज़]",
+      "families": [
+        "animal",
+        "moo",
+        "dishes, pots, and pans"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1332.0,
+      "end_sec": 1333.49,
+      "caption": "[मृदु थपथपाहट की आवाज़]",
+      "families": [
+        "patter"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1346.2,
+      "end_sec": 1349.4,
+      "caption": "[सीटी की आवाज़]",
+      "families": [
+        "rodents, rats, mice",
+        "whistle"
+      ],
+      "scene_text": ""
+    },
+    {
+      "start_sec": 1356.0,
+      "end_sec": 1357.59,
+      "caption": "[मधुर धुन]",
+      "families": [
+        "sitar",
+        "music"
+      ],
+      "scene_text": ""
+    }
+  ],
+  "raw_events": 2218,
+  "deduped_events": 281,
+  "speech_segments": 124
+}

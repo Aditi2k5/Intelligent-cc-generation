@@ -91,7 +91,8 @@ def write_job(directory: Path, **changes) -> dict:
 def public_job(data: dict) -> dict:
     job_id = data["id"]
     response = {key: data.get(key) for key in (
-        "id", "filename", "status", "stage", "progress", "error", "created_at", "updated_at",
+        "id", "filename", "status", "stage", "progress", "error",
+        "created_at", "updated_at",
     )}
     response["status_url"] = f"/api/jobs/{job_id}"
     if data.get("status") == "completed":
@@ -108,14 +109,15 @@ def refresh_progress(directory: Path, data: dict) -> dict:
         updates = {"stage": "Understanding visual scenes", "progress": 30}
     logs = list(output.glob("*.log"))
     log_text = logs[0].read_text(encoding="utf-8", errors="ignore")[-12000:] if logs else ""
-    for marker, stage, value in [
+    checkpoints = [
         ("Extracting audio", "Analyzing audio", 42),
         ("Raw events:", "Detecting non-speech moments", 58),
         ("After dedup:", "Grouping detected sounds", 67),
         ("Timeline:", "Generating captions", 76),
         ("SRT:", "Creating annotated frames", 86),
         ("Generating video", "Rendering captioned video", 92),
-    ]:
+    ]
+    for marker, stage, value in checkpoints:
         if marker in log_text:
             updates = {"stage": stage, "progress": value}
     if updates and updates.get("progress", 0) > data.get("progress", 0):
@@ -142,9 +144,13 @@ def run_pipeline(job_id: str) -> None:
             raise RuntimeError(f"Pipeline finished without required output: {missing}")
         result_data = json.loads((output_dir / "results.json").read_text(encoding="utf-8"))
         write_job(
-            directory, status="completed", stage="Complete", progress=100,
+            directory,
+            status="completed",
+            stage="Complete",
+            progress=100,
             caption_segments=result_data.get("caption_segments", len(result_data.get("timeline", []))),
-            completed_at=now(), error=None,
+            completed_at=now(),
+            error=None,
         )
     except Exception as exc:
         (directory / "backend-error.log").write_text(traceback.format_exc(), encoding="utf-8")
@@ -180,9 +186,16 @@ def create_job(video: UploadFile) -> dict:
     finally:
         video.file.close()
     metadata = write_job(
-        directory, id=job_id, filename=video.filename, stored_filename=destination.name,
-        size_bytes=size, status="queued", stage="Waiting for pipeline", progress=3,
-        error=None, created_at=now(),
+        directory,
+        id=job_id,
+        filename=video.filename,
+        stored_filename=destination.name,
+        size_bytes=size,
+        status="queued",
+        stage="Waiting for pipeline",
+        progress=3,
+        error=None,
+        created_at=now(),
     )
     executor.submit(run_pipeline, job_id)
     return public_job(metadata)
@@ -201,13 +214,18 @@ def get_result(job_id: str) -> dict:
         raise HTTPException(status_code=409, detail="Result is not ready")
     output_dir = job_dir(job_id) / "output"
     result = json.loads((output_dir / "results.json").read_text(encoding="utf-8"))
-    timeline = [{**item, "id": i, "frame_url": f"/api/jobs/{job_id}/frames/{i}"} for i, item in enumerate(result.get("timeline", []), 1)]
+    timeline = [
+        {**item, "id": index, "frame_url": f"/api/jobs/{job_id}/frames/{index}"}
+        for index, item in enumerate(result.get("timeline", []), 1)
+    ]
     return {
-        "matched": True, "job_id": job_id,
+        "matched": True,
+        "job_id": job_id,
         "caption_segments": result.get("caption_segments", len(timeline)),
         "duration_sec": max((item["end_sec"] for item in timeline), default=0),
         "video_url": f"/api/jobs/{job_id}/video",
-        "srt_url": f"/api/jobs/{job_id}/captions", "timeline": timeline,
+        "srt_url": f"/api/jobs/{job_id}/captions",
+        "timeline": timeline,
     }
 
 
@@ -245,4 +263,5 @@ def get_frame(job_id: str, caption_id: int):
         match = re.search(r"frame_([\d.]+)s", path.name)
         return float(match.group(1)) if match else 0
 
-    return FileResponse(min(frames, key=lambda p: abs(frame_time(p) - timestamp)), media_type="image/png")
+    selected = min(frames, key=lambda path: abs(frame_time(path) - timestamp))
+    return FileResponse(selected, media_type="image/png")

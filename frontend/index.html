@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PlanetRead Caption Studio — accessible captions for every sound." />
+    <title>PlanetRead · Caption Studio</title>
+    <link rel="icon" href="/logo.png" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/how-it-works.css" />
+    <link rel="stylesheet" href="/src/compact.css" />
+    <link rel="stylesheet" href="/src/stored-results.css" />
+    <link rel="stylesheet" href="/src/moment-accessibility.css" />
+    <link rel="stylesheet" href="/src/no-audio.css" />
+    <link rel="stylesheet" href="/src/sound-control.css" />
+    <link rel="stylesheet" href="/src/backend.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+    <header class="topbar shell">
+      <a class="brand" href="#" aria-label="PlanetRead home">
+        <img src="/logo.png" alt="PlanetRead" />
+        <span class="brand-divider"></span>
+        <span>Caption Studio <small>Beta</small></span>
+      </a>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <div class="eyebrow">AI-POWERED ACCESSIBILITY</div>
+        <h1>Make every sound<br /><em>visible.</em></h1>
+        <p>Upload a video and turn non-speech moments into clear, accessible captions.</p>
+      </section>
+
+      <section class="workspace glass">
+        <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Upload a video">
+          <input id="fileInput" type="file" accept="video/mp4,video/quicktime,video/webm" hidden />
+          <div class="upload-orbit"><div class="upload-icon">↑</div></div>
+          <h2>Drop your video here</h2>
+          <p>or <button id="browseButton" class="text-button">browse from your device</button></p>
+          <div class="file-hints"><span>MP4</span><span>MOV</span><span>WEBM</span><i></i><span>Up to 2 GB</span></div>
+        </div>
+
+        <div id="fileCard" class="file-card hidden">
+          <div class="file-preview"><video id="localPreview" muted></video><span>▶</span></div>
+          <div class="file-copy"><strong id="fileName">video.mp4</strong><small id="fileMeta">Ready to process</small></div>
+          <button id="removeFile" aria-label="Remove selected video">×</button>
+        </div>
+
+        <div class="pipeline" aria-label="Processing pipeline">
+          <div class="stage active"><b>1</b><span><strong>Upload</strong><small>Your video</small></span></div>
+          <i></i><div class="stage"><b>2</b><span><strong>Understand</strong><small>Sound + scene</small></span></div>
+          <i></i><div class="stage"><b>3</b><span><strong>Caption</strong><small>Natural Hindi</small></span></div>
+          <i></i><div class="stage"><b>4</b><span><strong>Review</strong><small>Video + frames</small></span></div>
+        </div>
+        <button id="processButton" class="primary-button" disabled><span>Generate captions</span><b>→</b></button>
+        <div id="progress" class="progress hidden"><div class="progress-copy"><strong id="progressLabel">Understanding audio…</strong><span id="progressPercent">0%</span></div><div class="progress-track"><i></i></div></div>
+        <div id="lookupError" class="lookup-error hidden"></div>
+      </section>
+
+      <section class="how-it-works">
+        <div class="how-heading">
+          <div class="eyebrow">HOW IT WORKS</div>
+          <h2>From upload to accessible<br />in three simple steps.</h2>
+          <p>PlanetRead handles the full captioning flow, then gives you everything in one place to review and download.</p>
+        </div>
+        <div class="how-steps">
+          <article class="how-card glass"><div class="how-number">01</div><div class="how-icon">↑</div><h3>Upload your video</h3><p>Choose a video from your device or simply drag and drop it into the upload area.</p></article>
+          <article class="how-card glass"><div class="how-number">02</div><div class="how-icon">≈</div><h3>We understand the scene</h3><p>The pipeline examines the sound and visual context to identify meaningful non-speech moments.</p></article>
+          <article class="how-card glass"><div class="how-number">03</div><div class="how-icon caption-icon">CC</div><h3>Review and download</h3><p>Watch the captioned result and review each caption with its frame, timestamp and audio moment.</p></article>
+        </div>
+      </section>
+
+      <section id="results" class="results hidden">
+        <div class="section-heading"><div><div class="eyebrow">YOUR RESULT</div><h2>Captioned & ready.</h2></div><a id="videoDownload" class="download-button result-download" href="#" download>↓ Download video</a></div>
+        <div class="result-grid">
+          <div class="video-card glass">
+            <div class="mock-video">
+              <video id="resultVideo" preload="metadata" controls playsinline></video>
+              <button id="soundToggle" class="sound-toggle" type="button">◖)) Sound on</button>
+            </div>
+            <div class="result-file-label">Processed captioned output</div>
+          </div>
+          <aside class="summary glass">
+            <div class="success-mark">✓</div><h3>Processing complete</h3><p>We found and captioned <strong id="summaryCount">0 non-speech moments</strong> in this video.</p>
+            <div class="stats"><div><strong id="statCount">0</strong><small>Captions</small></div><div><strong id="statDuration">—</strong><small>Duration</small></div><div><strong>हिन्दी</strong><small>Language</small></div></div>
+            <div class="detected"><small>SOUNDS DETECTED</small><div><span>♫ Music</span><span>♬ Birds</span><span>☊ Ambience</span><span>☻ Laughter</span></div></div>
+            <a id="srtDownload" class="outline-button download-link" href="#" download>Download captions (.SRT)</a>
+          </aside>
+        </div>
+
+        <div class="moments-heading"><div><h2>Caption moments</h2><p>Review every detected sound, frame by frame.</p></div><label class="search">⌕ <input id="searchInput" type="search" placeholder="Search captions" /></label></div>
+        <div id="moments" class="moments"></div>
+      </section>
+    </main>
+    <footer class="shell"><img src="/logo.png" alt="" /><span>Accessibility, one sound at a time.</span><small>Built with care by PlanetRead</small></footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
