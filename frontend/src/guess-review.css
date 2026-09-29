@@ -1,0 +1,54 @@
+.report-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:36px 0 14px;flex-wrap:wrap}
+.report-heading h2{font-size:24px;margin:0;letter-spacing:-.03em}
+.report-heading p{font-size:11px;color:var(--muted);margin:6px 0 0;max-width:520px}
+.report-heading-actions{display:flex;align-items:center;gap:10px;flex:none}
+.report-heading-actions .outline-button{width:auto;padding:10px 14px;font-size:10px}
+
+.finalize-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,170,60,.32);background:linear-gradient(160deg,rgba(255,248,235,.85),rgba(255,255,255,.7));margin-bottom:12px;font-size:11px;color:#8a5a12}
+.finalize-bar strong{color:#a06412}
+.finalize-bar .primary-button{width:auto;margin:0;padding:10px 16px;font-size:10px}
+
+.report-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.srt-column,.report-column{border-radius:16px;padding:12px;max-height:720px;overflow-y:auto}
+.column-heading{font-size:10px;font-weight:700;letter-spacing:.08em;color:#8192a0;text-transform:uppercase;padding:4px 6px 10px;position:sticky;top:0;background:inherit;z-index:1}
+
+/* Left column: plain read-only SRT view. A blank shows an italic
+   placeholder here (never the literal caption text, since the actual SRT
+   file has nothing there until it's filled in) so the two columns always
+   describe the same real state. */
+.srt-list{display:flex;flex-direction:column;gap:6px}
+.srt-row{display:flex;align-items:center;gap:10px;padding:7px;border-radius:10px;background:rgba(255,255,255,.55)}
+.srt-row.is-blank{border:1px dashed rgba(255,170,60,.5);background:rgba(255,250,240,.5)}
+.srt-row img{width:64px;height:40px;object-fit:cover;border-radius:6px;flex:none}
+.srt-row time{font-size:9px;font-weight:700;color:var(--blue);display:block}
+.srt-row .srt-caption{font-family:Tiro,serif;font-size:14px;margin-top:2px;line-height:1.3}
+.srt-row .srt-caption em{color:#a06412;font-style:normal;font-size:11px}
+.srt-row.filtered,.report-row.filtered{display:none}
+
+/* Right column: a confident caption is locked (read-only, delete-only).
+   A blank is always shown already in edit mode, since it has nothing
+   valid to display until filled in. */
+.report-list{display:flex;flex-direction:column;gap:8px}
+.report-row{padding:10px;border-radius:12px;background:rgba(255,255,255,.6)}
+.report-row.is-blank{border:1px solid rgba(255,170,60,.4);background:rgba(255,250,240,.55)}
+.report-row time{font-size:9px;font-weight:700;color:var(--blue);background:#eaf6fd;padding:3px 7px;border-radius:6px}
+.blank-label{font-size:9px;font-weight:700;color:#a06412;margin:7px 0 5px;letter-spacing:.02em}
+.report-caption-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin:7px 0 0}
+.report-caption-row h3{font-family:Tiro,serif;font-weight:400;font-size:15px;margin:0;flex:1;line-height:1.35}
+.report-row-actions{display:flex;gap:5px;flex:none;margin-top:8px}
+.row-action-button{border:1px solid rgba(8,124,219,.25);background:#eaf6fd;color:var(--blue);font-size:9px;font-weight:700;cursor:pointer;padding:6px 10px;border-radius:7px;white-space:nowrap}
+.row-action-button:hover{background:#d9f0fc}
+.row-action-button.delete-btn{border-color:rgba(196,60,60,.25);background:#fdecec;color:#b23a3a}
+.row-action-button.delete-btn:hover{background:#fbdcdc}
+.row-action-button.save-blank{background:var(--blue);color:#fff;border-color:var(--blue)}
+.row-action-button.save-blank:hover{background:#0668c2}
+
+.report-row textarea{width:100%;font-family:Tiro,serif;font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid rgba(255,170,60,.4);background:white;min-height:40px;resize:vertical}
+.report-row textarea:focus{outline:2px solid var(--cyan);outline-offset:1px}
+
+@media(max-width:860px){
+  .report-columns{grid-template-columns:1fr}
+  .srt-column,.report-column{max-height:none}
+  .report-heading{flex-direction:column}
+  .finalize-bar{flex-direction:column;align-items:flex-start}
+}
