@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/src/no-audio.css" />
     <link rel="stylesheet" href="/src/sound-control.css" />
     <link rel="stylesheet" href="/src/backend.css" />
+    <link rel="stylesheet" href="/src/guess-review.css" />
   </head>
   <body>
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
@@ -85,12 +86,32 @@
             <div class="success-mark">✓</div><h3>Processing complete</h3><p>We found and captioned <strong id="summaryCount">0 non-speech moments</strong> in this video.</p>
             <div class="stats"><div><strong id="statCount">0</strong><small>Captions</small></div><div><strong id="statDuration">—</strong><small>Duration</small></div><div><strong>हिन्दी</strong><small>Language</small></div></div>
             <div class="detected"><small>SOUNDS DETECTED</small><div><span>♫ Music</span><span>♬ Birds</span><span>☊ Ambience</span><span>☻ Laughter</span></div></div>
-            <a id="srtDownload" class="outline-button download-link" href="#" download>Download captions (.SRT)</a>
           </aside>
         </div>
 
-        <div class="moments-heading"><div><h2>Caption moments</h2><p>Review every detected sound, frame by frame.</p></div><label class="search">⌕ <input id="searchInput" type="search" placeholder="Search captions" /></label></div>
-        <div id="moments" class="moments"></div>
+        <div class="report-heading">
+          <div><h2>Captions &amp; interactive report</h2><p>Left: the current SRT file. Right: fill in the blanks the model wasn't confident about — final captions are locked, blanks are editable.</p></div>
+          <div class="report-heading-actions">
+            <label class="search">⌕ <input id="searchInput" type="search" placeholder="Search captions" /></label>
+            <a id="srtDownload" class="outline-button" href="#" download>↓ Download .SRT</a>
+          </div>
+        </div>
+
+        <div id="finalizeBar" class="finalize-bar glass hidden">
+          <div><strong id="blanksRemaining">0</strong> blank(s) still need a caption. Unfilled blanks are dropped from the final captions.</div>
+          <button id="finalizeBtn" class="primary-button" type="button">Save all &amp; finalize</button>
+        </div>
+
+        <div class="report-columns">
+          <div class="srt-column glass">
+            <div class="column-heading">Captions (.SRT)</div>
+            <div id="srtList" class="srt-list"></div>
+          </div>
+          <div class="report-column glass">
+            <div class="column-heading">Interactive report</div>
+            <div id="reportList" class="report-list"></div>
+          </div>
+        </div>
       </section>
     </main>
     <footer class="shell"><img src="/logo.png" alt="" /><span>Accessibility, one sound at a time.</span><small>Built with care by PlanetRead</small></footer>

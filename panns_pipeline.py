@@ -21,6 +21,9 @@ load_dotenv()
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
+sys.path.insert(0, "/Users/AditiP/Desktop/initial-fork/Music2Emotion")
+
+
 # ====================== GPU ======================
 # Device selection for Mac MPS, CUDA, or CPU.
 if torch.backends.mps.is_available():
@@ -244,7 +247,17 @@ SLC_MUSIC_MOOD_CAPTIONS = {
             "[मार्मिक संगीत]", "[भावपूर्ण पार्श्व संगीत]"],
     "romantic": ["[रूमानी संगीत]"],
     "victorious": ["[विजयी संगीत]", "[विजयी धुन]"],
-    "energetic": ["[उत्साहित पार्श्वसंगीत]", "[तीव्र संगीत]", "[जोशीला संगीत]"],
+    # NOTE: "तीव्र संगीत" (intense) used to sit in this same random pool as
+    # "उत्साहित"/"जोशीला" (excited/energetic-passionate, both clearly read
+    # as fun) — but "intense" doesn't communicate fun at all, and random
+    # selection meant a genuinely upbeat, cheering-crowd circus passage had
+    # a 1-in-3 chance of coming out as "तीव्र संगीत" instead, which reads as
+    # mismatched even though the CATEGORY choice (energetic) was correct.
+    # Real, confirmed case: a long continuous upbeat stretch right next to
+    # applause/cheering kept flickering to "तीव्र संगीत" via this exact
+    # random pool. Removed it from the active default pool — "उत्साहित"/
+    # "जोशीला" alone are the unambiguously-fun words in this category.
+    "energetic": ["[उत्साहित पार्श्वसंगीत]", "[जोशीला संगीत]"],
     "happy": ["[खुशनुमा संगीत]", "[मधुर धुन]"],
     "dramatic": ["[नाटकीय संगीत]", "[नाटकीय संगीत जारी है]", "[गंभीर पार्श्व संगीत]"],
     "neutral": ["[मधुर धुन]"],
@@ -287,7 +300,15 @@ SLC_MUSIC_MOOD_KEYWORDS = [
                     "spider web", "bicycle stunt"]),
     ("happy", ["happy", "joyful", "smiling", "laughing", "cheerful", "festive",
                "playful", "fun", "dancing", "dance", "celebrating", "wedding"]),
-    ("dramatic", ["serious", "dramatic", "argument", "intense",
+    # NOTE: "intense" used to be a bare keyword here — the exact same
+    # ambiguity as "तीव्र संगीत" (also meaning "intense"), which was just
+    # removed from the "energetic" category's random pool for the same
+    # reason: it doesn't reliably signal SERIOUS/dramatic on its own, and is
+    # just as likely to describe an exciting, thrilling circus stunt as a
+    # solemn scene. Real, confirmed case: this fired on what was actually a
+    # continuous, clearly-fun energetic passage, producing "नाटकीय संगीत"
+    # right after a stretch that should have stayed energetic/happy.
+    ("dramatic", ["serious", "dramatic", "argument",
                   "solemn", "grave", "determined", "resolute", "stern"]),
 ]
 
@@ -340,22 +361,260 @@ def _has_phone_scene_support(scene_text: str) -> bool:
     a label PANNs never proposed, but it CAN require actual corroboration
     (either a phone visibly in shot, or overwhelming confidence) before
     trusting an isolated moderate-confidence ringtone read, the same way
-    vehicle already requires either a traffic scene or a very high score."""
+    vehicle already requires either a traffic scene or a very high score.
+
+    NOTE: also excludes a specific, confirmed watermark artifact — this
+    show has a persistent "Waves Ott for..." promotional overlay burned
+    into the frames, and Florence sometimes describes it as "a person
+    holding a phone with the words 'Waves Ott for...'" — the word "phone"
+    here is Florence trying to describe the watermark graphic, not a real
+    phone in the story. Real, confirmed case: this exact phrase was the
+    ONLY scene-text evidence behind a burst that traced back to a bright
+    musical accent (Ringtone spiked to 0.716 for one frame, then Music
+    dominated at 0.5-0.7 for the rest) — a real phone conversation
+    wouldn't leave literally no other trace in the scene text across the
+    whole burst. If this watermark phrase is present, phone-related
+    keywords are not trusted as genuine scene support."""
     st = (scene_text or "").lower()
+    if "waves ott" in st or "ott for" in st:
+        return False
     return any(k in st for k in ["phone", "mobile", "smartphone", "cell phone", "telephone", "call"])
 
 SOLO_MELANCHOLIC_INSTRUMENTS = {"violin", "sitar", "sarangi", "santoor", "flute", "shehnai", "tanpura"}
 RHYTHMIC_INSTRUMENTS = {"tabla", "dhol", "mridangam", "manjira", "drum", "bass drum", "drum kit", "percussion"}
 
-# General principle: the audio itself has a character (a sustained solo string/
-# wind instrument reads differently than a rhythmic drum), and that character
-# should combine with whatever the scene shows — for many different settings,
-# not one specific hardcoded case. This table says which moods each instrument
-# character can plausibly support; it's used only to back up a WEAK visual cue
-# into an actual mood pick, never to force a mood on its own (a tabla playing
-# over an ordinary walking shot should still just be neutral, as already
-# agreed) and never to override a scene that clearly states its own mood via
-# SLC_MUSIC_MOOD_KEYWORDS above (that stays the primary signal).
+# ============================================================================
+# MUSIC EMOTION RECOGNITION via Music2Emo (real audio, not instrument-guessing)
+# ============================================================================
+# The instrument-character heuristic that used to live here (SOLO_MELANCHOLIC_
+# INSTRUMENTS -> "sad", RHYTHMIC_INSTRUMENTS -> "energetic") was always a
+# workaround for not having a real emotion signal — it inferred mood from
+# WHICH instrument PANNs guessed, and this whole session has repeatedly found
+# PANNs' fine-grained instrument identification to be unreliable (trumpet read
+# as an elephant, sitar/tabla mixups, xylophone read as a phone). Guessing
+# mood from a shaky instrument ID just inherits that unreliability one layer
+# up. Retired in favor of actually listening to the audio.
+#
+# Model: Music2Emo (amaai-lab/music2emo, https://github.com/AMAAI-Lab/Music2Emotion)
+#   - Genuinely trained on real human emotion annotations (PMEmo, DEAM,
+#     EmoMusic, MTG-Jamendo) via a MERT backbone — unlike using a general
+#     audio-caption model (e.g. CLAP) zero-shot for a task it was never
+#     actually trained on.
+#   - Real published accuracy on the coarse valence/arousal quadrant this
+#     code uses: ~80-91% depending on task (see the paper, arXiv:2502.03979).
+#     Fine-grained categorical accuracy is much lower — which is exactly why
+#     this only asks it for a QUADRANT (positive/negative x high/low arousal),
+#     not a direct 9-way category, and leans on scene-text to pick a specific
+#     word within whichever quadrant the audio confidently lands in.
+#   - NOT pip-installable. Setup required: `git clone
+#     https://github.com/AMAAI-Lab/Music2Emotion`, `pip install -r
+#     requirements.txt` inside it (python 3.10, torch==2.3.1), then make sure
+#     that cloned directory is on PYTHONPATH so `from music2emo import
+#     Music2emo` resolves. If it's not set up, everything below fails soft —
+#     the pipeline falls back to the scene-text-only mood classifier and logs
+#     a warning, it does not crash.
+#
+# SETUP NOT VERIFIED END-TO-END: I confirmed Music2Emo's documented API
+# against its model card (the predict() call, its input/output shape, the
+# valence/arousal 1-9 scale) but could not actually run it myself against
+# real footage in this environment — unlike every other fix this session,
+# which was verified by direct execution. Test this against a few of your
+# own clips with known-obvious moods before trusting it in production.
+
+_MUSIC2EMO_MODEL = None
+_MUSIC2EMO_LOAD_FAILED = False
+_MUSIC2EMO_DIR = None  # cached location of the Music2Emotion folder, set once during load
+
+def _get_music2emo_model(logger=None):
+    """Lazily load Music2Emo once per process. Returns None (never raises)
+    if the library isn't set up — callers must treat None as "fall back to
+    scene-text", not as an error to propagate."""
+    global _MUSIC2EMO_MODEL, _MUSIC2EMO_LOAD_FAILED, _MUSIC2EMO_DIR
+    log = logger or logging.getLogger()
+    if _MUSIC2EMO_MODEL is not None:
+        return _MUSIC2EMO_MODEL
+    if _MUSIC2EMO_LOAD_FAILED:
+        return None
+    try:
+        import music2emo as _m2e_module
+        from music2emo import Music2emo
+        # Music2Emo loads its own checkpoint (e.g. "saved_models/J_all.ckpt")
+        # using a path RELATIVE to the current working directory — it only
+        # resolves correctly when cwd is the Music2Emotion folder itself
+        # (exactly like the standalone test, which always cd'd there first).
+        # This pipeline runs from its own project folder, not from inside
+        # Music2Emotion, so that relative path breaks unless we temporarily
+        # switch into it — found dynamically from the module's own actual
+        # location (via _m2e_module.__file__) rather than hardcoding the
+        # clone path a second time, so this works regardless of where
+        # Music2Emotion was actually cloned to on this machine. Restored
+        # immediately after, in a finally block, so a failure here never
+        # leaves the rest of the pipeline running from the wrong directory.
+        music2emo_dir = os.path.dirname(os.path.abspath(_m2e_module.__file__))
+        _MUSIC2EMO_DIR = music2emo_dir
+        old_cwd = os.getcwd()
+        try:
+            os.chdir(music2emo_dir)
+            _MUSIC2EMO_MODEL = Music2emo()
+        finally:
+            os.chdir(old_cwd)
+        log.info("Music2Emo loaded successfully — music mood will use real audio valence/arousal.")
+    except Exception as e:
+        log.warning(f"Music2Emo not available ({e}) — music mood will use scene-text only. "
+                    f"See setup instructions above SOLO_MELANCHOLIC_INSTRUMENTS in this file.")
+        _MUSIC2EMO_LOAD_FAILED = True
+        _MUSIC2EMO_MODEL = None
+    return _MUSIC2EMO_MODEL
+
+# The full-episode waveform is loaded once, well before per-burst captioning
+# happens, but pick_music_caption() is several call layers away from that
+# code (build_timeline -> _rule_caption -> pick_music_caption), and none of
+# those functions currently pass audio data through. Threading a new
+# parameter through all three signatures (and every existing call site) is a
+# much larger, riskier change than this feature needs — a module-level
+# handle set once, right where the waveform is already available, is the
+# pragmatic choice here. Call set_audio_context(waveform, sample_rate) once
+# after loading the audio (this is already wired into detect_audio_events
+# below, right where it receives the waveform as a parameter).
+_AUDIO_WAVEFORM = None
+_AUDIO_SAMPLE_RATE = None
+
+def set_audio_context(waveform, sample_rate: int):
+    global _AUDIO_WAVEFORM, _AUDIO_SAMPLE_RATE
+    _AUDIO_WAVEFORM = waveform
+    _AUDIO_SAMPLE_RATE = sample_rate
+
+def get_music_valence_arousal(start_sec: float, end_sec: float, logger=None):
+    """Extract this burst's audio segment and run it through Music2Emo.
+    Returns (valence, arousal, predicted_moods) on Music2Emo's native 1-9
+    scale (5 = neutral midpoint), or (None, None, []) if the model isn't
+    set up, no audio context was registered, or the segment is too short to
+    analyze meaningfully. predicted_moods is Music2Emo's own separate
+    multi-label mood tag list — used downstream to disambiguate WITHIN a
+    quadrant when more than one dictionary category is plausible there
+    (e.g. "happy" vs "romantic" both sit in positive+low-arousal; the tags
+    themselves usually say which one it actually is).
+
+    NOTE: every outcome here — success, skip, or failure — is logged via the
+    SAME logger + file handler your per-episode .log files already use
+    (logging.getLogger(name) + FileHandler, set up in setup_logger()), not
+    the bare `logging` module's root logger. Root-logger messages don't
+    propagate into that named logger's file — they'd only ever show up in
+    your terminal (if at all), never in the .log file you'd actually share
+    for debugging. Every line below is prefixed "M2E:" so you can grep for
+    it directly: `grep "M2E:" your_episode.log`."""
+    log = logger or logging.getLogger()
+    model = _get_music2emo_model(log)
+    if model is None:
+        return None, None, []
+    if _AUDIO_WAVEFORM is None or _AUDIO_SAMPLE_RATE is None:
+        log.warning(f"M2E: no audio context registered for burst {start_sec:.1f}-{end_sec:.1f}s "
+                    f"(set_audio_context() was never called) — falling back to scene-text.")
+        return None, None, []
+    sr = _AUDIO_SAMPLE_RATE
+    start_sample = max(0, int(start_sec * sr))
+    end_sample = min(len(_AUDIO_WAVEFORM), int(end_sec * sr))
+    segment = _AUDIO_WAVEFORM[start_sample:end_sample]
+    # Music2Emo (like most MER models) expects a real musical excerpt — a
+    # burst under ~3 seconds doesn't give it enough to judge; let the
+    # scene-text fallback handle short bursts instead of calling the model
+    # on a fragment it was never evaluated on.
+    if len(segment) < sr * 3:
+        log.info(f"M2E: burst {start_sec:.1f}-{end_sec:.1f}s too short ({len(segment)/sr:.1f}s < 3s) "
+                 f"— skipped, using scene-text fallback.")
+        return None, None, []
+    tmp_path = None
+    old_cwd = os.getcwd()
+    try:
+        tmp_fd, tmp_path = tempfile.mkstemp(suffix=".wav")
+        os.close(tmp_fd)
+        sf.write(tmp_path, segment, sr)
+        # Same relative-path concern as model loading — if predict() also
+        # touches any of Music2Emo's own internal resources by relative
+        # path, it needs the same cwd. tmp_path itself is already absolute
+        # (from tempfile.mkstemp), so this doesn't affect finding the audio
+        # file, only whatever Music2Emo does internally during inference.
+        if _MUSIC2EMO_DIR:
+            os.chdir(_MUSIC2EMO_DIR)
+        result = model.predict(tmp_path)
+        valence, arousal = result.get("valence"), result.get("arousal")
+        predicted_moods = result.get("predicted_moods") or []
+        log.info(f"M2E: burst {start_sec:.1f}-{end_sec:.1f}s -> valence={valence}, arousal={arousal}, "
+                 f"moods={predicted_moods}")
+        return valence, arousal, predicted_moods
+    except Exception as e:
+        log.warning(f"M2E: inference FAILED for burst {start_sec:.1f}-{end_sec:.1f}s: {e} "
+                    f"— falling back to scene-text.")
+        return None, None, []
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        os.chdir(old_cwd)
+
+def valence_arousal_to_quadrant(valence, arousal, center: float = 5.0, margin: float = 0.75):
+    """Music2Emo's scale is 1-9, 5 = neutral. Require a real margin away
+    from center before trusting a quadrant call — a score sitting right on
+    5/5 isn't confidently anything, and falls through to the scene-text
+    path rather than being forced into a quadrant it barely qualifies for."""
+    if valence is None or arousal is None:
+        return None
+    if abs(valence - center) < margin and abs(arousal - center) < margin:
+        return None
+    positive = valence >= center
+    high_arousal = arousal >= center
+    if positive and high_arousal:
+        return "positive_high_arousal"
+    if not positive and high_arousal:
+        return "negative_high_arousal"
+    if not positive and not high_arousal:
+        return "negative_low_arousal"
+    return "positive_low_arousal"
+
+# Which of the EXISTING SLC_MUSIC_MOOD_CAPTIONS category keys are plausible in
+# each quadrant. Built word-by-word from the actual dictionary (not guessed):
+# every phrase in "happy"/"energetic"/"victorious" is positive+high-arousal,
+# every phrase in "scary"/"tense" is negative+high-arousal, "sad" is
+# negative+low-arousal. NOTE: "happy" is ALSO reachable from positive+LOW
+# arousal, not just high — confirmed real case: valence 5.8-6.2 with arousal
+# just under the 5.0 midpoint (4.1-4.9, barely "low") kept landing here with
+# ONLY "romantic" as an option, even though the model's own predicted_moods
+# for these exact bursts were ['happy','fun','funny','upbeat','groovy',
+# 'party'] — genuinely pleasant/fun music that just isn't hyper-energetic,
+# not romantic at all. Calm-happy music is real and common; forcing every
+# positive+calm reading into "romantic" was the bug, not the quadrant math.
+VALENCE_AROUSAL_QUADRANTS = {
+    "positive_high_arousal": ["happy", "energetic", "victorious"],
+    "negative_high_arousal": ["scary", "tense"],
+    "negative_low_arousal":  ["sad"],
+    "positive_low_arousal":  ["romantic", "happy"],
+}
+# "dramatic" (नाटकीय/गंभीर) is only reachable from the NEGATIVE high-arousal
+# quadrant. It used to straddle both polarities on the theory that a
+# triumphant climax could be "dramatic" too — but "विजयी" (victorious)
+# already exists specifically for that positive-triumphant case, and
+# "उत्साहित"/"जोशीला" already cover happy-energetic. In practice, allowing
+# "dramatic" into the positive quadrant just produced mismatched captions on
+# genuinely upbeat/fun passages (real, confirmed case: नाटकीय संगीत showing
+# up right after a long clearly-fun, cheering-crowd circus stretch). Reserve
+# it for the negative/serious-intense reading only.
+DRAMATIC_STRADDLES_QUADRANTS = {"negative_high_arousal"}
+# "mysterious" doesn't sit on a valence-arousal axis at all — in music
+# emotion research (e.g. the GEMS model) it's closer to its own "tension /
+# wonder" dimension than a point on a 2D positive/negative-energetic/calm
+# grid. Never assign it from the audio model's quadrant; it's decided purely
+# by scene text, same as before this whole system existed — checked as an
+# explicit bypass before the audio model even runs, in pick_music_caption.
+
+# General principle: the audio itself has a character (a sustained solo
+# string/wind instrument reads differently than a rhythmic drum), and that
+# character should combine with whatever the scene shows — for many
+# different settings, not one specific hardcoded case. This table says which
+# moods each instrument character can plausibly support; it's used only to
+# back up a WEAK visual cue into an actual mood pick, never to force a mood
+# on its own (a tabla playing over an ordinary walking shot should still just
+# be neutral, as already agreed) and never to override a scene that clearly
+# states its own mood via SLC_MUSIC_MOOD_KEYWORDS above (that stays the
+# primary signal).
 INSTRUMENT_MOOD_LEAN = {
     "sad":       SOLO_MELANCHOLIC_INSTRUMENTS,
     "energetic": RHYTHMIC_INSTRUMENTS,
@@ -375,12 +634,29 @@ WEAK_SCENE_CUES = {
                   "spotlight", "performing on stage", "applauding"],
 }
 
-def pick_music_caption(scene_text: str, signal_text: str = "", families: set = None) -> str:
-    """Pick a dictionary music caption by the EMOTION of the scene (Florence
-    visual context) combined with the character of the audio itself, never by
-    naming which instrument PANNs thinks it heard. No instrument name is ever
-    produced by this function — instrument identity is only ever used
-    internally as a signal for mood, never surfaced in the output text."""
+_LAST_CAPTION_WAS_RANDOM_GUESS = False  # set by pick_music_caption, read by build_timeline
+                                          # right after each _rule_caption call, for QC flagging
+_LAST_BURST_SCORES = {"valence": None, "arousal": None, "predicted_moods": [], "candidates": [], "quadrant": None, "candidate_counts": {}, "decision_reason": None}
+    # captures Music2Emo's raw output for the current burst, regardless of
+    # whether it ended up confident or ambiguous — read by build_timeline
+    # right after _rule_caption, same pattern as the guess flag above, so
+    # the frontend review UI can show the actual numbers behind a caption,
+    # not just whether it was flagged.
+
+def pick_music_caption(scene_text: str, signal_text: str = "", families: set = None,
+                        start_sec: float = None, end_sec: float = None, logger=None) -> str:
+    """Pick a dictionary music caption. Primary signal is now Music2Emo
+    listening to the actual burst audio (a real, trained emotion model,
+    narrowed to a valence/arousal quadrant it's actually accurate at); scene
+    text picks the specific word within whichever quadrant the audio
+    confidently lands in, and remains the ONLY signal for "mysterious" (which
+    doesn't fit a valence/arousal grid) and the sole fallback whenever the
+    audio model is unavailable or its reading is too close to neutral to
+    trust. No instrument name is ever produced by this function."""
+    global _LAST_CAPTION_WAS_RANDOM_GUESS, _LAST_BURST_SCORES
+    _LAST_CAPTION_WAS_RANDOM_GUESS = False  # reset at the start of every call
+    _LAST_BURST_SCORES = {"valence": None, "arousal": None, "predicted_moods": [], "candidates": [], "quadrant": None, "candidate_counts": {}, "decision_reason": None}
+
     # A radio is a sound *source*, not a mood — special-case it to the
     # dictionary's own "radio music" entry regardless of visual emotion.
     if "radio" in (signal_text or "").lower():
@@ -403,26 +679,187 @@ def pick_music_caption(scene_text: str, signal_text: str = "", families: set = N
     if "black background" in text and "the text" in text:
         return "[थीम संगीत]"
 
-    # 1) Strong scene keywords win outright when present — this is the primary
-    # signal regardless of which instrument is playing.
+    # "Mysterious" bypasses the audio model entirely — it structurally can't
+    # be placed on a valence/arousal grid, so it's decided purely by scene
+    # text, checked before anything audio-based runs.
+    for mood, keywords in SLC_MUSIC_MOOD_KEYWORDS:
+        if mood == "mysterious" and any(kw in text for kw in keywords):
+            return random.choice(SLC_MUSIC_MOOD_CAPTIONS[mood])
+
+    # "Bonfire" is Florence's literal, non-emotional word for what is very
+    # often a funeral pyre in this kind of historical-drama content — it
+    # never says "funeral" or "pyre" outright (checked exhaustively across a
+    # whole episode, zero hits), so the existing "sad" keyword list (which
+    # DOES include "funeral"/"mourning"/"grief") never matches. Real,
+    # confirmed case: a sustained ~34-second passage over "a group of people
+    # standing around a bonfire in a field" — static, no movement, no
+    # celebration — came out as generic "[मधुर धुन]" throughout, when it was
+    # very likely a solemn cremation scene. But "bonfire" alone is genuinely
+    # ambiguous — a festive Holi/Lohri bonfire is equally real content — so
+    # this only fires when there's no festive/celebratory language ALSO
+    # present in the same scene text (which would flip the read entirely).
+    if "bonfire" in text and not any(kw in text for kw in
+            ["dancing", "dance", "celebrating", "festive", "colorful", "wedding", "playful"]):
+        return random.choice(SLC_MUSIC_MOOD_CAPTIONS["sad"])
+
+    # Same principle, two more common literal-Florence patterns for sad/
+    # somber scenes that don't use any emotion word at all. NOT verified
+    # against real footage the way the bonfire case above was — built from
+    # the same reasoning (what would Florence's plain, activity-based
+    # vocabulary actually say for this), but flagged honestly as unconfirmed
+    # until seen in an actual log.
+    #
+    # 1) A deathbed/illness scene: someone lying down with others gathered
+    # around them. Requires BOTH parts together — "lying in bed" alone is
+    # just as likely a mundane resting scene, and "gathered around" alone
+    # could be anything (a meal, a conversation). Together, it's a
+    # specific, much less ambiguous pattern.
+    LYING_DOWN_PHRASES = ["lying in bed", "lying on a bed", "lying on the bed", "lying down"]
+    GATHERED_AROUND_PHRASES = ["gathered around", "surrounded by", "standing around", "sitting around"]
+    if any(kw in text for kw in LYING_DOWN_PHRASES) and any(kw in text for kw in GATHERED_AROUND_PHRASES):
+        return random.choice(SLC_MUSIC_MOOD_CAPTIONS["sad"])
+
+    # 2) A lone, glum figure at night. "Sitting alone" by itself is already
+    # handled much later as a weak last-resort cue (needs a matching solo
+    # instrument too, since alone-in-frame isn't necessarily sad on its own
+    # — could be a neutral establishing shot). Combined specifically with a
+    # night/darkness cue, it's a stronger, more standalone signal worth
+    # trusting earlier and without needing instrument corroboration.
+    ALONE_PHRASES = ["sitting alone", "standing alone", "by himself", "by herself", "alone in"]
+    NIGHT_PHRASES = ["at night", "late at night", "dark room", "dim light", "moonlight"]
+    if any(kw in text for kw in ALONE_PHRASES) and any(kw in text for kw in NIGHT_PHRASES):
+        return random.choice(SLC_MUSIC_MOOD_CAPTIONS["sad"])
+
+    # Direct expressive words Florence occasionally does use, that describe
+    # a downcast appearance without naming the emotion outright — safe to
+    # trust standalone since they're specifically melancholy-coded, unlike
+    # more generic words that need the combined checks above.
+    for mood, keywords in [("sad", ["glum", "forlorn", "dejected", "downcast", "despondent"])]:
+        if any(kw in text for kw in keywords):
+            return random.choice(SLC_MUSIC_MOOD_CAPTIONS[mood])
+
+    # 1) Ask the audio itself. If Music2Emo is set up and confidently places
+    # this burst in a quadrant, narrow the candidate categories to that
+    # quadrant (plus "dramatic" when the quadrant is one it can straddle),
+    # then let scene text pick the specific word within that narrowed set —
+    # the audio decides the rough mood, the scene breaks the tie.
+    #
+    # EXCEPTION: skip the audio model entirely when chant/mantra is also
+    # present, even if it's too weak to fully commit to the mantra caption
+    # itself. Real, confirmed case: a burst with genuine chanting present
+    # (families=['music','chant','mantra']) got Music2Emo's own valence/
+    # arousal reading of "sad" (explicit 'sad' tag in predicted_moods) —
+    # very plausibly a real blind spot, not noise: Music2Emo was trained on
+    # Western pop/film-score emotion datasets, and devotional chanting's
+    # slow, repetitive, minor-key-adjacent qualities can superficially
+    # resemble "sad" music acoustically to a model that's never seen this
+    # style, even though the actual content is solemn/devotional, not sad.
+    # Scene-text (or neutral) is a safer fallback than trusting a model on
+    # exactly the content type it's least likely to have been trained on.
+    if not (families and (families & {"chant", "mantra"})) and start_sec is not None and end_sec is not None:
+        valence, arousal, predicted_moods = get_music_valence_arousal(start_sec, end_sec, logger=logger)
+        _LAST_BURST_SCORES = {"valence": valence, "arousal": arousal, "predicted_moods": predicted_moods,
+                               "candidates": [], "quadrant": None, "candidate_counts": {}, "decision_reason": None}
+        quadrant = valence_arousal_to_quadrant(valence, arousal)
+        log = logger or logging.getLogger()
+        if quadrant:
+            candidates = list(VALENCE_AROUSAL_QUADRANTS.get(quadrant, []))
+            if quadrant in DRAMATIC_STRADDLES_QUADRANTS:
+                candidates.append("dramatic")
+            _LAST_BURST_SCORES["candidates"] = candidates
+            _LAST_BURST_SCORES["quadrant"] = quadrant
+            for mood, keywords in SLC_MUSIC_MOOD_KEYWORDS:
+                if mood in candidates and any(kw in text for kw in keywords):
+                    log.info(f"M2E: quadrant={quadrant}, scene-text picked '{mood}' from {candidates}")
+                    _LAST_BURST_SCORES["decision_reason"] = "scene-text match"
+                    return random.choice(SLC_MUSIC_MOOD_CAPTIONS[mood])
+            # No scene-text tiebreak, but more than one category shares this
+            # quadrant (e.g. "happy" and "romantic" both sit in positive+low
+            # arousal) — Music2Emo's own separate mood tags usually say
+            # which one it actually is. Real, confirmed case: valence/
+            # arousal landed here with tags ['happy','fun','funny','upbeat',
+            # 'groovy','party'] — genuinely pleasant/fun content, no
+            # romantic tag anywhere — that used to get randomly assigned
+            # "romantic" anyway purely because it was the only quadrant
+            # member before "happy" was added here too. Checked before the
+            # final blind random choice, and only used when it actually
+            # narrows the field — never invents a category the quadrant
+            # didn't already allow.
+            if len(candidates) > 1 and predicted_moods:
+                moods_lower = " ".join(predicted_moods).lower()
+                MOOD_TAG_HINTS = {
+                    "happy":    ["happy", "fun", "funny", "upbeat", "groovy", "party",
+                                 "joy", "cheerful", "playful", "uplifting"],
+                    "romantic": ["love", "romantic", "sexy", "sentimental", "tender"],
+                    "sad":      ["sad", "melancholic", "depressive", "emotional"],
+                    "energetic": ["energetic", "action", "powerful", "aggressive"],
+                    "scary":    ["dark", "horror", "scary", "creepy"],
+                    "tense":    ["suspense", "thriller", "tense", "anxious"],
+                }
+                # NOTE: this used to be "does ANY hint word match" per
+                # candidate, requiring exactly one candidate to match at
+                # all — but a single ambiguous tag sitting among a large,
+                # overwhelmingly one-sided tag list could tie with the real
+                # signal and cancel the whole disambiguation. Real, confirmed
+                # case: 22 tags including happy/fun/funny/groovy/party/
+                # upbeat/uplifting (7 clear happy hits) alongside a single
+                # "sexy" tag (1 romantic hit) — both candidates "matched" at
+                # all, so the exact-one-match rule bailed to random instead
+                # of recognizing the obvious 7-to-1 majority. Counting actual
+                # hits per candidate and requiring a genuine majority (not
+                # just presence) fixes this without losing the original
+                # safety: a real, close tie (e.g. 1-vs-1) still correctly
+                # falls through to random rather than picking arbitrarily.
+                candidate_counts = {
+                    c: sum(1 for h in MOOD_TAG_HINTS.get(c, []) if h in moods_lower)
+                    for c in candidates
+                }
+                _LAST_BURST_SCORES["candidate_counts"] = candidate_counts
+                ranked = sorted(candidate_counts.items(), key=lambda kv: -kv[1])
+                if ranked[0][1] > 0 and (len(ranked) == 1 or ranked[0][1] > ranked[1][1]):
+                    chosen = ranked[0][0]
+                    log.info(f"M2E: quadrant={quadrant}, mood-tag majority picked '{chosen}' "
+                             f"{candidate_counts} (tags: {predicted_moods})")
+                    _LAST_BURST_SCORES["decision_reason"] = "mood-tag majority"
+                    return random.choice(SLC_MUSIC_MOOD_CAPTIONS[chosen])
+            # Still no tiebreak — genuinely ambiguous within the quadrant,
+            # but still meaningfully narrowed by real audio evidence, better
+            # than a blind guess across all nine categories.
+            if candidates:
+                chosen = random.choice(candidates)
+                log.info(f"M2E: quadrant={quadrant}, no tiebreak available, randomly picked '{chosen}' from {candidates}")
+                _LAST_CAPTION_WAS_RANDOM_GUESS = True
+                _LAST_BURST_SCORES["decision_reason"] = "random pick, no tiebreak"
+                return random.choice(SLC_MUSIC_MOOD_CAPTIONS[chosen])
+        elif valence is not None and arousal is not None:
+            log.info(f"M2E: valence={valence}/arousal={arousal} too close to neutral to call a quadrant — using scene-text fallback.")
+
+    # 2) Audio model unavailable, or its reading was too close to neutral to
+    # trust — fall back to the full scene-text priority match across every
+    # category, same as before this system existed.
     for mood, keywords in SLC_MUSIC_MOOD_KEYWORDS:
         if any(kw in text for kw in keywords):
             return random.choice(SLC_MUSIC_MOOD_CAPTIONS[mood])
 
-    # 2) No strong keyword matched. Before giving up to plain neutral, check
-    # whether the scene has a WEAK cue that only means something once combined
-    # with the instrument's character — the general principle being that the
-    # audio of a setting and the setting itself should jointly decide the
-    # caption, for any instrument/setting combination, not one hardcoded case.
-    # A tabla over an ordinary walking shot still stays neutral here, since
-    # "walking" isn't a listed weak cue for any mood — this only fires on
-    # cues specifically chosen because they're ambiguous alone but meaningful
-    # paired with a matching instrument character.
+    # 3) No strong keyword matched either. Before giving up to plain neutral,
+    # check whether the scene has a WEAK cue that only means something once
+    # combined with the instrument's character — the general principle being
+    # that the audio of a setting and the setting itself should jointly
+    # decide the caption. A tabla over an ordinary walking shot still stays
+    # neutral here, since "walking" isn't a listed weak cue for any mood.
     for mood, cue_keywords in WEAK_SCENE_CUES.items():
         supporting_instruments = INSTRUMENT_MOOD_LEAN.get(mood, set())
         if families & supporting_instruments and any(kw in text for kw in cue_keywords):
             return random.choice(SLC_MUSIC_MOOD_CAPTIONS[mood])
 
+    # Truly nothing matched anywhere — genuinely no signal to base a mood
+    # on, not even a weak one. Deliberately NOT flagged as a guess: this is
+    # the safe, conservative default when there's no evidence either way,
+    # which is very often just correctly neutral (most background score
+    # music isn't dramatically moody) — flagging every one of these would
+    # flood QC review with noise rather than highlighting genuinely
+    # uncertain moments. Only an actual random pick BETWEEN competing,
+    # evidenced-but-tied options (above) counts as a real guess.
     return random.choice(SLC_MUSIC_MOOD_CAPTIONS["neutral"])
 
 # ---- Non-music dictionary captions, keyed by the raw PANNs label / signal text
@@ -1542,6 +1979,11 @@ def detect_audio_events(waveform: np.ndarray, scene_index: list,
     logger.info("AUDIO ANALYSIS — PANNs detection with SileroVAD speech gate")
     logger.info("=" * 65)
 
+    # Register the raw waveform for pick_music_caption's Music2Emo call later
+    # — this is the earliest point in the pipeline that has the waveform, and
+    # captioning happens well after this function returns.
+    set_audio_context(waveform, SAMPLE_RATE)
+
     panns_model = get_panns()
     resolve_label_thresholds(panns_model.labels)
 
@@ -1642,6 +2084,27 @@ def detect_audio_events(waveform: np.ndarray, scene_index: list,
         else:
             logger.info("  → no winner")
 
+        if best:
+            # A winning "Horse"/"Clip-clop" needs the SAME scrutiny as a
+            # rescued (non-winning) one gets a few lines below — otherwise
+            # this exact gap lets it through unconditionally just because it
+            # narrowly beat equally-weak competitors in one frame. Real,
+            # confirmed case: Clip-clop (0.207) "won" over Horse (0.185) and
+            # Animal (0.170) — all three within 0.04 of each other, i.e. not
+            # a real separation, just noise — while the only genuine
+            # corroborating evidence, "Walk, footsteps" (0.060), FAILED its
+            # own threshold. Scene was a woman standing near a microphone;
+            # nothing horse-related in sight. Require either real footstep
+            # corroboration in the same frame, or a high enough score to
+            # stand on its own regardless (a genuinely loud, unambiguous
+            # clip-clop shouldn't need a footstep to also be detected).
+            if _kw_hit(best["label"].lower(), ["horse", "clip-clop"]):
+                frame_passing_labels = " ".join(c["label"].lower() for c in candidates if c["pass"])
+                has_footstep = _kw_hit(frame_passing_labels, ["walk", "footstep", "run"])
+                if not has_footstep and best["combined_score"] < 0.35:
+                    logger.info(f"  → WINNER {best['label']} REJECTED "
+                                f"(no footstep corroboration, score {best['combined_score']:.3f} < 0.35)")
+                    best = None
         if best:
             events.append(best)
 
@@ -1757,6 +2220,19 @@ def filter_labels_for_caption(events: list, min_combined_score: float = 0.18) ->
     Filter out weak detections before sending to LLM.
     This is the fix against random animal captions.
     """
+    # A repeated pattern across many frames is itself real corroborating
+    # evidence, even when each individual instance is too weak on its own —
+    # real, confirmed case: "Chirp, tweet" genuinely passed its own class
+    # threshold (0.14-0.18) repeatedly across many consecutive frames, but
+    # never once reached the bird/crow-specific 0.50 bar below, and the
+    # scene wasn't recognized as "nature" either — so EVERY instance got
+    # discarded and the whole burst fell back to generic "[शांत ध्वनि]"
+    # despite real, sustained, audible chirping throughout. Pre-count how
+    # many bird/crow-family candidates exist anywhere in this whole event
+    # list before filtering starts, so a genuinely repeated pattern can get
+    # a lower bar than a single, possibly-spurious one-off reading.
+    _bird_candidate_count = sum(1 for ev in events if _family(ev.get("label", "")) in ("bird", "crow"))
+
     filtered = []
     for ev in events:
         score = ev.get("combined_score", 0)
@@ -1848,8 +2324,21 @@ def filter_labels_for_caption(events: list, min_combined_score: float = 0.18) ->
                 continue
 
         if fam in ("bird", "crow") and score < 0.50:
-            if not nature_scene:
+            # Require either scene support OR a genuinely repeated pattern
+            # (at least 4 bird/crow candidates somewhere in this burst) —
+            # real, confirmed case above. A single weak reading still needs
+            # nature_scene to survive; a sustained one doesn't, since the
+            # repetition itself is the corroboration Florence's scene text
+            # failed to provide. Explicitly appended here (not left to fall
+            # through to the generic min_combined_score floor below) — the
+            # actual confirmed scores (0.144-0.175) sit BELOW that generic
+            # 0.18 floor too, so without this explicit append, the whole
+            # point of the repetition exception would be silently undone by
+            # an unrelated, later check.
+            if nature_scene or _bird_candidate_count >= 4:
+                filtered.append(ev)
                 continue
+            continue
 
         # Phone/ringtone cues can be brief and still meaningful, so they get a lower bar.
         if fam == "ringtone" and score >= 0.06:
@@ -1977,7 +2466,7 @@ SOUND_FAMILIES = {
     "crow":       ["crow", "caw"],
     "bird":       ["bird vocalization", "bird call", "bird song", "bird",
                    "fowl", "rooster", "chicken", "owl", "hoot", "turkey",
-                   "duck", "quack", "goose", "honk"],
+                   "duck", "quack", "goose", "honk", "chirp", "tweet"],
     # Human reaction sounds were missing before, so they are included here.
     "human_reaction": ["wheeze", "groan", "grunt", "pant", "gasp", "sigh",
                         "battle cry", "whimper", "scream", "shout", "yell",
@@ -2001,7 +2490,7 @@ SOUND_FAMILIES = {
     "vehicle":    ["vehicle", "car", "engine", "motor", "motorcycle",
                    "truck", "traffic", "power window", "electric window"],
     "animal":     ["cattle", "cow", "bull", "dog", "bark", "cat", "horse",
-                   "neigh", "frog", "animal",
+                   "neigh", "frog", "animal", "howl",
                    "wild animal", "domestic animal", "elephant",
                    "roar", "roaring", "growl", "lion", "tiger"],
     "whip":       ["whip", "whip crack", "whip-crack"],
@@ -2080,7 +2569,8 @@ FAMILY_CAPTION_MAP = {
 }
 
 def _rule_caption(families: list, best_labels: dict,
-                   scene_text: str, expressions: list, fam_scores: dict = None) -> str:
+                   scene_text: str, expressions: list, fam_scores: dict = None,
+                   start_sec: float = None, end_sec: float = None, logger=None) -> str:
     """Generate a deterministic rule-based caption.
 
     fam_scores: optional mapping of family -> combined_score to allow
@@ -2102,7 +2592,44 @@ def _rule_caption(families: list, best_labels: dict,
         return "[बिजली गरजने की आवाज़]"
 
     if "ringtone" in fset:
-        if (
+        # "Telephone bell ringing"/"Ringtone"/"Alarm clock" all sound
+        # acoustically similar to a real musical bell/chime — a genuinely
+        # sustained cluster of these labels (not a one-frame blip like the
+        # earlier xylophone case) still turned out to be a musical bell
+        # during a song: confirmed real case, "bell" family ALSO present in
+        # the same burst, ringtone's peak (0.373) cleared the relative-to-
+        # music check but was still well below music's own peak (0.514) —
+        # meaning it was corroborated by another instrument family the
+        # whole time, not a real phone. When "bell" is present in the same
+        # burst as "music", require ringtone to be unambiguously the
+        # loudest thing in the burst (not just half of music's strength)
+        # before trusting it over the much more likely musical-bell read.
+        if "bell" in fset and "music" in fset and fam_scores.get("ringtone", 0.0) < fam_scores.get("music", 0.0):
+            fset.discard("ringtone")
+        # This session has now hit the SAME confusion four separate times —
+        # bright, ringing, chime-like musical moments (bells, xylophone,
+        # sharp accents) reading as "Ringtone"/"Telephone" at genuinely high
+        # confidence, in two different shapes: sustained-but-never-winning
+        # (0.41, never beats music which stays at 0.5-0.6 the whole burst)
+        # and a single very sharp spike (0.72 for one frame, then music
+        # resumes normally for the rest). Notably: every single high-
+        # confidence ringtone-during-music case checked this whole session
+        # has turned out to be a false positive — none have been a real
+        # phone. That's strong enough, repeated evidence to change the rule
+        # itself rather than add a fourth narrow special case: whenever
+        # "music" is genuinely present in the same burst, the "confident
+        # enough to skip scene support" bypass no longer applies at all —
+        # require an actual phone in the scene regardless of how high the
+        # audio confidence reads. The bypass remains available for ringtone
+        # occurring WITHOUT music, where this specific instrument confusion
+        # can't apply.
+        elif "music" in fset:
+            if not (fam_scores.get("ringtone", 0.0) >= 0.10 and _has_phone_scene_support(scene_lower)
+                    and fam_scores.get("ringtone", 0.0) >= 0.5 * fam_scores.get("music", 0.0)):
+                fset.discard("ringtone")
+            else:
+                return "[फ़ोन की घंटी बज रही है]"
+        elif (
             (fam_scores.get("ringtone", 0.0) >= 0.10 and _has_phone_scene_support(scene_lower)
              and fam_scores.get("ringtone", 0.0) >= 0.5 * fam_scores.get("music", 0.0)) or
             fam_scores.get("ringtone", 0.0) >= RINGTONE_HIGH_CONFIDENCE_WITHOUT_SCENE
@@ -2318,7 +2845,23 @@ def _rule_caption(families: list, best_labels: dict,
     # by literally naming which instrument PANNs detected. A tabla and a
     # violin in the same tense scene still get the same caption, because what
     # matters to the viewer is the mood, not which instrument was playing.
-    has_music_signal = any(fam.lower() in MUSIC_LIKE_FAMILIES for fam in families)
+    # NOTE: this used to be "any music-like family anywhere in the top
+    # families", regardless of whether music was actually the strongest
+    # signal — meaning a weak, non-dominant music reading could still
+    # unconditionally override a genuinely stronger competing sound. Real,
+    # confirmed case: a quiet outdoor ambient scene where "bird" was listed
+    # FIRST (meaning its own aggregated score was the highest of the three
+    # families present, 0.434) and a weak "music" reading (0.396, ~91% of
+    # bird's score) — some soft background tonal noise, not real music —
+    # still won the whole caption purely because it existed somewhere in
+    # the top-3 list at all. A first attempt at fixing this allowed music
+    # to win when "close enough" (within 10% of the top score) — but 0.396
+    # vs 0.434 IS within that margin (91%), so the same confirmed-bad case
+    # still passed. Simplified to strict dominance instead of a percentage
+    # margin: music must actually BE the top-ranked family (families[0],
+    # since families is already sorted by score) to get this override — no
+    # "close enough" allowance that a real case can slip through.
+    has_music_signal = bool(families) and families[0].lower() in MUSIC_LIKE_FAMILIES
 
     # Resolve mantra ahead of music — chanting is a distinct sound, not "music".
     has_mantra = any(f.lower() in ("mantra", "chant") for f in families)
@@ -2330,7 +2873,8 @@ def _rule_caption(families: list, best_labels: dict,
         else:
             return "[मंत्रों का उच्चारण सुनाई दे रहा है]"
     if has_music_signal:
-        return pick_music_caption(scene_text, signal_text, set(f.lower() for f in families))
+        return pick_music_caption(scene_text, signal_text, set(f.lower() for f in families),
+                                   start_sec=start_sec, end_sec=end_sec, logger=logger)
 
     # Audience reaction pairs are a narrow, readable exception to the normal single-sound rule.
     if "applause" in fset and "whistle" in fset:
@@ -2417,6 +2961,34 @@ def _rule_caption(families: list, best_labels: dict,
         # unrelated. Those are ambient filler, not reliable detections.
         if fl in {"wind", "rustling", "creak", "footstep"} and not natural_context:
             continue
+        # "Howl" is genuinely ambiguous in AudioSet's own class definition —
+        # it covers both an animal howling AND wind howling, two acoustically
+        # similar but semantically very different sounds. It was mapped into
+        # the "animal" family specifically to stop it falling through as an
+        # unrecognized label (which GPT then filled in with invented text,
+        # e.g. "[शांत माहौल]" — confirmed real case). But that fix means a
+        # bare "Howl" reading with no other corroborating animal evidence
+        # now confidently asserts "[जानवर की आवाज़]" even when it's just as
+        # likely to be wind — confirmed real case: sustained Howl at 0.4-0.58
+        # in a forest scene with no animal visible and no storm/wind wording
+        # either. Rather than guess which one it is, fall back to the
+        # dictionary's existing "genuinely uncertain ambient sound" phrase
+        # (already used elsewhere for this exact kind of ambiguity) instead
+        # of confidently naming an animal — UNLESS something more specific
+        # actually corroborates a real animal (a genuinely distinct label
+        # like Moo, Roar, Bark, or explicit animal wording in the scene).
+        if fl == "animal" and best_labels.get("animal", "").lower() == "howl":
+            # NOTE: best_labels is keyed one-entry-per-family, so checking
+            # its own values can't detect a DIFFERENT, more specific animal
+            # family that won its own key in this same burst (e.g. "moo" is
+            # its own family, not nested under "animal") — check the
+            # families list itself for that, not best_labels.
+            other_animal_families = {"moo", "roar", "growl", "bark"} & {f.lower() for f in families}
+            has_specific_corroboration = bool(other_animal_families) or any(
+                k in (scene_text or "").lower() for k in
+                ["dog", "wolf", "cow", "cattle", "lion", "tiger", "elephant", "horse", "animal"])
+            if not has_specific_corroboration:
+                return "[शांत आवाज़]"
         if fl in SOUND_PHRASE_MAP:
             return SOUND_PHRASE_MAP[fl]
 
@@ -2540,6 +3112,20 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
                   and not _is_exotic_animal_label(fam_best[fam]["label"])
                   and _is_corroborated_horse_label(ev["label"])):
                 fam_best[fam] = ev
+
+        # Every family that had at least one surviving candidate in this
+        # burst, BEFORE narrowing down to the capped top_fams below — this
+        # is the actual "everything the model considered before deciding"
+        # picture, not just the winner(s). Captured here specifically
+        # because top_fams gets reordered/capped by several priority rules
+        # right after this point; fam_best itself is only ever read from
+        # there, never modified, so this is the one safe place to snapshot
+        # the full candidate set intact.
+        all_candidates = sorted(
+            [{"label": ev["label"], "family": fam, "score": round(ev.get("combined_score", 0.0), 3)}
+             for fam, ev in fam_best.items()],
+            key=lambda c: -c["score"]
+        )
 
         # Use the strongest event as the scene anchor before any scene-based rules.
         best_ev = max(burst, key=lambda e: e["combined_score"])
@@ -2807,7 +3393,8 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
         # dictionary applies do we fall through to GPT — grounded in the real
         # detected signal, and still bound by the same no-instrument/no-animal-
         # species constraints via the system prompt.
-        raw_caption = _rule_caption(top_fams, best_labels, scene_text, expressions, fam_scores)
+        raw_caption = _rule_caption(top_fams, best_labels, scene_text, expressions, fam_scores,
+                                     start_sec=start_sec, end_sec=end_sec, logger=logger)
 
         # A rejected ringtone with nothing else in the burst to fall back on
         # should stay uncaptioned rather than let GPT take a guess at it —
@@ -2937,18 +3524,112 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
             logger.info(f"  [{start_sec:.1f}→{end_sec:.1f}s] SKIPPED vague/empty caption families={top_fams}")
             continue
 
+        # QC flag: was this caption a genuine guess rather than a confident
+        # rule match? Two distinct kinds of guessing, both real: (1) GPT had
+        # to freely invent the wording because no dictionary rule matched at
+        # all (is_deterministic was False), or (2) the dictionary path DID
+        # produce valid, in-dictionary text, but only by randomly picking
+        # between multiple tied, equally-plausible mood candidates with no
+        # real tiebreak (pick_music_caption's "no tiebreak available"
+        # branch) — this passes the is_deterministic bracket/Devanagari
+        # check since it's real dictionary text, so it needs its own signal,
+        # not just "was GPT involved". Re-read the module flag here (not
+        # just at the _rule_caption call above) in case the consistency
+        # check below re-derived the caption via a second _rule_caption call.
+        is_guess = (not is_deterministic) or _LAST_CAPTION_WAS_RANDOM_GUESS
+
         timeline.append({
             "start_sec":   round(start_sec, 2),
             "end_sec":     round(end_sec, 2),
             "caption":     hindi_caption,
             "families":    top_fams,
             "scene_text":  scene_text[:100],
+            "is_guess":    is_guess,
+            "valence":            _LAST_BURST_SCORES["valence"],
+            "arousal":            _LAST_BURST_SCORES["arousal"],
+            "predicted_moods":    _LAST_BURST_SCORES["predicted_moods"],
+            "mood_candidates":    _LAST_BURST_SCORES["candidates"],
+            "quadrant":           _LAST_BURST_SCORES["quadrant"],
+            "candidate_scores":   _LAST_BURST_SCORES["candidate_counts"],
+            "decision_reason":    _LAST_BURST_SCORES["decision_reason"],
+            "all_candidates":     all_candidates,
         })
 
         logger.info(
-            f"  [{start_sec:.1f}→{end_sec:.1f}s] families={top_fams}\n"
+            f"  [{start_sec:.1f}→{end_sec:.1f}s] families={top_fams}"
+            f"{' [GUESS]' if is_guess else ''}\n"
             f"    final='{hindi_caption}'"
         )
+
+    # Fill genuine silence gaps: if there's a stretch of 3+ seconds between
+    # two people speaking (or before the first / after the last line of
+    # dialogue) with NO existing caption anywhere in it — nothing else this
+    # pipeline detected was confident enough to fill it — insert a short,
+    # 3-second "[शांत आवाज़]" caption at the start of that gap. This is the
+    # SAME dictionary phrase already used elsewhere in this file as the
+    # approved fallback for white noise / an uncertain quiet sound (see the
+    # "cutlery, silverware, white noise" mapping and the GPT system prompt's
+    # own guidance to default here on genuinely uncertain input) — reused
+    # for consistency rather than inventing a new phrase. This only fires
+    # when NOTHING else already covers any part of the gap; a real detected
+    # sound anywhere in that stretch is left completely alone and takes
+    # priority. Caption is capped at 3 seconds regardless of how long the
+    # actual silent stretch runs — the point is to avoid a viewer staring
+    # at a long silent gap with literally nothing on screen, not to caption
+    # the entire silence.
+    MIN_SILENCE_GAP_SEC = 3.0
+    SILENCE_CAPTION_DURATION_SEC = 3.0
+    if speech_segments:
+        sorted_speech = sorted(speech_segments, key=lambda s: s[0])
+        # scene_index samples Florence at a regular interval across the
+        # WHOLE video, so its last timestamp is a much more reliable proxy
+        # for "how long is this video" than the last detected audio event,
+        # which could stop well short of the end if nothing happens there.
+        audio_duration_sec = max((e["t"] for e in scene_index), default=None) if scene_index else None
+
+        gap_bounds = []
+        cursor = 0.0
+        for seg_start, seg_end in sorted_speech:
+            if seg_start - cursor >= MIN_SILENCE_GAP_SEC:
+                gap_bounds.append((cursor, seg_start))
+            cursor = max(cursor, seg_end)
+        if audio_duration_sec is not None and audio_duration_sec - cursor >= MIN_SILENCE_GAP_SEC:
+            gap_bounds.append((cursor, audio_duration_sec))
+
+        for gap_start, gap_end in gap_bounds:
+            # The 3-second window itself must be checked, not the whole
+            # (possibly much longer) gap — a detection late in an 8-second
+            # gap shouldn't suppress a caption at the start of it, since the
+            # actual trigger here is absence of SPEECH (already established
+            # by gap_bounds above), not absence of any sound whatsoever
+            # across the entire stretch.
+            cap_start = gap_start
+            cap_end = min(gap_start + SILENCE_CAPTION_DURATION_SEC, gap_end)
+            already_covered = any(
+                seg["start_sec"] < cap_end and seg["end_sec"] > cap_start
+                for seg in timeline
+            )
+            if already_covered:
+                continue
+            timeline.append({
+                "start_sec": round(cap_start, 2),
+                "end_sec": round(cap_end, 2),
+                "caption": "[शांत आवाज़]",
+                "families": ["silence_gap"],
+                "scene_text": "",
+                "is_guess": False,
+                "valence": None, "arousal": None, "predicted_moods": [],
+                "mood_candidates": [], "quadrant": None, "candidate_scores": {},
+                "decision_reason": "no speech for 3+ seconds, nothing else detected in that window",
+                "all_candidates": [],
+            })
+            logger.info(f"  [{cap_start:.1f}→{cap_end:.1f}s] SILENCE GAP FILLED (no speech, "
+                        f"no other detection for {gap_end - gap_start:.1f}s) final='[शांत आवाज़]'")
+        # New entries above were appended out of chronological order relative
+        # to the main loop's output — every pass below this point assumes a
+        # sorted timeline (they index adjacent entries directly), so this
+        # must be re-sorted before any of them run.
+        timeline.sort(key=lambda seg: seg["start_sec"])
 
     # Backward continuity pass for theme music: a title card is usually the
     # LAST few seconds of a much longer intro sequence, not the whole thing —
@@ -2979,7 +3660,21 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
         prev_end = entry["start_sec"]
         while j >= 0:
             prev = timeline[j]
-            is_music_family = any(f.lower() in MUSIC_LIKE_FAMILIES for f in prev["families"])
+            # NOTE: this used to check MUSIC_LIKE_FAMILIES only — chant/
+            # mantra are deliberately kept separate from "music" elsewhere
+            # in this file (chanting is treated as its own distinct sound),
+            # but for THIS specific check — is this burst part of the same
+            # continuous intro piece — that distinction is the wrong one to
+            # apply. Real, confirmed case: a single 1.8s burst reading as
+            # bare "chant" (likely a brief invocation blended into the
+            # opening theme, common in this kind of devotional/historical
+            # content) sat in the middle of an otherwise fully continuous
+            # ~70s musical intro, and broke the ENTIRE backward walk right
+            # there — leaving everything before it stuck on generic
+            # "[मधुर धुन]" instead of correctly reading as the theme song.
+            # A brief vocal/chant moment within a continuous title sequence
+            # doesn't mean the theme music has ended.
+            is_music_family = any(f.lower() in MUSIC_LIKE_FAMILIES | {"chant", "mantra"} for f in prev["families"])
             gap = prev_end - prev["end_sec"]
             if not is_music_family or gap > MAX_THEME_GAP_SEC:
                 break
@@ -2996,6 +3691,160 @@ def build_timeline(events: list, scene_index: list, logger, output_dir: Path = N
             prev_end = prev["start_sec"]
             j -= 1
 
+    # Mood-persistence walk, generalizing the theme-continuity fix above
+    # beyond just theme music. Once a burst gets a confident, specific mood
+    # (e.g. "[गंभीर पार्श्व संगीत]", "[तनावपूर्ण पार्श्वसंगीत]"), it's often
+    # the same continuous underlying score (a whole tense/dramatic cue, not
+    # a single instant) playing across MULTIPLE nearby bursts — but each
+    # burst is still classified independently, so several bursts in a row
+    # can dip to generic "[मधुर धुन]" even while the surrounding stretch is
+    # clearly one continuous confident passage. A single-gap patch isn't
+    # enough for this — a real dramatic/tense cue can run long enough to
+    # hit two or more consecutive uncertain bursts, not just one. This walks
+    # FORWARD from every confident mood reading, extending it through any
+    # number of immediately-following neutral music bursts (small gaps),
+    # and only stops at a genuine interruption: a different confident mood
+    # (a real transition — never overwritten), a non-music burst, or too
+    # large a gap. This is what "persisting across the whole context it's
+    # present" actually means: the mood holds until something real changes
+    # it, not just for one adjacent burst.
+    NEUTRAL_CAPTIONS = set(SLC_MUSIC_MOOD_CAPTIONS["neutral"])
+    MAX_MOOD_GAP_SEC = 10.0
+    i = 0
+    while i < len(timeline):
+        entry = timeline[i]
+        is_confident_mood = (
+            entry["caption"] not in NEUTRAL_CAPTIONS
+            and entry["caption"] != "[थीम संगीत]"
+            and any(f.lower() in MUSIC_LIKE_FAMILIES for f in entry["families"])
+        )
+        if not is_confident_mood:
+            i += 1
+            continue
+        j = i + 1
+        prev_end = entry["end_sec"]
+        while j < len(timeline):
+            nxt = timeline[j]
+            gap = nxt["start_sec"] - prev_end
+            is_music = any(f.lower() in MUSIC_LIKE_FAMILIES for f in nxt["families"])
+            if not is_music or gap > MAX_MOOD_GAP_SEC:
+                break
+            if nxt["caption"] in NEUTRAL_CAPTIONS:
+                nxt["caption"] = entry["caption"]
+                prev_end = nxt["end_sec"]
+                j += 1
+                continue
+            # A genuinely different confident mood (or theme music) — a real
+            # transition, e.g. tense building into scary. Stop here, this is
+            # not a flicker to overwrite.
+            break
+        i = j if j > i + 1 else i + 1
+
+    # Outlier-flicker smoothing: Music2Emo classifies each burst independently
+    # from a short, isolated audio clip — real film-score audio can have a
+    # brief accent, a sound-effect bleed, or just per-clip noise that makes
+    # ONE burst read as a genuinely different confident mood than the scene
+    # around it, even though the scene itself hasn't actually changed. Real,
+    # reported pattern: a continuous serious/tense passage (a person falling
+    # and screaming) flickering to "happy"-quadrant readings for individual
+    # bursts in the middle, only correctly reading as serious at the very end.
+    # The walk above only fills NEUTRAL gaps, by design — it deliberately
+    # never overwrites a genuinely different confident mood, since that
+    # could be a real transition (tense building into scary). This second
+    # pass is narrower and safer: it only replaces a SINGLE burst whose
+    # mood disagrees with BOTH neighbors, when those two neighbors agree
+    # WITH EACH OTHER. That specific shape — same mood, one different burst,
+    # same mood again — is a strong signal of an isolated misread rather
+    # than a real transition (a genuine transition wouldn't revert back).
+    i = 1
+    while i < len(timeline) - 1:
+        entry, prev_entry, next_entry = timeline[i], timeline[i - 1], timeline[i + 1]
+        this_confident = (entry["caption"] not in NEUTRAL_CAPTIONS and entry["caption"] != "[थीम संगीत]"
+                          and any(f.lower() in MUSIC_LIKE_FAMILIES for f in entry["families"]))
+        prev_confident = (prev_entry["caption"] not in NEUTRAL_CAPTIONS and prev_entry["caption"] != "[थीम संगीत]"
+                          and any(f.lower() in MUSIC_LIKE_FAMILIES for f in prev_entry["families"]))
+        next_confident = (next_entry["caption"] not in NEUTRAL_CAPTIONS and next_entry["caption"] != "[थीम संगीत]"
+                          and any(f.lower() in MUSIC_LIKE_FAMILIES for f in next_entry["families"]))
+        if not (this_confident and prev_confident and next_confident):
+            i += 1
+            continue
+        gap_before = entry["start_sec"] - prev_entry["end_sec"]
+        gap_after = next_entry["start_sec"] - entry["end_sec"]
+        if gap_before > MAX_MOOD_GAP_SEC or gap_after > MAX_MOOD_GAP_SEC:
+            i += 1
+            continue
+        if prev_entry["caption"] == next_entry["caption"] and entry["caption"] != prev_entry["caption"]:
+            entry["caption"] = prev_entry["caption"]
+        i += 1
+
+    # Mantra continuity: a real, confirmed case from BEK_EP_016 — a single
+    # continuous ~75-second chanting passage (890.8s-965.8s) where every
+    # burst genuinely has "chant"/"mantra" in its family list, but ONLY the
+    # very last burst (947.2-965.8s) individually cleared MANTRA_MIN_SCORE.
+    # The five bursts before it fell through to generic "[मधुर धुन]" one at
+    # a time, fragmenting one continuous chant into "silence...silence...
+    # silence...finally mantra" instead of reading as one sustained chant
+    # throughout — same underlying problem as the theme-song fragmentation
+    # fixed above, just never extended to mantra specifically. Once a real
+    # mantra burst is confirmed, walk in BOTH directions through immediately
+    # adjacent bursts (small gap) that already have chant/mantra in their
+    # own family list but are still sitting on the generic neutral default
+    # (meaning they didn't individually clear the confidence bar) and
+    # relabel them too — stops at the first burst that either isn't
+    # chant/mantra-tagged at all, or already has some OTHER confident
+    # caption (a real, different sound taking priority is never overwritten).
+    MANTRA_CAPTION = "[मंत्रों का उच्चारण]"
+    MAX_MANTRA_GAP_SEC = 15.0
+    MAX_CONSECUTIVE_UNTAGGED = 2
+
+    def _has_chant_tag(seg):
+        return any(f.lower() in {"chant", "mantra"} for f in seg["families"])
+
+    for i, entry in enumerate(timeline):
+        if entry["caption"] != MANTRA_CAPTION:
+            continue
+        # backward — a burst lacking the chant/mantra tag is only bridged
+        # if a tagged burst is confirmed to exist within the tolerance
+        # window just beyond it (real interior gap, passage genuinely
+        # continues) — never bridged based on local consecutive-count
+        # alone, which can't tell a real mid-passage dip apart from the
+        # passage's actual edge: a plain consecutive counter that resets
+        # on every tagged hit would happily absorb a boundary burst one
+        # step past where the real chanting evidence stops, since from a
+        # purely local view a single untagged gap there looks identical
+        # to a genuine brief dip in the middle — confirmed case: an
+        # earlier version of this walk absorbed exactly such a boundary
+        # burst sitting just outside the real ~75s passage.
+        j = i - 1
+        cursor_end = entry["start_sec"]
+        while j >= 0:
+            prev = timeline[j]
+            gap = cursor_end - prev["end_sec"]
+            if gap > MAX_MANTRA_GAP_SEC or prev["caption"] not in NEUTRAL_CAPTIONS:
+                break
+            if not _has_chant_tag(prev):
+                lookback = timeline[max(0, j - MAX_CONSECUTIVE_UNTAGGED):j]
+                if not any(_has_chant_tag(seg) for seg in lookback):
+                    break
+            prev["caption"] = MANTRA_CAPTION
+            cursor_end = prev["start_sec"]
+            j -= 1
+        # forward
+        k = i + 1
+        cursor_start = entry["end_sec"]
+        while k < len(timeline):
+            nxt = timeline[k]
+            gap = nxt["start_sec"] - cursor_start
+            if gap > MAX_MANTRA_GAP_SEC or nxt["caption"] not in NEUTRAL_CAPTIONS:
+                break
+            if not _has_chant_tag(nxt):
+                lookahead = timeline[k + 1:k + 1 + MAX_CONSECUTIVE_UNTAGGED]
+                if not any(_has_chant_tag(seg) for seg in lookahead):
+                    break
+            nxt["caption"] = MANTRA_CAPTION
+            cursor_start = nxt["end_sec"]
+            k += 1
+
     logger.info("=" * 65)
     return timeline
 
@@ -3005,18 +3854,39 @@ def _srt_ts(sec: float) -> str:
     m, s = divmod(r, 60)
     return f"{h:02d}:{m:02d}:{s:02d},{int((sec%1)*1000):03d}"
 
-def write_srt(timeline: list, path: Path):
+def write_srt(timeline: list, path: Path, blank_guesses: bool = False):
+    """Write an SRT file. When blank_guesses=True, any segment flagged
+    is_guess=True gets an EMPTY caption line instead of the guessed text —
+    the timestamp block stays (so a reviewer knows exactly which time range
+    still needs a caption filled in), but no unverified/guessed text ships
+    in the file meant to go out as-is. The actual guessed text isn't lost —
+    it's still in guess_review.txt, results.json, and the full reference
+    SRT (blank_guesses=False) written alongside this one."""
     with open(path, "w", encoding="utf-8") as f:
         for i, seg in enumerate(timeline, 1):
+            caption = "" if (blank_guesses and seg.get("is_guess")) else seg['caption']
             f.write(f"{i}\n{_srt_ts(seg['start_sec'])} --> "
-                    f"{_srt_ts(seg['end_sec'])}\n{seg['caption']}\n\n")
+                    f"{_srt_ts(seg['end_sec'])}\n{caption}\n\n")
 
 # ====================== FINAL VIDEO ======================
 def generate_final_video(video_path: str, timeline: list,
-                          output_path: Path, logger):
+                          output_path: Path, logger, guess_spans: list = None):
+    """Renders BOTH things together: an empty bracket "[ ]" during the real
+    analysis window the audio model needed BEFORE each caption (using the
+    actual WINDOW_SEC constant, 0.96s — the genuine amount of audio PANNs/
+    Music2Emo needs to process before it can commit to a classification for
+    a given moment), AND the actual final caption during its own displayed
+    time — matching exactly what's in the ship-ready captions.srt: real
+    text for a confident caption, blank for one flagged is_guess. This
+    means every caption in the video reads as: [ ] (model working) ->
+    either real text or silence (the actual final result), so the
+    processing-window visualization and the real shipped output are both
+    visible together, not one replacing the other."""
     if not timeline:
         logger.info("Empty timeline — skipping video."); return
-    logger.info(f"Generating video with {len(timeline)} caption segments...")
+    logger.info(f"Generating video with {len(timeline)} caption segments "
+                f"(processing-window markers + final captions)...")
+    guess_spans = guess_spans or []
 
     cap   = cv2.VideoCapture(video_path)
     fps   = cap.get(cv2.CAP_PROP_FPS) or 25.0
@@ -3029,13 +3899,34 @@ def generate_final_video(video_path: str, timeline: list,
     out = cv2.VideoWriter(silent_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
     tl  = sorted(timeline, key=lambda s: s["start_sec"])
 
+    # One processing window per caption: [caption_start - WINDOW_SEC, caption_start).
+    # Multiple windows are allowed to overlap or sit back-to-back (e.g. two
+    # captions closer together than WINDOW_SEC apart) — the per-frame check
+    # below just asks "is this frame covered by ANY window", so overlapping
+    # windows naturally render as one continuous bracket with no extra
+    # merging logic needed.
+    processing_windows = [
+        {"start_sec": max(0.0, seg["start_sec"] - WINDOW_SEC), "end_sec": seg["start_sec"]}
+        for seg in timeline
+    ]
+    processing_windows.sort(key=lambda w: w["start_sec"])
+
     for fi in range(total):
         ret, frame = cap.read()
         if not ret: break
-        t      = fi / fps
-        active = next((s for s in tl if s["start_sec"] <= t < s["end_sec"]), None)
-        if active:
-            frame = render_caption(frame, active["caption"])
+        t = fi / fps
+        in_processing_window = next((pw for pw in processing_windows if pw["start_sec"] <= t < pw["end_sec"]), None)
+        if in_processing_window:
+            frame = render_caption(frame, "[ ]")
+        else:
+            active = next((s for s in tl if s["start_sec"] <= t < s["end_sec"]), None)
+            if active and not active.get("is_guess"):
+                frame = render_caption(frame, active["caption"])
+            # a guessed caption's own display window intentionally shows
+            # nothing here, matching captions.srt's blank line exactly —
+            # the [ ] bracket already appeared during its processing window
+            # just before this point, so the uncertainty is still visible,
+            # just not restated a second time over the caption's own span.
         out.write(frame)
 
     cap.release(); out.release()
@@ -3048,11 +3939,74 @@ def generate_final_video(video_path: str, timeline: list,
             "-map", "0:v:0", "-map", "1:a:0", "-shortest", str(output_path)
         ], check=True, capture_output=True)
         logger.info(f"Video saved: {output_path}")
+        # Chapter markers now cover every processing window (one per
+        # caption), not just the flagged guess spans — many more chapters
+        # than before, but that's the point: comparable, one-to-one against
+        # every caption in the timeline, not just the uncertain subset.
+        if processing_windows:
+            _embed_processing_chapters(output_path, processing_windows, ffmpeg_bin, logger)
     except Exception as e:
         logger.error(f"Video merge failed: {e}")
     finally:
         try: os.unlink(silent_path)
         except: pass
+
+def _embed_processing_chapters(video_path: Path, processing_windows: list, ffmpeg_bin: str, logger):
+    """Embed standard MP4 chapter markers at each model-processing window —
+    same mechanism as the earlier guess-span chapters (verified with
+    ffprobe before that was wired in), just applied to every caption's
+    analysis window instead of only the flagged/uncertain subset. MP4
+    chapters are contiguous ranges (each one runs to the next chapter's
+    start), so gaps between processing windows get their own plain
+    "(normal)" chapter to keep the whole timeline covered."""
+    duration_probe = subprocess.run(
+        [ffmpeg_bin.replace("ffmpeg", "ffprobe"), "-i", str(video_path),
+         "-show_entries", "format=duration", "-v", "quiet", "-of", "csv=p=0"],
+        capture_output=True, text=True
+    )
+    try:
+        duration = float(duration_probe.stdout.strip())
+    except (ValueError, TypeError):
+        logger.warning("Could not determine video duration — skipping chapter markers.")
+        return
+
+    lines = [";FFMETADATA1", ""]
+    cursor = 0.0
+    for pw in sorted(processing_windows, key=lambda w: w["start_sec"]):
+        if pw["start_sec"] < cursor:
+            continue  # overlapping with the previous window — already covered
+        if pw["start_sec"] > cursor:
+            lines += ["[CHAPTER]", "TIMEBASE=1/1000",
+                      f"START={int(cursor * 1000)}", f"END={int(pw['start_sec'] * 1000)}",
+                      "title=(normal)", ""]
+        lines += ["[CHAPTER]", "TIMEBASE=1/1000",
+                  f"START={int(pw['start_sec'] * 1000)}", f"END={int(pw['end_sec'] * 1000)}",
+                  "title=PROCESSING", ""]
+        cursor = max(cursor, pw["end_sec"])
+    if cursor < duration:
+        lines += ["[CHAPTER]", "TIMEBASE=1/1000",
+                  f"START={int(cursor * 1000)}", f"END={int(duration * 1000)}",
+                  "title=(normal)", ""]
+
+    chapters_path = video_path.with_suffix(".chapters.txt")
+    chapters_path.write_text("\n".join(lines), encoding="utf-8")
+    tmp_path = video_path.with_suffix(".chapters_tmp.mp4")
+    try:
+        subprocess.run([
+            ffmpeg_bin, "-y", "-i", str(video_path), "-i", str(chapters_path),
+            "-map_metadata", "1", "-codec", "copy", str(tmp_path)
+        ], check=True, capture_output=True)
+        tmp_path.replace(video_path)
+        logger.info(f"Embedded {len(processing_windows)} processing-window chapter marker(s) into "
+                    f"{video_path.name} — visible as navigable points on the seek bar in VLC "
+                    f"and other chapter-aware players.")
+    except Exception as e:
+
+        logger.warning(f"Chapter marker embedding failed (video itself is still fine): {e}")
+    finally:
+        chapters_path.unlink(missing_ok=True)
+        if tmp_path.exists():
+            tmp_path.unlink(missing_ok=True)
 
 # ====================== MAIN PIPELINE ======================
 def process_video(video_path: str, output_dir: Path,
@@ -3121,15 +4075,99 @@ def process_video(video_path: str, output_dir: Path,
     cap_obj.release()
 
     # ---- SRT ----
+    # Two versions: the primary "captions.srt" is the one meant to actually
+    # ship — guessed segments are left with a blank caption line (timing
+    # block intact) rather than shipping unverified text that looks
+    # identical to a confident caption. "captions_with_guesses.srt" is the
+    # full reference version with every caption filled in, guesses
+    # included, for comparison or for anyone who wants to see the system's
+    # best-effort output even where it wasn't confident.
     srt_path = output_dir / "captions.srt"
-    write_srt(timeline, srt_path)
-    logger.info(f"SRT: {srt_path}")
+    write_srt(timeline, srt_path, blank_guesses=True)
+    logger.info(f"SRT (ship-ready, guesses left blank): {srt_path}")
+
+    srt_full_path = output_dir / "captions_with_guesses.srt"
+    write_srt(timeline, srt_full_path, blank_guesses=False)
+    logger.info(f"SRT (full reference, includes guesses): {srt_full_path}")
+
+    # ---- Guess spans: collapse the per-segment is_guess flags into
+    # contiguous "starts guessing here, stops here" ranges, so a reviewer
+    # can jump straight to the uncertain stretches instead of reading every
+    # segment's flag individually. Adjacent guessed segments (small gap
+    # between them) merge into one span; a confident segment in between
+    # ends the span, same logic already used elsewhere in this file for
+    # merging adjacent captions into continuous runs.
+    def _format_timestamp(total_seconds: float) -> str:
+        """MM:SS, or HH:MM:SS once the video is over an hour — directly
+        usable in a video player's seek bar, unlike raw seconds."""
+        td = timedelta(seconds=max(0, total_seconds))
+        total = int(td.total_seconds())
+        h, rem = divmod(total, 3600)
+        m, s = divmod(rem, 60)
+        return f"{h:02d}:{m:02d}:{s:02d}" if h else f"{m:02d}:{s:02d}"
+
+    guess_spans = []
+    current_span = None
+    for seg in timeline:
+        if seg.get("is_guess"):
+            if current_span is None:
+                current_span = {"start_sec": seg["start_sec"], "end_sec": seg["end_sec"],
+                                 "captions": [seg["caption"]]}
+            else:
+                current_span["end_sec"] = seg["end_sec"]
+                if seg["caption"] not in current_span["captions"]:
+                    current_span["captions"].append(seg["caption"])
+        else:
+            if current_span is not None:
+                guess_spans.append(current_span)
+                current_span = None
+    if current_span is not None:
+        guess_spans.append(current_span)
+
+    # Add human-readable timestamps to every span for the JSON output too —
+    # not just the dedicated review file below — so anyone reading
+    # results.json directly still gets a player-seekable time, not just
+    # raw seconds they'd have to convert by hand.
+    for span in guess_spans:
+        span["start_display"] = _format_timestamp(span["start_sec"])
+        span["end_display"]   = _format_timestamp(span["end_sec"])
+
+    if guess_spans:
+        logger.info(f"Guess spans (low-confidence stretches for QC review): {len(guess_spans)}")
+        for span in guess_spans:
+            logger.info(f"  GUESS SPAN: {span['start_display']} → {span['end_display']} "
+                        f"({span['start_sec']:.1f}s-{span['end_sec']:.1f}s)")
+
+    # ---- Dedicated guess-review file: the actual point of this feature —
+    # a short, clean, skimmable list a person can read in seconds and use
+    # to jump straight to the exact moments worth checking, without
+    # opening JSON or scrubbing through the whole video. Blank lines
+    # deliberately separate each entry so the start/stop of every span is
+    # visually obvious at a glance, not just another densely-packed log line.
+    review_path = output_dir / "guess_review.txt"
+    with open(review_path, "w", encoding="utf-8") as f:
+        if not guess_spans:
+            f.write("No low-confidence captions in this episode — nothing flagged for review.\n")
+        else:
+            total_guess_sec = sum(s["end_sec"] - s["start_sec"] for s in guess_spans)
+            f.write(f"GUESS SPANS — {len(guess_spans)} stretch(es), "
+                    f"{total_guess_sec:.0f}s total, worth a manual check\n")
+            f.write("=" * 60 + "\n")
+            for i, span in enumerate(guess_spans, 1):
+                f.write("\n")
+                f.write(f"[{i}] {span['start_display']} \u2192 {span['end_display']}\n")
+                for cap in span["captions"]:
+                    f.write(f"    {cap}\n")
+                f.write("\n")
+            f.write("=" * 60 + "\n")
+    logger.info(f"Guess review: {review_path}")
 
     # ---- JSON ----
     with open(output_dir / "results.json", "w", encoding="utf-8") as f:
         json.dump({
             "caption_segments": len(timeline),
             "timeline": timeline,
+            "guess_spans": guess_spans,
             "raw_events": len(raw_events),
             "deduped_events": len(deduped),
             "speech_segments": len(speech_segments),
@@ -3137,7 +4175,8 @@ def process_video(video_path: str, output_dir: Path,
 
     if GENERATE_FINAL_VIDEO and timeline:
         generate_final_video(video_path, timeline,
-                             output_dir / "final_output.mp4", logger)
+                             output_dir / "final_output.mp4", logger,
+                             guess_spans=guess_spans)
 
     logger.info(f"\nDone. {len(timeline)} segments → {output_dir}")
 
@@ -3161,7 +4200,7 @@ def main():
     if not video_path.exists():
         print(f"Video not found: {video_path}"); return
 
-    out = Path("results_v4") / video_path.stem
+    out = Path("results_v7") / video_path.stem
     out.mkdir(parents=True, exist_ok=True)
 
     if args.extract_vision:
