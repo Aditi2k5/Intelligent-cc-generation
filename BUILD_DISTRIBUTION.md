@@ -1,5 +1,14 @@
 # PlanetRead standalone distribution
 
+## Music2Emotion
+
+`Music2Emotion/` is a git submodule (pinned to the upstream commit the pipeline
+was tested with). Clone with `git clone --recursive`, or run
+`git submodule update --init` in an existing checkout. The Windows build bundles
+its code, checkpoints and data; the build fails if the folder is missing.
+Install only the top-level `requirements.txt` — it already covers Music2Emo, and
+`Music2Emotion/requirements.txt` pins conflicting torch/transformers versions.
+
 ## Windows executable
 
 The native Windows build is created on Windows because PyInstaller cannot
@@ -10,20 +19,32 @@ the Windows build machine, open PowerShell in this folder, and run:
 .\build_windows_exe.ps1
 ```
 
-The output is a single file: `dist\\PlanetRead.exe`. Send that one file. Put a
-`.env` file beside it containing the recipient's `OPENAI_API_KEY` and
-`HF_TOKEN`. PyInstaller extracts the embedded app internally when it launches;
-the recipient does not need the project folder, Git, Node.js, or Python.
+The output is the folder `dist\PlanetRead\` containing `PlanetRead.exe` plus an
+`_internal` folder. Zip and send the whole folder; the exe does not work on its own.
+The recipient:
 
-The executable will be large because it embeds PyTorch, Florence, PANNs and
-OpenCV. Model weights are downloaded on first use and API keys remain external.
+1. Unzips it anywhere they can write to (e.g. Desktop or Documents).
+2. Renames `.env.example` to `.env` and fills in `OPENAI_API_KEY` and `HF_TOKEN`.
+3. Double-clicks `PlanetRead.exe`. A console window shows progress and the UI
+   opens in the browser once the server is ready. Closing the console quits.
+
+Uploads and results are stored in `PlanetRead_data\` next to the exe. Model
+weights (Florence-2, PANNs, Silero, sentence-transformers) download on the first
+run, so that run needs internet and several GB of disk. They are cached under the
+user's profile after that. They do not need Git, Node.js, Python or ffmpeg.
+
+The build ends with `PlanetRead.exe --self-test --models`, which imports the whole
+pipeline, checks the bundled assets and loads every model (PANNs, Music2Emo,
+Silero, sentence-transformers, Florence-2), running the audio models on a test tone, so a missing package fails the build instead of
+the recipient's run. Recipients can run the same command to diagnose problems.
 
 ## Build it from this Mac using GitHub Actions
 
 If you do not have a Windows computer, push this repository to GitHub and run
 the `Build PlanetRead Windows executable` workflow from the Actions tab using
 **Run workflow**. GitHub builds it on a real Windows runner and publishes
-`PlanetRead-Windows.zip` as a downloadable artifact. This avoids Wine, which is
+`PlanetRead-Windows.zip` as a downloadable artifact. Unzip it and send
+the `PlanetRead` folder as described above. This avoids Wine, which is
 not a reliable PyInstaller toolchain for Apple Silicon.
 
 ## macOS

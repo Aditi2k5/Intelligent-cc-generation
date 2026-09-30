@@ -14,6 +14,8 @@ import torchaudio
 from PIL import Image, ImageDraw, ImageFont
 from transformers import AutoProcessor, AutoModelForCausalLM
 from sentence_transformers import SentenceTransformer, util
+import panns_assets
+panns_assets.ensure_labels()  # must run before panns_inference is imported
 from panns_inference import AudioTagging
 from dotenv import load_dotenv  
 load_dotenv()
@@ -21,7 +23,11 @@ load_dotenv()
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
-sys.path.insert(0, "/Users/AditiP/Desktop/initial-fork/Music2Emotion")
+# Music2Emotion is a git submodule next to this file; in the PyInstaller build
+# it is bundled under the app's _internal folder. MUSIC2EMO_DIR overrides both.
+MUSIC2EMO_SRC_DIR = Path(os.environ.get("MUSIC2EMO_DIR") or
+                         Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent)) / "Music2Emotion")
+sys.path.insert(0, str(MUSIC2EMO_SRC_DIR))
 
 
 # ====================== GPU ======================
@@ -425,6 +431,20 @@ _MUSIC2EMO_MODEL = None
 _MUSIC2EMO_LOAD_FAILED = False
 _MUSIC2EMO_DIR = None  # cached location of the Music2Emotion folder, set once during load
 
+def _music2emo_workdir() -> Path:
+    """Music2Emo reads saved_models/ and inference/data/ relative to the cwd
+    and writes ./temp_out and ./output there, so it has to run from a
+    writable folder holding those. That is normally the Music2Emotion folder
+    itself; if that is read-only (e.g. the app was installed under Program
+    Files) the model files are copied once into the app's data folder."""
+    if os.access(MUSIC2EMO_SRC_DIR, os.W_OK):
+        return MUSIC2EMO_SRC_DIR
+    work = Path(os.environ.get("PLANETREAD_DATA_DIR", Path.home() / ".planetread")) / "Music2Emotion"
+    for sub in ("saved_models", "inference"):
+        if not (work / sub).exists():
+            shutil.copytree(MUSIC2EMO_SRC_DIR / sub, work / sub)
+    return work
+
 def _get_music2emo_model(logger=None):
     """Lazily load Music2Emo once per process. Returns None (never raises)
     if the library isn't set up — callers must treat None as "fall back to
@@ -436,21 +456,13 @@ def _get_music2emo_model(logger=None):
     if _MUSIC2EMO_LOAD_FAILED:
         return None
     try:
-        import music2emo as _m2e_module
         from music2emo import Music2emo
         # Music2Emo loads its own checkpoint (e.g. "saved_models/J_all.ckpt")
-        # using a path RELATIVE to the current working directory — it only
-        # resolves correctly when cwd is the Music2Emotion folder itself
-        # (exactly like the standalone test, which always cd'd there first).
-        # This pipeline runs from its own project folder, not from inside
-        # Music2Emotion, so that relative path breaks unless we temporarily
-        # switch into it — found dynamically from the module's own actual
-        # location (via _m2e_module.__file__) rather than hardcoding the
-        # clone path a second time, so this works regardless of where
-        # Music2Emotion was actually cloned to on this machine. Restored
-        # immediately after, in a finally block, so a failure here never
-        # leaves the rest of the pipeline running from the wrong directory.
-        music2emo_dir = os.path.dirname(os.path.abspath(_m2e_module.__file__))
+        # using a path RELATIVE to the current working directory, so switch
+        # into its folder (see _music2emo_workdir) while it loads. Restored in
+        # a finally block so a failure never leaves the pipeline in the wrong
+        # directory.
+        music2emo_dir = str(_music2emo_workdir())
         _MUSIC2EMO_DIR = music2emo_dir
         old_cwd = os.getcwd()
         try:
@@ -1248,7 +1260,7 @@ def get_panns():
     global _panns_model
     if _panns_model is None:
         print("Loading PANNs...")
-        _panns_model = AudioTagging(checkpoint_path=None, device=DEVICE)
+        _panns_model = AudioTagging(checkpoint_path=str(panns_assets.ensure_checkpoint()), device=DEVICE)
         print("PANNs loaded.\n")
     return _panns_model
 
@@ -3959,14 +3971,21 @@ def _embed_processing_chapters(video_path: Path, processing_windows: list, ffmpe
     chapters are contiguous ranges (each one runs to the next chapter's
     start), so gaps between processing windows get their own plain
     "(normal)" chapter to keep the whole timeline covered."""
-    duration_probe = subprocess.run(
-        [ffmpeg_bin.replace("ffmpeg", "ffprobe"), "-i", str(video_path),
-         "-show_entries", "format=duration", "-v", "quiet", "-of", "csv=p=0"],
-        capture_output=True, text=True
-    )
+    # imageio-ffmpeg (used when ffmpeg is not on PATH, e.g. the Windows
+    # build) ships no ffprobe, so fall back to OpenCV for the duration.
     try:
+        duration_probe = subprocess.run(
+            [ffmpeg_bin.replace("ffmpeg", "ffprobe"), "-i", str(video_path),
+             "-show_entries", "format=duration", "-v", "quiet", "-of", "csv=p=0"],
+            capture_output=True, text=True
+        )
         duration = float(duration_probe.stdout.strip())
-    except (ValueError, TypeError):
+    except (OSError, ValueError, TypeError):
+        cap = cv2.VideoCapture(str(video_path))
+        fps = cap.get(cv2.CAP_PROP_FPS)
+        duration = cap.get(cv2.CAP_PROP_FRAME_COUNT) / fps if fps else 0.0
+        cap.release()
+    if not duration:
         logger.warning("Could not determine video duration — skipping chapter markers.")
         return
 

@@ -140,6 +140,8 @@ def run_pipeline(job_id: str) -> None:
     output_dir.mkdir(exist_ok=True)
     try:
         write_job(directory, status="processing", stage="Loading ML models", progress=8, started_at=now())
+        if not os.getenv("OPENAI_API_KEY"):
+            raise RuntimeError("OPENAI_API_KEY is not set. Add it to the .env file next to PlanetRead.exe and restart.")
         os.environ.setdefault("MPLCONFIGDIR", str(DATA_ROOT / ".matplotlib"))
         (DATA_ROOT / ".matplotlib").mkdir(exist_ok=True)
         from newone import process_video

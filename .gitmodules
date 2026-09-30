@@ -1,0 +1,3 @@
+[submodule "Music2Emotion"]
+	path = Music2Emotion
+	url = https://github.com/AMAAI-Lab/Music2Emotion

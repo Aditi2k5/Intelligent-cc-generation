@@ -9,10 +9,12 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -40,19 +42,25 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt -r backend/requirements.txt pyinstaller
 
-      - name: Build one-file executable
+      - name: Build executable
         shell: pwsh
         run: python -m PyInstaller --clean --noconfirm planetread.spec
 
-      - name: Package executable
+      - name: Self-test the built executable (imports and all models)
         shell: pwsh
+        env:
+          # Only needs to be non-empty: the pipeline builds its OpenAI client at import.
+          OPENAI_API_KEY: self-test-placeholder
         run: |
-          New-Item -ItemType Directory -Force -Path release | Out-Null
-          Copy-Item dist/PlanetRead.exe release/PlanetRead.exe
-          Copy-Item backend/.env.example release/.env.example
+          & dist/PlanetRead/PlanetRead.exe --self-test --models
+          if ($LASTEXITCODE -ne 0) { throw "PlanetRead.exe --self-test failed" }
+
+      - name: Add .env template
+        shell: pwsh
+        run: Copy-Item backend/.env.example dist/PlanetRead/.env.example
 
       - name: Upload Windows package
         uses: actions/upload-artifact@v4
         with:
           name: PlanetRead-Windows
-          path: release
+          path: dist/PlanetRead
