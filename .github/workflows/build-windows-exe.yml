@@ -50,6 +50,22 @@ jobs:
         shell: pwsh
         run: python -m PyInstaller --clean --noconfirm planetread.spec
 
+      - name: Check package size (must stay under 2 GB as Windows shows it)
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem dist/PlanetRead -Recurse -File
+          $bytes = ($files | Measure-Object Length -Sum).Sum
+          "PlanetRead folder: {0:N2} GB as Windows shows it ({1:N0} bytes)" -f ($bytes / 1GB), $bytes
+          $base = (Resolve-Path dist/PlanetRead).Path.Length + 1
+          function Show-Groups($depth, $count) {
+            $files | Group-Object { ($_.FullName.Substring($base).Split('\') | Select-Object -First $depth) -join '\' } |
+              ForEach-Object { [pscustomobject]@{ MB = [math]::Round(($_.Group | Measure-Object Length -Sum).Sum / 1MB, 1); Path = $_.Name } } |
+              Sort-Object MB -Descending | Select-Object -First $count | Format-Table -AutoSize | Out-String -Width 200
+          }
+          "Top-level packages:"; Show-Groups 2 40
+          "Largest folders:"; Show-Groups 3 25
+          if ($bytes -gt 2GB) { throw "PlanetRead folder is over 2 GB" }
+
       - name: Remove download caches, so the self-test can only use bundled models
         shell: pwsh
         run: |
@@ -72,16 +88,12 @@ jobs:
           if ($code -ne 0) { throw "self-test with the CUDA add-on failed" }
           if ($out -notmatch '\+cu121 \(CUDA add-on\)') { throw "the CUDA add-on was not used" }
 
-      - name: Check package size (must stay under 2 GB as Windows shows it)
+      - name: Remove files the self-tests created in the package
         shell: pwsh
         run: |
-          $files = Get-ChildItem dist/PlanetRead -Recurse -File
-          $bytes = ($files | Measure-Object Length -Sum).Sum
-          "PlanetRead folder: {0:N2} GB as Windows shows it ({1:N0} bytes)" -f ($bytes / 1GB), $bytes
-          "Largest folders:"
-          $files | Group-Object { $_.FullName.Substring((Resolve-Path dist/PlanetRead).Path.Length + 1).Split('\')[0..2] -join '\' } |
-            ForEach-Object { [pscustomobject]@{ MB = [math]::Round(($_.Group | Measure-Object Length -Sum).Sum / 1MB); Path = $_.Name } } |
-            Sort-Object MB -Descending | Select-Object -First 15 | Format-Table -AutoSize
+          Remove-Item -Recurse -Force dist/PlanetRead/PlanetRead_data, dist/PlanetRead/_internal/Music2Emotion/temp_out, dist/PlanetRead/_internal/Music2Emotion/output -ErrorAction SilentlyContinue
+          $bytes = (Get-ChildItem dist/PlanetRead -Recurse -File | Measure-Object Length -Sum).Sum
+          "PlanetRead folder to upload: {0:N2} GB" -f ($bytes / 1GB)
           if ($bytes -gt 2GB) { throw "PlanetRead folder is over 2 GB" }
 
       - name: Upload Windows package

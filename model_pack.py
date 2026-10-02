@@ -1,8 +1,8 @@
 """8-bit weight packing for the bundled models.
 
 Large weight matrices are stored as int8 with one float16 scale per group of
-64 consecutive weights in a row (symmetric), which halves fp16 checkpoints and
-quarters fp32 ones; the scales add ~3%.
+128 consecutive weights in a row (symmetric), which halves fp16 checkpoints and
+quarters fp32 ones; the scales add ~1.5%.
 At load time they are expanded back to float, so the models run exactly as
 before, only with weights rounded to 8 bits. Small tensors (biases, norms,
 BatchNorm statistics) are kept as they are.
@@ -13,7 +13,7 @@ import torch
 
 SCALE_SUFFIX = ".__scale__"
 MIN_QUANT_NUMEL = 4096
-GROUP = 64
+GROUP = 128
 
 
 def _groups(tensor: torch.Tensor) -> torch.Tensor:

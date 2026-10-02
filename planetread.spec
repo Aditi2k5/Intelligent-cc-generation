@@ -82,6 +82,10 @@ a = Analysis(
     runtime_hooks=[],
     excludes=["gradio", "gradio_client", "IPython", "jupyter", "notebook", "pytest"],
     noarchive=False,
+    # PyInstaller's transformers hook also ships every .py file as source (~44 MB)
+    # for TorchScript, which only its object-detection loss and fx tracing use;
+    # none of our models do. Florence's and MERT's own code ships in models/.
+    module_collection_mode={"transformers": "pyz"},
 )
 # Static/import .lib files and C++ headers are only used to compile extensions;
 # torch alone ships ~825 MB of them (dnnl.lib is 647 MB). music21's corpus is
