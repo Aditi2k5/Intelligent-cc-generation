@@ -15,19 +15,28 @@ from PIL import Image, ImageDraw, ImageFont
 from transformers import AutoProcessor, AutoModelForCausalLM
 from sentence_transformers import SentenceTransformer, util
 import panns_assets
+import model_store
+import app_settings
 panns_assets.ensure_labels()  # must run before panns_inference is imported
 from panns_inference import AudioTagging
 from dotenv import load_dotenv  
 load_dotenv()
 
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+OPENAI_API_KEY = ""  # --openai-key; otherwise app_settings.openai_api_key() (Settings dialog or env)
 
 # Music2Emotion is a git submodule next to this file; in the PyInstaller build
 # it is bundled under the app's _internal folder. MUSIC2EMO_DIR overrides both.
 MUSIC2EMO_SRC_DIR = Path(os.environ.get("MUSIC2EMO_DIR") or
                          Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent)) / "Music2Emotion")
 sys.path.insert(0, str(MUSIC2EMO_SRC_DIR))
+# music2emo.py does `import gradio as gr` for its demo UI but never uses it.
+# gradio is not installed or bundled (it adds ~150 MB), so stand in an empty module.
+try:
+    import gradio  # noqa: F401
+except ImportError:
+    import types
+    sys.modules["gradio"] = types.ModuleType("gradio")
 
 
 # ====================== GPU ======================
@@ -445,6 +454,26 @@ def _music2emo_workdir() -> Path:
             shutil.copytree(MUSIC2EMO_SRC_DIR / sub, work / sub)
     return work
 
+def _use_bundled_mert(music2emo_module) -> None:
+    """Music2emo() builds FeatureExtractorMERT("m-a-p/MERT-v1-95M"), which
+    downloads MERT from the hub. When the app bundles MERT, swap in a subclass
+    that loads the bundled copy instead (the submodule stays unmodified)."""
+    bundled = model_store.bundled("mert-v1-95m")
+    base = music2emo_module.FeatureExtractorMERT
+    if not bundled or getattr(base, "bundled", False):
+        return
+    from transformers import AutoModel, Wav2Vec2FeatureExtractor
+
+    class BundledMERT(base):
+        bundled = True
+
+        def __init__(self, model_name="m-a-p/MERT-v1-95M", device="None", sr=24000):
+            self.model_name, self.sr, self.device = model_name, sr, device
+            self.model = model_store.load_packed_hf(bundled, AutoModel).to(device)
+            self.processor = Wav2Vec2FeatureExtractor.from_pretrained(bundled, trust_remote_code=True)
+
+    music2emo_module.FeatureExtractorMERT = BundledMERT
+
 def _get_music2emo_model(logger=None):
     """Lazily load Music2Emo once per process. Returns None (never raises)
     if the library isn't set up — callers must treat None as "fall back to
@@ -456,7 +485,9 @@ def _get_music2emo_model(logger=None):
     if _MUSIC2EMO_LOAD_FAILED:
         return None
     try:
+        import music2emo
         from music2emo import Music2emo
+        _use_bundled_mert(music2emo)
         # Music2Emo loads its own checkpoint (e.g. "saved_models/J_all.ckpt")
         # using a path RELATIVE to the current working directory, so switch
         # into its folder (see _music2emo_workdir) while it loads. Restored in
@@ -1235,14 +1266,18 @@ def get_florence():
     global _florence_processor, _florence_model
     if _florence_model is None:
         print("Loading Florence-2-large...")
+        bundled = model_store.bundled("florence-2-large")
         _florence_processor = AutoProcessor.from_pretrained(
-            "microsoft/Florence-2-large", trust_remote_code=True)
+            bundled or "microsoft/Florence-2-large", trust_remote_code=True)
 
-        _florence_model = AutoModelForCausalLM.from_pretrained(
-            "microsoft/Florence-2-large",
-            torch_dtype=MODEL_DTYPE,
-            trust_remote_code=True
-        ).to(DEVICE)
+        if bundled:
+            _florence_model = model_store.load_packed_hf(bundled, AutoModelForCausalLM, MODEL_DTYPE).to(DEVICE)
+        else:
+            _florence_model = AutoModelForCausalLM.from_pretrained(
+                "microsoft/Florence-2-large",
+                torch_dtype=MODEL_DTYPE,
+                trust_remote_code=True
+            ).to(DEVICE)
 
         print("Florence-2 loaded.\n")
     return _florence_processor, _florence_model
@@ -1252,7 +1287,8 @@ def get_sentence_model():
     global _sentence_model
     if _sentence_model is None:
         print("Loading Sentence Transformer...")
-        _sentence_model = SentenceTransformer('all-MiniLM-L6-v2', device=DEVICE)
+        _sentence_model = SentenceTransformer(
+            str(model_store.bundled("all-MiniLM-L6-v2") or 'all-MiniLM-L6-v2'), device=DEVICE)
         print("Sentence Transformer loaded.\n")
     return _sentence_model
 
@@ -1260,7 +1296,11 @@ def get_panns():
     global _panns_model
     if _panns_model is None:
         print("Loading PANNs...")
-        _panns_model = AudioTagging(checkpoint_path=str(panns_assets.ensure_checkpoint()), device=DEVICE)
+        bundled = model_store.bundled("panns")
+        if bundled:
+            _panns_model = panns_assets.audio_tagging(model_store.load_panns_state(bundled), DEVICE)
+        else:
+            _panns_model = AudioTagging(checkpoint_path=str(panns_assets.ensure_checkpoint()), device=DEVICE)
         print("PANNs loaded.\n")
     return _panns_model
 
@@ -1269,9 +1309,11 @@ def get_silero_vad():
     if _silero_model is None:
         print("Loading Silero VAD (reliable speech detection)...")
         torch.set_num_threads(1)
+        bundled = model_store.bundled("silero-vad")
         _silero_model, _silero_utils = torch.hub.load(
-            repo_or_dir='snakers4/silero-vad',
+            repo_or_dir=str(bundled) if bundled else 'snakers4/silero-vad',
             model='silero_vad',
+            source='local' if bundled else 'github',
             force_reload=False,
             trust_repo=True
         )
@@ -1493,12 +1535,22 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langsmith import traceable
 
 # LLM-based Hindi caption refinement with tracing.
-llm = ChatOpenAI(
-    model="gpt-4o",
-    temperature=0.06,
-    max_tokens=60,
-    api_key=OPENAI_API_KEY,
-)
+_llm = None
+_llm_key = None
+
+def get_llm() -> ChatOpenAI:
+    """Built on first use, and rebuilt when the key is changed in Settings."""
+    global _llm, _llm_key
+    key = OPENAI_API_KEY or app_settings.openai_api_key()
+    if _llm is None or key != _llm_key:
+        _llm_key = key
+        _llm = ChatOpenAI(
+            model="gpt-4o",
+            temperature=0.06,
+            max_tokens=60,
+            api_key=key,
+        )
+    return _llm
 
 @traceable(name="generate_hindi_caption")
 def generate_hindi_caption(raw_caption: str, scene_text: str,
@@ -1575,7 +1627,7 @@ Output ONLY the final Hindi caption inside square brackets [हिंदी प�
     try:
         messages = [SystemMessage(content=system_prompt),
             HumanMessage(content=human_prompt)]
-        response = llm.invoke(messages)
+        response = get_llm().invoke(messages)
         
         caption = response.content.strip()
         return caption
@@ -1613,7 +1665,7 @@ Output ONLY the corrected caption in square brackets:"""
     try:
         messages = [SystemMessage(content=system_prompt),
             HumanMessage(content=human_prompt)]
-        response = llm.invoke(messages)
+        response = get_llm().invoke(messages)
         
         polished = response.content.strip()
         return polished

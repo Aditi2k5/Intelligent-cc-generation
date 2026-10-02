@@ -10,12 +10,16 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+
+import app_settings
+import gpu_torch
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_ROOT = Path(os.getenv("PLANETREAD_DATA_DIR", PROJECT_ROOT / "backend_data"))
@@ -140,8 +144,8 @@ def run_pipeline(job_id: str) -> None:
     output_dir.mkdir(exist_ok=True)
     try:
         write_job(directory, status="processing", stage="Loading ML models", progress=8, started_at=now())
-        if not os.getenv("OPENAI_API_KEY"):
-            raise RuntimeError("OPENAI_API_KEY is not set. Add it to the .env file next to PlanetRead.exe and restart.")
+        if not app_settings.openai_api_key():
+            raise RuntimeError("No OpenAI API key is set. Add it in Settings (top right) and try again.")
         os.environ.setdefault("MPLCONFIGDIR", str(DATA_ROOT / ".matplotlib"))
         (DATA_ROOT / ".matplotlib").mkdir(exist_ok=True)
         from newone import process_video
@@ -172,8 +176,56 @@ def health() -> dict:
     return {"status": "ok", "pipeline": "newone.py", "worker_capacity": 1}
 
 
+class SettingsUpdate(BaseModel):
+    openai_api_key: Optional[str] = None  # "" removes the saved key
+    gpu: Optional[bool] = None
+
+
+def public_settings() -> dict:
+    saved = app_settings.load()["openai_api_key"]
+    key = app_settings.openai_api_key()
+    return {
+        "openai_key_set": bool(key),
+        "openai_key_hint": f"…{key[-4:]}" if len(key) > 8 else "",
+        "openai_key_source": "settings" if saved else ("environment" if key else ""),
+        "gpu": gpu_torch.status(),
+    }
+
+
+def check_openai_key(key: str) -> None:
+    import openai
+
+    try:
+        openai.OpenAI(api_key=key, timeout=20, max_retries=1).models.list()
+    except openai.AuthenticationError:
+        raise HTTPException(400, "OpenAI rejected this key. Check that you copied the whole key.")
+    except openai.APIConnectionError:
+        raise HTTPException(400, "Couldn't reach OpenAI to check the key. Check your internet connection.")
+    except openai.OpenAIError as exc:
+        raise HTTPException(400, f"OpenAI couldn't verify this key: {exc}")
+
+
+@app.get("/api/settings")
+def get_settings() -> dict:
+    return public_settings()
+
+
+@app.post("/api/settings")
+def update_settings(payload: SettingsUpdate) -> dict:
+    if payload.openai_api_key is not None:
+        key = payload.openai_api_key.strip()
+        if key:
+            check_openai_key(key)
+        app_settings.save(openai_api_key=key)
+    if payload.gpu is not None:
+        gpu_torch.set_enabled(payload.gpu)
+    return public_settings()
+
+
 @app.post("/api/jobs", status_code=202)
 def create_job(video: UploadFile) -> dict:
+    if not app_settings.openai_api_key():
+        raise HTTPException(400, "Add your OpenAI API key in Settings (top right) before processing a video.")
     extension = Path(video.filename or "").suffix.lower()
     if extension not in ALLOWED_EXTENSIONS:
         raise HTTPException(status_code=415, detail="Upload an MP4, MOV, WEBM or MKV video")

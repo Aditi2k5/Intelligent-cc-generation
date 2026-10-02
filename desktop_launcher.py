@@ -8,6 +8,9 @@ the server actually answers, and then opens the UI in the default browser.
 assets without starting the server; `--self-test --models` also loads every
 model (PANNs, Music2Emo, Silero, Florence-2, ...). CI runs both so a broken
 build fails there instead of on the recipient's machine.
+
+The bundled PyTorch is the CPU build; gpu_torch adds the CUDA build on
+machines with an NVIDIA GPU. `--install-gpu-torch` sets that up immediately.
 """
 from __future__ import annotations
 
@@ -24,6 +27,12 @@ import urllib.request
 import webbrowser
 from pathlib import Path
 
+import gpu_torch
+
+# multiprocessing children re-run this module; give them the same torch as the parent.
+if os.environ.get(gpu_torch.ENV_DIR):
+    sys.path.insert(0, os.environ[gpu_torch.ENV_DIR])
+
 HOST = "127.0.0.1"
 PREFERRED_PORT = 8000
 
@@ -36,7 +45,12 @@ BUNDLE_DIR = Path(getattr(sys, "_MEIPASS", APP_DIR))
 def configure_environment() -> None:
     from dotenv import load_dotenv
 
+    # Optional: settings normally come from the in-app Settings dialog (app_settings).
     load_dotenv(APP_DIR / ".env")
+    if FROZEN:
+        # Every model ships in the bundle (tools/pack_models.py); never reach the hub.
+        os.environ.setdefault("HF_HUB_OFFLINE", "1")
+        os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
     data_dir = Path(os.environ.get("PLANETREAD_DATA_DIR", "PlanetRead_data"))
     if not data_dir.is_absolute():
         data_dir = APP_DIR / data_dir
@@ -50,9 +64,9 @@ def configure_environment() -> None:
         data_dir = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "PlanetRead"
         data_dir.mkdir(parents=True, exist_ok=True)
     os.environ["PLANETREAD_DATA_DIR"] = str(data_dir)
-    if not os.environ.get("OPENAI_API_KEY"):
-        print(f"WARNING: OPENAI_API_KEY is not set. Copy .env.example to .env in\n  {APP_DIR}\n"
-              "and add your keys, or video processing will fail.\n", flush=True)
+    import app_settings
+    if not app_settings.openai_api_key():
+        print("No OpenAI API key yet: the app will ask for it in the browser.\n", flush=True)
     os.environ.setdefault("MPLCONFIGDIR", str(data_dir / ".matplotlib"))
 
 
@@ -154,6 +168,23 @@ def self_test() -> int:
             checks.append((name, False, f"{type(exc).__name__}: {exc}"))
             traceback.print_exc()
 
+    def torch_info():
+        import torch
+        where = "CUDA add-on" if os.environ.get(gpu_torch.ENV_DIR) else "bundled"
+        gpu = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "no GPU, using CPU"
+        return f"{torch.__version__} ({where}), {gpu}"
+
+    check("torch", torch_info)
+    def bundled_models():
+        import model_store
+        names = ["florence-2-large", "mert-v1-95m", "all-MiniLM-L6-v2", "panns", "silero-vad"]
+        missing = [n for n in names if not model_store.bundled(n)]
+        if FROZEN and missing:
+            raise FileNotFoundError(f"not bundled: {missing}")
+        return f"{model_store.MODELS_DIR} ({len(names) - len(missing)}/{len(names)})"
+
+    check("bundled models", bundled_models)
+    check("Hindi caption font", lambda: str((BUNDLE_DIR / "TiroDevanagariHindi-Italic.ttf").resolve(strict=True)))
     check("frontend bundle", lambda: str((BUNDLE_DIR / "frontend" / "dist" / "index.html").resolve(strict=True)))
     check("backend.app", lambda: __import__("backend.app").__name__)
     check("pipeline (newone)", lambda: __import__("newone").__name__)
@@ -171,7 +202,12 @@ def self_test() -> int:
 
 
 def main() -> int:
+    if "--probe-torch" in sys.argv:
+        return gpu_torch.probe_main(sys.argv[sys.argv.index("--probe-torch") + 1])
     configure_environment()
+    if "--install-gpu-torch" in sys.argv:
+        return gpu_torch.install_now()
+    gpu_torch.activate(setup="--self-test" not in sys.argv)
     if "--self-test" in sys.argv:
         return self_test()
 
@@ -203,7 +239,8 @@ if __name__ == "__main__":
     except Exception:
         traceback.print_exc()
         code = 1
-    if code and FROZEN and "--self-test" not in sys.argv:
+    interactive = not {"--self-test", "--probe-torch", "--install-gpu-torch"}.intersection(sys.argv)
+    if code and FROZEN and interactive:
         # Keep the console open so the user can read the error.
         input("\nPlanetRead stopped with an error. Press Enter to close...")
     sys.exit(code)

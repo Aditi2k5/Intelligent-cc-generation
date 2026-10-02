@@ -27,3 +27,5 @@ Desktop.ini
 Thumbs.db
 
 *.env
+# Packed models (python tools/pack_models.py), ~1 GB
+/models/

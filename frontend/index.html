@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/src/sound-control.css" />
     <link rel="stylesheet" href="/src/backend.css" />
     <link rel="stylesheet" href="/src/guess-review.css" />
+    <link rel="stylesheet" href="/src/settings.css" />
   </head>
   <body>
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
@@ -24,7 +25,32 @@
         <span class="brand-divider"></span>
         <span>Caption Studio <small>Beta</small></span>
       </a>
+      <button id="settingsButton" class="settings-button" type="button" aria-haspopup="dialog">⚙ Settings</button>
     </header>
+
+    <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle">
+      <form id="settingsForm" method="dialog">
+        <div class="settings-head">
+          <h2 id="settingsTitle">Settings</h2>
+          <button id="settingsClose" class="settings-close" type="button" aria-label="Close settings">×</button>
+        </div>
+        <p id="settingsIntro" class="settings-intro hidden">To get started, add your OpenAI API key. PlanetRead uses it to write the Hindi captions.</p>
+
+        <label class="settings-label" for="openaiKey">OpenAI API key</label>
+        <p id="keyStatus" class="settings-hint"></p>
+        <div class="settings-row">
+          <input id="openaiKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-..." />
+          <button id="saveKey" class="primary-button settings-save" type="submit">Save key</button>
+        </div>
+        <p class="settings-hint">Stored only on this computer, in your user profile. Get a key at platform.openai.com/api-keys. <button id="removeKey" class="text-button hidden" type="button">Remove saved key</button></p>
+        <p id="keyError" class="settings-error hidden" role="alert"></p>
+
+        <div id="gpuSection" class="settings-gpu hidden">
+          <label class="settings-toggle"><input id="gpuToggle" type="checkbox" /> <span><strong>Use NVIDIA GPU</strong><small>Much faster processing. Needs a one-time 2.5 GB download, then a restart.</small></span></label>
+          <p id="gpuStatus" class="settings-hint" aria-live="polite"></p>
+        </div>
+      </form>
+    </dialog>
 
     <main class="shell">
       <section class="hero">
@@ -116,5 +142,6 @@
     </main>
     <footer class="shell"><img src="/logo.png" alt="" /><span>Accessibility, one sound at a time.</span><small>Built with care by PlanetRead</small></footer>
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/settings.js"></script>
   </body>
 </html>

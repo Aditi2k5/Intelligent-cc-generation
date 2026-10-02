@@ -42,22 +42,47 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt -r backend/requirements.txt pyinstaller
 
+      - name: Pack models (8-bit Florence-2/MERT/PANNs, fp16 MiniLM, Silero)
+        shell: pwsh
+        run: python tools/pack_models.py
+
       - name: Build executable
         shell: pwsh
         run: python -m PyInstaller --clean --noconfirm planetread.spec
 
+      - name: Remove download caches, so the self-test can only use bundled models
+        shell: pwsh
+        run: |
+          Remove-Item -Recurse -Force "$HOME/.cache/huggingface", "$HOME/.cache/torch", "$HOME/panns_data" -ErrorAction SilentlyContinue
+
       - name: Self-test the built executable (imports and all models)
         shell: pwsh
-        env:
-          # Only needs to be non-empty: the pipeline builds its OpenAI client at import.
-          OPENAI_API_KEY: self-test-placeholder
         run: |
           & dist/PlanetRead/PlanetRead.exe --self-test --models
           if ($LASTEXITCODE -ne 0) { throw "PlanetRead.exe --self-test failed" }
 
-      - name: Add .env template
+      - name: Self-test with the CUDA PyTorch add-on (what "Use NVIDIA GPU" downloads)
         shell: pwsh
-        run: Copy-Item backend/.env.example dist/PlanetRead/.env.example
+        run: |
+          & dist/PlanetRead/PlanetRead.exe --install-gpu-torch
+          if ($LASTEXITCODE -ne 0) { throw "PlanetRead.exe --install-gpu-torch failed" }
+          $out = & dist/PlanetRead/PlanetRead.exe --self-test --models | Out-String
+          $code = $LASTEXITCODE
+          $out
+          if ($code -ne 0) { throw "self-test with the CUDA add-on failed" }
+          if ($out -notmatch '\+cu121 \(CUDA add-on\)') { throw "the CUDA add-on was not used" }
+
+      - name: Check package size (must stay under 2 GB as Windows shows it)
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem dist/PlanetRead -Recurse -File
+          $bytes = ($files | Measure-Object Length -Sum).Sum
+          "PlanetRead folder: {0:N2} GB as Windows shows it ({1:N0} bytes)" -f ($bytes / 1GB), $bytes
+          "Largest folders:"
+          $files | Group-Object { $_.FullName.Substring((Resolve-Path dist/PlanetRead).Path.Length + 1).Split('\')[0..2] -join '\' } |
+            ForEach-Object { [pscustomobject]@{ MB = [math]::Round(($_.Group | Measure-Object Length -Sum).Sum / 1MB); Path = $_.Name } } |
+            Sort-Object MB -Descending | Select-Object -First 15 | Format-Table -AutoSize
+          if ($bytes -gt 2GB) { throw "PlanetRead folder is over 2 GB" }
 
       - name: Upload Windows package
         uses: actions/upload-artifact@v4

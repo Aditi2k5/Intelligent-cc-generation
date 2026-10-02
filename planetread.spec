@@ -5,21 +5,41 @@ from pathlib import Path
 from PyInstaller.utils.hooks import collect_all, collect_submodules
 
 root = Path(SPECPATH)
+
+# The CUDA build of torch bundles ~2.5 GB of NVIDIA libraries and pushes the
+# package past 2 GB; requirements.txt installs the CPU build on Windows.
+import torch
+if torch.version.cuda:
+    raise SystemExit(f"planetread.spec: torch {torch.__version__} is a CUDA build - install requirements.txt (CPU torch)")
+# All models, compacted by tools/pack_models.py, so the app needs no downloads.
+if not (root / "models" / "florence-2-large").is_dir():
+    raise SystemExit("planetread.spec: models/ is missing - run: python tools/pack_models.py")
 datas = [
     (str(root / "frontend" / "dist"), "frontend/dist"),
     (str(root / "assets" / "panns"), "assets/panns"),
+    (str(root / "models"), "models"),
 ]
 # Music2Emo (git submodule). Its code is compiled in via pathex below; the
-# checkpoints and data it opens by relative path are shipped as files.
+# checkpoints and data it opens by relative path are shipped as files. Only
+# what Music2emo() inference reads is shipped: the other checkpoints, the
+# training metadata and the sample audio add ~100 MB.
 m2e = root / "Music2Emotion"
 if not (m2e / "music2emo.py").exists():
     raise SystemExit("planetread.spec: Music2Emotion/ is missing - run: git submodule update --init")
-_m2e_skip_dirs = {".git", "__pycache__", "output", "temp_out"}
+_m2e_skip_dirs = {".git", "__pycache__", "output", "temp_out", "dataset", "meta", "input"}
+_m2e_skip_files = {"btc_model.pt"}
 for path in m2e.rglob("*"):
     rel = path.relative_to(m2e)
-    if path.is_file() and not _m2e_skip_dirs.intersection(rel.parts) and path.suffix not in {".png", ".ipynb", ".pyc"}:
-        datas.append((str(path), str(Path("Music2Emotion") / rel.parent)))
-for name in ["TiroDevanagariHindi-Italic.ttf", "face_landmarker.task", "pose_landmarker_heavy.task"]:
+    if (not path.is_file() or _m2e_skip_dirs.intersection(rel.parts) or path.name in _m2e_skip_files
+            or path.suffix in {".png", ".ipynb", ".pyc", ".mp3"}):
+        continue
+    if rel.parts[0] == "saved_models" and path.name != "J_all.ckpt":
+        continue
+    datas.append((str(path), str(Path("Music2Emotion") / rel.parent)))
+# newone.py burns Hindi captions into the video with this font, looked up next to
+# its own file; without it Pillow's default font draws boxes instead of Hindi.
+datas.append((str(root / "frontend" / "public" / "TiroDevanagariHindi-Italic.ttf"), "."))
+for name in ["face_landmarker.task", "pose_landmarker_heavy.task"]:
     if (root / name).exists():
         datas.append((str(root / name), "."))
 
@@ -42,7 +62,7 @@ for package in [
     "cv2", "PIL", "timm", "einops", "imageio_ffmpeg",
     "langchain_openai", "langchain_core", "langsmith", "openai", "tiktoken",
     # Music2Emo and the MERT model's remote code (nnAudio)
-    "gradio", "gradio_client", "hydra", "omegaconf", "antlr4", "mir_eval", "music21",
+    "hydra", "omegaconf", "antlr4", "mir_eval", "music21",
     "pretty_midi", "mido", "nnAudio", "pytorch_lightning", "lightning_fabric",
     "lightning_utilities", "torchmetrics", "sklearn", "pandas", "scipy", "numba", "llvmlite",
 ]:
@@ -60,11 +80,20 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=["gradio", "gradio_client", "IPython", "jupyter", "notebook", "pytest"],
     noarchive=False,
-    # gradio reads its own source files at import time.
-    module_collection_mode={"gradio": "py", "gradio_client": "py"},
 )
+# Static/import .lib files and C++ headers are only used to compile extensions;
+# torch alone ships ~825 MB of them (dnnl.lib is 647 MB). music21's corpus is
+# 64 MB of sample scores; Music2Emo only parses its own MIDI output. Filtered
+# here, after Analysis, so files added by PyInstaller hooks are covered too.
+def _runtime_only(toc):
+    def keep(dest):
+        parts = Path(dest).parts
+        return not dest.lower().endswith(".lib") and "include" not in parts[:-1] and parts[:2] != ("music21", "corpus")
+    return [entry for entry in toc if keep(entry[0])]
+a.datas, a.binaries = _runtime_only(a.datas), _runtime_only(a.binaries)
+
 pyz = PYZ(a.pure)
 exe = EXE(
     pyz,

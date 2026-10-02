@@ -62,3 +62,27 @@ def ensure_checkpoint() -> Path:
         PANNS_DIR.mkdir(parents=True, exist_ok=True)
         _download(_CHECKPOINT_URL, CHECKPOINT)
     return CHECKPOINT
+
+
+def audio_tagging(state_dict: dict, device: str):
+    """panns_inference.AudioTagging built from an in-memory state dict.
+
+    AudioTagging() only takes a checkpoint path and re-downloads any file under
+    300 MB, which the bundled 8-bit checkpoint is. This mirrors its __init__
+    (panns-inference 0.1.1) without the path."""
+    import torch
+    from panns_inference import AudioTagging
+    from panns_inference.config import classes_num, labels
+    from panns_inference.models import Cnn14
+
+    tagger = AudioTagging.__new__(AudioTagging)
+    tagger.device = "cuda" if device == "cuda" and torch.cuda.is_available() else "cpu"
+    tagger.labels = labels
+    tagger.classes_num = classes_num
+    tagger.model = Cnn14(sample_rate=32000, window_size=1024, hop_size=320, mel_bins=64,
+                         fmin=50, fmax=14000, classes_num=classes_num)
+    tagger.model.load_state_dict(state_dict)
+    if tagger.device == "cuda":
+        tagger.model.to("cuda")
+        tagger.model = torch.nn.DataParallel(tagger.model)
+    return tagger

@@ -1,0 +1,21 @@
+.settings-button{border:1px solid var(--line);background:rgba(255,255,255,.7);color:var(--navy);font:600 12px Manrope,Arial,sans-serif;padding:9px 14px;border-radius:12px;cursor:pointer}
+.settings-button:hover{border-color:rgba(8,124,219,.35)}
+.settings-dialog{width:min(520px,calc(100% - 32px));border:1px solid rgba(255,255,255,.9);border-radius:18px;padding:24px;background:#fbfdff;color:var(--ink);box-shadow:0 24px 70px rgba(34,102,151,.22);font-family:Manrope,Arial,sans-serif}
+.settings-dialog::backdrop{background:rgba(16,43,78,.35)}
+.settings-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.settings-head h2{margin:0;font-size:20px;color:var(--navy)}
+.settings-close{border:0;background:none;font-size:24px;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px}
+.settings-intro{background:#e9f6ff;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5;color:var(--navy)}
+.settings-label{display:block;font-weight:700;font-size:13px;margin-top:14px;color:var(--navy)}
+.settings-row{display:flex;gap:10px;margin:6px 0}
+.settings-row input{flex:1;min-width:0;border:1px solid #cbdbe8;border-radius:12px;padding:0 12px;height:44px;font:14px Manrope,Arial,sans-serif;color:var(--ink);background:white}
+.settings-row input:focus{outline:2px solid rgba(8,124,219,.35);border-color:var(--blue)}
+.settings-dialog .settings-save{width:auto;height:44px;margin:0;padding:0 18px}
+.settings-hint{font-size:12px;line-height:1.5;color:var(--muted);margin:4px 0}
+.settings-hint.ok{color:#1d8a5f}
+.settings-error{font-size:12px;line-height:1.5;color:#a94a4a;background:#fff1f1;border:1px solid #ffd8d8;border-radius:10px;padding:8px 10px}
+.settings-gpu{border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+.settings-toggle{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:13px}
+.settings-toggle input{margin-top:3px;width:16px;height:16px;accent-color:var(--blue)}
+.settings-toggle small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+@media (max-width:520px){.settings-row{flex-direction:column}.settings-dialog .settings-save{width:100%}}
