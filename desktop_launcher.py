@@ -14,6 +14,7 @@ machines with an NVIDIA GPU. `--install-gpu-torch` sets that up immediately.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import multiprocessing
 import os
@@ -70,12 +71,25 @@ def configure_environment() -> None:
     os.environ.setdefault("MPLCONFIGDIR", str(data_dir / ".matplotlib"))
 
 
-def is_planetread(url: str) -> bool:
+def planetread_health(url: str) -> dict | None:
     try:
         with urllib.request.urlopen(f"{url}/api/health", timeout=2) as resp:
-            return json.load(resp).get("status") == "ok"
+            health = json.load(resp)
+        return health if health.get("status") == "ok" else None
     except Exception:
-        return False
+        return None
+
+
+def is_planetread(url: str) -> bool:
+    return planetread_health(url) is not None
+
+
+def frontend_build() -> str:
+    """Same fingerprint backend.app reports as frontend_build in /api/health."""
+    try:
+        return hashlib.sha256((BUNDLE_DIR / "frontend" / "dist" / "index.html").read_bytes()).hexdigest()[:12]
+    except OSError:
+        return ""
 
 
 def port_free(port: int) -> bool:
@@ -212,10 +226,16 @@ def main() -> int:
         return self_test()
 
     existing = f"http://{HOST}:{PREFERRED_PORT}"
-    if is_planetread(existing):
+    running = planetread_health(existing)
+    if running and running.get("frontend_build") == frontend_build():
         print(f"PlanetRead is already running at {existing}; opening it.")
         open_browser(existing)
         return 0
+    if running:
+        # A different (usually older) PlanetRead still holds the port. Opening it would
+        # show that version's page, so start this one on another port instead.
+        print(f"Another version of PlanetRead is still running at {existing}.")
+        print("Close its window (or end PlanetRead.exe in Task Manager) when you can.\n", flush=True)
 
     import uvicorn
 

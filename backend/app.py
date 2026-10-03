@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -47,11 +48,26 @@ executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="planetread-pipe
 state_lock = threading.Lock()
 
 
+FRONTEND_INDEX = PROJECT_ROOT / "frontend" / "dist" / "index.html"
+# Identifies the frontend this server ships (index.html names the hashed bundles),
+# so the launcher can tell an older PlanetRead still running from this one.
+FRONTEND_BUILD = hashlib.sha256(FRONTEND_INDEX.read_bytes()).hexdigest()[:12] if FRONTEND_INDEX.exists() else ""
+
+
+@app.middleware("http")
+async def no_stale_pages(request, call_next):
+    # The page always comes from the same address, so make the browser check for a
+    # newer one instead of reusing a stored copy. Hashed /assets/ files can be cached.
+    response = await call_next(request)
+    if response.headers.get("content-type", "").startswith("text/html"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
 @app.get("/", include_in_schema=False)
 def frontend_redirect():
-    bundled_index = PROJECT_ROOT / "frontend" / "dist" / "index.html"
-    if bundled_index.exists():
-        return FileResponse(bundled_index, media_type="text/html")
+    if FRONTEND_INDEX.exists():
+        return FileResponse(FRONTEND_INDEX, media_type="text/html")
     return RedirectResponse(os.getenv("PLANETREAD_FRONTEND_URL", "http://127.0.0.1:5173"))
 
 
@@ -173,7 +189,7 @@ def run_pipeline(job_id: str) -> None:
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"status": "ok", "pipeline": "newone.py", "worker_capacity": 1}
+    return {"status": "ok", "pipeline": "newone.py", "worker_capacity": 1, "frontend_build": FRONTEND_BUILD}
 
 
 class SettingsUpdate(BaseModel):
