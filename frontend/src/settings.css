@@ -19,3 +19,15 @@
 .settings-toggle input{margin-top:3px;width:16px;height:16px;accent-color:var(--blue)}
 .settings-toggle small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 @media (max-width:520px){.settings-row{flex-direction:column}.settings-dialog .settings-save{width:100%}}
+.key-panel{border:1px solid var(--line);background:rgba(255,255,255,.8);border-radius:16px;padding:14px 16px;margin-bottom:16px;font-family:Manrope,Arial,sans-serif}
+.key-label{display:block;font-weight:700;font-size:13px;color:var(--navy);margin-bottom:8px}
+.key-label small{font-weight:500;color:var(--muted);margin-left:6px}
+.key-row{display:flex;gap:10px}
+.key-row input{flex:1;min-width:0;border:1px solid #cbdbe8;border-radius:12px;padding:0 12px;height:44px;font:14px Manrope,Arial,sans-serif;color:var(--ink);background:white}
+.key-row input:focus{outline:2px solid rgba(8,124,219,.35);border-color:var(--blue)}
+.key-save{height:44px;padding:0 18px;border:0;border-radius:12px;background:linear-gradient(100deg,#0874d4,#12aee0);color:white;font:600 13px Manrope,Arial,sans-serif;cursor:pointer;white-space:nowrap}
+.key-save:disabled{opacity:.6;cursor:default}
+.key-saved{font-size:13px;font-weight:600;color:#1d8a5f}
+.key-message{font-size:12px;line-height:1.5;color:#a94a4a;background:#fff1f1;border:1px solid #ffd8d8;border-radius:10px;padding:8px 10px;margin:10px 0 0}
+.key-message.ok{color:#1d8a5f;background:#eefaf4;border-color:#c8ecd9}
+@media (max-width:520px){.key-row{flex-direction:column}}

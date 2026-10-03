@@ -60,6 +60,18 @@
       </section>
 
       <section class="workspace glass">
+        <div id="keyPanel" class="key-panel">
+          <div id="keyEntry">
+            <label class="key-label" for="inlineKey">OpenAI API key <small>needed to write the Hindi captions</small></label>
+            <div class="key-row">
+              <input id="inlineKey" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key (sk-...)" />
+              <button id="inlineKeySave" class="key-save" type="button">Save key</button>
+            </div>
+          </div>
+          <div id="keySaved" class="key-saved hidden"><span id="keySavedText">✓ OpenAI key saved</span> <button id="inlineKeyChange" class="text-button" type="button">Change</button></div>
+          <p id="inlineKeyMessage" class="key-message hidden" role="alert"></p>
+        </div>
+
         <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Upload a video">
           <input id="fileInput" type="file" accept="video/mp4,video/quicktime,video/webm" hidden />
           <div class="upload-orbit"><div class="upload-icon">↑</div></div>
@@ -141,6 +153,84 @@
       </section>
     </main>
     <footer class="shell"><img src="/logo.png" alt="" /><span>Accessibility, one sound at a time.</span><small>Built with care by PlanetRead</small></footer>
+    <script>
+      // OpenAI key field on the main page. A plain script, kept out of the
+      // module bundle, so an error elsewhere can't stop the key being entered.
+      (function () {
+        function el(id) { return document.getElementById(id); }
+        var input = el('inlineKey'), save = el('inlineKeySave'), message = el('inlineKeyMessage');
+        var keySet = null;
+
+        function show(node, visible) { node.classList.toggle('hidden', !visible); }
+        function say(text, ok) {
+          message.textContent = text || '';
+          message.classList.toggle('ok', !!ok);
+          show(message, !!text);
+        }
+        function render(settings) {
+          keySet = !!settings.openai_key_set;
+          el('keySavedText').textContent = '✓ OpenAI key saved' + (settings.openai_key_hint ? ' (ends ' + settings.openai_key_hint + ')' : '');
+          show(el('keySaved'), keySet);
+          show(el('keyEntry'), !keySet);
+        }
+        function call(method, body) {
+          return fetch('/api/settings', {
+            method: method,
+            cache: 'no-store',
+            headers: body ? { 'Content-Type': 'application/json' } : undefined,
+            body: body ? JSON.stringify(body) : undefined
+          }).then(function (response) {
+            return response.json().catch(function () { return {}; }).then(function (data) {
+              if (!response.ok) throw new Error(data.detail || 'Could not save the key (error ' + response.status + ').');
+              return data;
+            });
+          });
+        }
+
+        function saveKey() {
+          var key = input.value.trim();
+          if (!key) { say('Paste your OpenAI API key first.'); input.focus(); return; }
+          save.disabled = true;
+          save.textContent = 'Checking…';
+          say('');
+          call('POST', { openai_api_key: key }).then(function (settings) {
+            input.value = '';
+            render(settings);
+            say('Key saved. You can now upload a video.', true);
+            window.dispatchEvent(new CustomEvent('planetread:settings', { detail: settings }));
+          }).catch(function (error) {
+            say(error.message);
+          }).then(function () {
+            save.disabled = false;
+            save.textContent = 'Save key';
+          });
+        }
+
+        save.addEventListener('click', saveKey);
+        input.addEventListener('keydown', function (event) { if (event.key === 'Enter') saveKey(); });
+        el('inlineKeyChange').addEventListener('click', function () {
+          say('');
+          show(el('keySaved'), false);
+          show(el('keyEntry'), true);
+          input.focus();
+        });
+        // Keep in step with a key saved or removed in the Settings dialog.
+        window.addEventListener('planetread:settings', function (event) { render(event.detail); });
+
+        // Don't upload a video that would fail for lack of a key.
+        document.addEventListener('click', function (event) {
+          if (keySet === false && event.target.closest && event.target.closest('#processButton')) {
+            event.stopPropagation();
+            say('Add your OpenAI API key above before generating captions.');
+            input.focus();
+          }
+        }, true);
+
+        call('GET').then(render).catch(function () {
+          say('Could not reach the PlanetRead server. Make sure it is still running, then reload this page.');
+        });
+      })();
+    </script>
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/settings.js"></script>
   </body>

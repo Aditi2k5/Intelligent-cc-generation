@@ -52,6 +52,10 @@ async function refresh() {
   }
 }
 
+function announce() {
+  window.dispatchEvent(new CustomEvent('planetread:settings', { detail: settings }));
+}
+
 function showError(message) {
   keyError.textContent = message;
   keyError.classList.toggle('hidden', !message);
@@ -77,7 +81,7 @@ $('#settingsForm').addEventListener('submit', async event => {
     settings = await request('POST', { openai_api_key: key });
     keyInput.value = '';
     showError('');
-    render();
+    announce();
   } catch (error) {
     showError(error.message);
   } finally {
@@ -89,7 +93,7 @@ $('#settingsForm').addEventListener('submit', async event => {
 $('#removeKey').addEventListener('click', async () => {
   try {
     settings = await request('POST', { openai_api_key: '' });
-    render();
+    announce();
   } catch (error) {
     showError(error.message);
   }
@@ -104,15 +108,10 @@ gpuToggle.addEventListener('change', async () => {
   }
 });
 
-// Processing needs the key: ask for it instead of uploading a video that would fail.
-// (Capture phase on document, so this runs before main.js's handler on the button.)
-document.addEventListener('click', event => {
-  if (event.target.closest('#processButton') && settings && !settings.openai_key_set) {
-    event.stopPropagation();
-    open();
-  }
-}, true);
-
-refresh().then(() => {
-  if (settings && !settings.openai_key_set) open();
+// Keep the key field on the main page (index.html) in step with this dialog.
+window.addEventListener('planetread:settings', event => {
+  settings = event.detail;
+  render();
 });
+
+refresh();
